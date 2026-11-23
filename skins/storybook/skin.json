@@ -194,7 +194,9 @@
     }
   },
   "loading": {
-    "art": "none"
+    "art": "none",
+    "sub": "PLAY SHOP",
+    "bg": "#fef6f4"
   },
   "splash": {
     "art": "none"

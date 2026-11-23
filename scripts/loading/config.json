@@ -1,7 +1,8 @@
 {
  "name": "toychi",
+ "sub": "PLAY SHOP",
  "art": "none",
- "bg": "#ffffff",
+ "bg": "#fef6f4",
  "ink": "#2c1813",
  "muted": "#674f48",
  "accent": "#9d432e",
