@@ -112,7 +112,7 @@ import LyPhoto from "@app-storefront/components/ly/LyPhoto.vue";
 import LyPt from "@app-storefront/components/ly/ui/LyPt.vue";
 import LyIcLine from "@app-storefront/components/ly/ui/LyIcLine.vue";
 import LySampleTag from "@app-storefront/components/ly/ui/LySampleTag.vue";
-import { bySells, catTitle, catTo, ly, inCat, loadDm, mixed, openLine as openWords, productImage, shopFacts, unitOf } from "@app-storefront/components/ly/ly";
+import { bySells, catImage, catTitle, catTo, ly, inCat, loadDm, mixed, openLine as openWords, productImage, shopFacts, unitOf } from "@app-storefront/components/ly/ly";
 import { collectionPhoto } from "@app-storefront/components/ly/ly-photos";
 import { numberWord } from "@app-storefront/components/ly/product/pd";
 import { listWords, ownText, paySentence, shopName, shopProfile, shortAddress } from "@app-storefront/components/ly/read/rd";
@@ -223,6 +223,6 @@ export default {
     shopProfile(this.$shop.name, "about-us").then((p) => (this.profile = p));
   },
 
-  methods: { t, catTo, catTitle, productImage, bySells, inCat, numberWord, colPhoto: collectionPhoto },
+  methods: { t, catTo, catTitle, productImage, bySells, inCat, numberWord, colPhoto: (c) => collectionPhoto(c) || catImage(c, null) },
 };
 </script>
