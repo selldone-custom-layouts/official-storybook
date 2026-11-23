@@ -108,3 +108,18 @@ export const ART: Record<string, string> = {
     '<path d="M18 46c0 6 4 10 10 10s10-4 10-10c0 6 4 10 11 10s11-4 11-10c0 6 4 10 11 10s11-4 11-10c0 6 4 10 10 10s10-4 10-10"/>' +
     '<path d="M26 56v42h68V56M50 98V74h20v24M40 24l-5 22M60 24v22M80 24l5 22M16 98h88"/>',
 };
+
+/* toy drawings (skin: Storybook toy shop): the base's pastry names keep their slots, drawn as toys —
+   building blocks, a train, a teddy bear, a ball, a stacking toy, a kite and a spinning top (120 × 120, strokes only) */
+Object.assign(ART, {
+  cupcake:
+    '<path d="M60 18l4 6h-8zM60 24v6"/><path d="M30 102h60"/><path d="M38 102l4-14h36l4 14"/><rect x="42" y="74" width="36" height="14" rx="7"/><rect x="45" y="61" width="30" height="13" rx="6.5"/><rect x="48" y="49" width="24" height="12" rx="6"/><rect x="51" y="38" width="18" height="11" rx="5.5"/><path d="M60 30v8"/>',
+  cookie: '<circle cx="60" cy="60" r="40"/><path d="M24 48c20 8 52 8 72 0M24 72c20-8 52-8 72 0M60 20c-12 14-12 66 0 80M60 20c12 14 12 66 0 80"/>',
+  tart: '<path d="M26 100h68"/><path d="M60 22l-32 54h64z"/><path d="M60 22v-6M44 50h32M36 64h48"/><path d="M60 76v24"/>',
+  cake:
+    '<circle cx="42" cy="34" r="10"/><circle cx="78" cy="34" r="10"/><circle cx="60" cy="54" r="24"/><circle cx="52" cy="50" r="2.5"/><circle cx="68" cy="50" r="2.5"/><path d="M55 62c3 3 7 3 10 0"/><path d="M42 74c-10 4-16 14-16 26h68c0-12-6-22-16-26"/>',
+  croissant:
+    '<rect x="16" y="56" width="58" height="26" rx="5"/><path d="M74 46h22v36H74z"/><path d="M78 46v-10h14v10"/><path d="M16 66h-6"/><circle cx="30" cy="88" r="8"/><circle cx="58" cy="88" r="8"/><circle cx="86" cy="88" r="8"/><path d="M26 56v-10h22v10"/>',
+  macaron: '<rect x="18" y="64" width="36" height="36" rx="4"/><rect x="62" y="64" width="36" height="36" rx="4"/><rect x="40" y="26" width="36" height="36" rx="4"/><path d="M30 76h12M74 76h12M52 38h12"/>',
+  whisk: '<path d="M60 16l30 30-30 46-30-46z"/><path d="M30 46h60M60 16v76"/><path d="M60 92c-6 8-2 14 4 18"/>',
+});
