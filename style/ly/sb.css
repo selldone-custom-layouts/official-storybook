@@ -737,3 +737,10 @@ html, body { background: var(--ly-bg); }
 /* the address sheet's buttons in the design's words: "Save address", normal case, capsules */
 html body .k-sheet__go { text-transform: none !important; letter-spacing: 0 !important; text-box: normal !important; text-indent: 0 !important; font: 750 15px/1 var(--ly-sans) !important; min-height: 46px; padding: 0 22px !important; border-radius: 999px !important; }
 html body .k-sheet__ghost { border-radius: 999px !important; font-weight: 750 !important; }
+/* Terms and Privacy (terms.html, privacy.html): the sections inside one panel, serif heads, no outlined numerals */
+.ly .ly-legal .terms { padding: clamp(18px, 3%, 32px); border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); background: var(--ly-surface); }
+.ly .ly-legal .tsec-h { font: 650 clamp(24px, 2.4vw, 32px)/1.1 var(--ly-serif); letter-spacing: -.03em; }
+.ly .ly-legal .tsec .numeral, .ly .ly-legal .tsec-n { display: none; }
+.ly .toc-d { border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); }
+.ly .toc-d summary { letter-spacing: .13em; font-weight: 800; color: var(--ly-act-text); }
+.ly .pv-glance > * { border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); background: var(--ly-surface); }
