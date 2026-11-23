@@ -720,3 +720,17 @@ html, body { background: var(--ly-bg); }
 .ly .sb-saved-l { color: var(--ly-muted); margin-top: 6px; }
 .ly .sb-saved-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); }
 @media (max-width: 740px) { .ly .sb-saved-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* the order page and its messages (order.html, order-chat.html): bordered panels, serif heads, the status line */
+.ly .od-tl, .ly .od-c, .ly .chat { border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); background: var(--ly-surface); }
+.ly .od-c .co-h, .ly .od-tl .co-h { font: 650 clamp(22px, 2vw, 28px)/1.1 var(--ly-serif); letter-spacing: -.03em; }
+.ly .chat-hd b { font: 650 21px/1.1 var(--ly-serif); letter-spacing: -.02em; }
+.ly .msg.them p { background: var(--ly-band); }
+.ly .msg.me p { background: var(--ly-act); color: var(--ly-act-on); }
+.ly .msg.sys span { letter-spacing: 0; text-transform: none; font-weight: 700; border-radius: 999px; }
+.ly .chat-f .inp { border-radius: 999px; }
+.ly .od-g { grid-template-columns: minmax(0, 1fr) minmax(300px, .5fr); gap: 16px; }
+@media (max-width: 980px) { .ly .od-g { grid-template-columns: minmax(0, 1fr); } }
+/* the account desk (account.html, orders.html, addresses.html) */
+.ly .acc-nav, .ly .acc-rail, .ly .acc-card, .ly .oc, .ly .ab-card { border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); background: var(--ly-surface); }
+/* Selldone's own buttons inside the Layout speak in normal case too (Add discount code, the payment window) */
+.ly .v-btn, .ly-layers .v-btn, .s--storefront-master-payment-dialog .v-btn { text-transform: none; letter-spacing: 0; font-weight: 750; }

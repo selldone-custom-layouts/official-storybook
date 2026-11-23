@@ -354,7 +354,14 @@
       "ly.pd.btTitle": "Play together: {n} toys",
       "ly.pd.btTitle2": "A pair to play with",
       "ly.co.receipt": "Order summary",
-      "ly.co.yourBag": "Your bag"
+      "ly.co.yourBag": "Your bag",
+      "ly.co.yourOrder": "Order summary",
+      "sb.hdr.typeToSearch": "Type a toy, a collection or an age.",
+      "sb.saved.title": "Saved toys",
+      "sb.saved.lead": "Come back to the toys you’re thinking about.",
+      "sb.saved.emptyT": "Nothing saved yet",
+      "sb.saved.emptyP": "Tap the heart on any toy to keep it here.",
+      "sb.saved.more": "Show more"
     },
     "ar": {
       "ly.bag.emptyP": "اختر لعبة تناسب طريقتهم في اللعب وأضفها هنا.",
@@ -593,7 +600,14 @@
       "sb.pd.tabSpecs": "المواصفات",
       "sb.pd.viewCollection": "شاهد التشكيلة",
       "sb.pd.viewCompare": "اعرض المقارنة",
-      "sb.qv.details": "اعرض التفاصيل"
+      "sb.qv.details": "اعرض التفاصيل",
+      "ly.co.yourOrder": "ملخّص الطلب",
+      "sb.hdr.typeToSearch": "اكتب اسم لعبة أو تشكيلة أو عمرًا.",
+      "sb.saved.title": "الألعاب المحفوظة",
+      "sb.saved.lead": "عد إلى الألعاب التي تفكر فيها.",
+      "sb.saved.emptyT": "لا شيء محفوظ بعد",
+      "sb.saved.emptyP": "اضغط القلب على أي لعبة لتحتفظ بها هنا.",
+      "sb.saved.more": "اعرض المزيد"
     }
   }
 }
