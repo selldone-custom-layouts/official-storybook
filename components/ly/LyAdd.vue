@@ -19,13 +19,13 @@
     type="button"
     @click.prevent.stop="add()"
   >
-    {{ label || t("ly.add.add", "Add to bag") }}
+    <ly-icon v-if="!label" cls="add-i" name="bag" /><span class="add-w">{{ label || t("ly.add.add", "Add to bag") }}</span>
   </button>
   <div v-else :aria-label="t('ly.add.inBag', '{name} in bag', { name: product.title })" class="qb" role="group">
     <button :aria-label="t('ly.add.less', 'Remove one {name}', { name: product.title })" type="button" @click.prevent.stop="step(-1)">
       <ly-icon name="minus" />
     </button>
-    <span aria-live="polite" class="qn">{{ q }}</span>
+    <span aria-live="polite" class="qn"><b>{{ q }}</b><small v-if="!label" class="qn-w">{{ t("sb.add.inBag", "in bag") }}</small></span>
     <button
       ref="plus"
       :aria-disabled="full ? 'true' : undefined"

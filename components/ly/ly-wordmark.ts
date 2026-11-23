@@ -8,6 +8,7 @@
  *   sub      "city" (the shop's city, small tracked capitals) | "none" | any short text
  */
 import { SKIN } from "./skin.gen";
+import { t } from "../kalio/i18n/kalio-i18n";
 
 const WM = SKIN.wordmark as { case: string; italic: boolean; dot: boolean; sub: string };
 
@@ -30,7 +31,8 @@ export function wordmarkWord(raw: string): string {
 export function wordmarkSub(city: string): string {
   if (!WM.sub || WM.sub === "none") return "";
   if (WM.sub === "city") return city || "";
-  return WM.sub;
+  /* a written sub line (Storybook: "PLAY SHOP") is a word of the Layout: it goes through t() */
+  return t("ly.wm.sub", WM.sub);
 }
 
 export const wordmarkDot = !!WM.dot;

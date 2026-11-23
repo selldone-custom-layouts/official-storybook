@@ -124,17 +124,40 @@
   },
   "home": [
     {
-      "section": "hero",
-      "variant": "split"
+      "section": "sb-welcome",
+      "variant": "photo"
     },
     {
-      "section": "collections",
+      "section": "sb-rooms",
       "variant": "cards"
     },
     {
-      "section": "journal",
-      "variant": "photo",
-      "band": true
+      "section": "sb-shelf",
+      "variant": "playroom"
+    },
+    {
+      "section": "sb-ages",
+      "variant": "strip"
+    },
+    {
+      "section": "sb-reading",
+      "variant": "story"
+    },
+    {
+      "section": "sb-craft",
+      "variant": "photo"
+    },
+    {
+      "section": "sb-shelf",
+      "variant": "quiet"
+    },
+    {
+      "section": "sb-budget",
+      "variant": "bands"
+    },
+    {
+      "section": "sb-journal",
+      "variant": "row"
     }
   ],
   "photos": {

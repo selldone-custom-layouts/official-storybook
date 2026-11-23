@@ -5,6 +5,8 @@
  * sections, inside the photo slots' fallbacks and as the feature icons).
  */
 export const ICONS: Record<string, string> = {
+  sparkle: "<path d=\"M12 2.5l2.6 6.9 6.9 2.6-6.9 2.6L12 21.5l-2.6-6.9L2.5 12l6.9-2.6L12 2.5z\"/>",
+  palette: "<path d=\"M12 3a9 9 0 0 0 0 18h1.4a2.3 2.3 0 0 0 1.8-3.7 1.5 1.5 0 0 1 1.2-2.4H18a3 3 0 0 0 3-3c0-5-4-8.9-9-8.9z\"/><path d=\"M8 10h.01M11 7h.01M15 8h.01M17 11h.01\"/>",
   bag: "<path d=\"M5.5 8h13l-1 12.2a1 1 0 0 1-1 .8H7.5a1 1 0 0 1-1-.8z\"/><path d=\"M9 10V6.8a3 3 0 0 1 6 0V10\"/>",
   search: "<circle cx=\"11\" cy=\"11\" r=\"6.5\"/><path d=\"m20 20-4.2-4.2\"/>",
   user: "<circle cx=\"12\" cy=\"8.5\" r=\"3.8\"/><path d=\"M4.8 20c.9-3.6 3.7-5.6 7.2-5.6s6.3 2 7.2 5.6\"/>",

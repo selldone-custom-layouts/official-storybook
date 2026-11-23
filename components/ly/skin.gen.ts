@@ -156,19 +156,49 @@ export const SKIN = {
   },
   "home": [
     {
-      "section": "hero",
-      "variant": "split",
+      "section": "sb-welcome",
+      "variant": "photo",
       "band": false
     },
     {
-      "section": "collections",
+      "section": "sb-rooms",
       "variant": "cards",
+      "band": true
+    },
+    {
+      "section": "sb-shelf",
+      "variant": "playroom",
       "band": false
     },
     {
-      "section": "journal",
+      "section": "sb-ages",
+      "variant": "strip",
+      "band": false
+    },
+    {
+      "section": "sb-reading",
+      "variant": "story",
+      "band": false
+    },
+    {
+      "section": "sb-craft",
       "variant": "photo",
       "band": true
+    },
+    {
+      "section": "sb-shelf",
+      "variant": "quiet",
+      "band": false
+    },
+    {
+      "section": "sb-budget",
+      "variant": "bands",
+      "band": true
+    },
+    {
+      "section": "sb-journal",
+      "variant": "row",
+      "band": false
     }
   ],
   "photoArt": {

@@ -6,7 +6,7 @@
   the family tint (scripts/skin-apply.mjs refuses two tints side by side).
 -->
 <template>
-  <div class="ly ly-home">
+  <div class="ly ly-home sb-home">
     <component :is="s.component" v-for="(s, i) in sections" :key="s.section + '-' + i" :band="s.band" :variant="s.variant" />
   </div>
 </template>
@@ -26,6 +26,14 @@ import SelectionSection from "./sections/SelectionSection.vue";
 import PhotoBand from "./sections/PhotoBand.vue";
 import MarqueeSection from "./sections/MarqueeSection.vue";
 import JournalSection from "./sections/JournalSection.vue";
+import SbWelcome from "../sb/home/SbWelcome.vue";
+import SbRooms from "../sb/home/SbRooms.vue";
+import SbShelf from "../sb/home/SbShelf.vue";
+import SbAges from "../sb/home/SbAges.vue";
+import SbReading from "../sb/home/SbReading.vue";
+import SbCraft from "../sb/home/SbCraft.vue";
+import SbBudget from "../sb/home/SbBudget.vue";
+import SbJournal from "../sb/home/SbJournal.vue";
 
 /* section id (sections.json) -> its component; the variant is a prop the component draws */
 const REGISTRY = {
@@ -40,6 +48,14 @@ const REGISTRY = {
   photoband: PhotoBand,
   marquee: MarqueeSection,
   journal: JournalSection,
+  "sb-welcome": SbWelcome,
+  "sb-rooms": SbRooms,
+  "sb-shelf": SbShelf,
+  "sb-ages": SbAges,
+  "sb-reading": SbReading,
+  "sb-craft": SbCraft,
+  "sb-budget": SbBudget,
+  "sb-journal": SbJournal,
 };
 
 export default {
