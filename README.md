@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="https://storybook.selldone.shop"><img src="https://img.shields.io/badge/live%20shop-storybook.selldone.shop-9D432E?style=flat-square" alt="Live shop"></a>
-  <a href="https://github.com/selldone-custom-layouts/official-storybook/wiki"><img src="https://img.shields.io/badge/docs-wiki-2E1914?style=flat-square" alt="Wiki"></a>
+  <a href="https://github.com/selldone-custom-layouts/official-storybook/wiki"><img src="https://img.shields.io/badge/docs-wiki-2C1813?style=flat-square" alt="Wiki"></a>
   <a href="https://github.com/selldone-custom-layouts/official-storybook/wiki/Install-with-AI"><img src="https://img.shields.io/badge/set%20up-with%20AI-FFEBE6?style=flat-square" alt="Set up with AI"></a>
   <img src="https://img.shields.io/badge/Selldone-Layout-2B2F7A?style=flat-square" alt="Selldone Layout">
   <img src="https://img.shields.io/badge/Vue-3-1fc8a9?style=flat-square&logo=vuedotjs&logoColor=white" alt="Vue 3">
@@ -48,9 +48,15 @@ Everything is read live from the shop: its title (drawn as the wordmark), collec
 
 | # | Section | Variant | What it shows |
 | --- | --- | --- | --- |
-| 1 | `hero` | `split` | The shop's name and line on the left; the counter photo bleeding to the right edge of the frame, a framed inset across the seam with the best seller, the three most-ordered collections set large on the photo's dark corner (from Pralino). |
-| 2 | `collections` | `cards` | The same four as a 2 × 2 grid of cards, the photo on top inside the card (Domino). |
-| 3 | `journal` | `photo` | The four newest posts beside a tall photo with the big word 'Journal' (from Pralino; best last). |
+| 1 | `sb-welcome` | `photo` | Storybook: the hero photo in a rounded panel with a capsule to the most-ordered collection, beside the shop's line in the display face (last word in the accent italic) and Explore. |
+| 2 | `sb-rooms` | `cards` | Storybook: three collections as cards, the collection's own image on an arched tint, its name and description (wash band). |
+| 3 | `sb-shelf` | `playroom` | Storybook: four best sellers, one collection after another. |
+| 4 | `sb-ages` | `strip` | Storybook: Find the right fit, every age from the toys' own spec as capsules. |
+| 5 | `sb-reading` | `story` | Storybook: the journal's newest post on the tint beside the feature photo. |
+| 6 | `sb-craft` | `photo` | Storybook: the craft photo beside a making collection and Shop <collection> (wash band). |
+| 7 | `sb-shelf` | `quiet` | Storybook: four toys of the calm collection (puzzles, games, books), Browse <collection>. |
+| 8 | `sb-budget` | `bands` | Storybook: three price bands from the live prices (wash band). |
+| 9 | `sb-journal` | `row` | Storybook: the four newest posts in a row (the last section). |
 
 A section the shop has no data for hides itself; tint bands alternate with white.
 

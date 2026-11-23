@@ -30,14 +30,14 @@ It runs on **[storybook.selldone.shop](https://storybook.selldone.shop)**, one d
 
 | Part | Storybook |
 | --- | --- |
-| Grounds | a white page `#ffffff` with soft tint bands and cards `#fff8f7`, plates `#fff0ec`, a deeper tint `#ffded5`, near-black ink `#2a1e1b`, muted words `#685a56`, lines `#f0dad5`; a dark top bar and footer in the family's darkest shade `#2e1914` with words `#fff4f1`. These are the Clay values: with another palette or a custom colour every one of them takes that colour's hue |
-| Action colour | Clay `#9d432e` (white words 6.41:1) on every button, chosen state and link; on the dark top bar and footer the family's light shade (`--ly-act-dk`, `#f18e76`) marks the hover |
+| Grounds | a white page `#ffffff` with soft tint bands and cards `#ffede9`, plates `#fdece8`, a deeper tint `#fddfd7`, near-black ink `#2c1813`, muted words `#674f48`, lines `#e6d5d1`; a dark top bar and footer in the family's darkest shade `#2c1813` with words `#fff4f1`. These are the Clay values: with another palette or a custom colour every one of them takes that colour's hue |
+| Action colour | Clay `#9d432e` (white words 6.41:1) on every button, chosen state and link; on the dark top bar and footer the family's light shade (`--ly-act-dk`, `#ef8d75`) marks the hover |
 | Pastries | transparent cut-outs on a tinted plate, with a round near-black `−%` roundel when there is a saving |
 | Type and icons | Fraunces for headings, the wordmark and numbers set large; DM Sans for reading, and in spaced capitals for eyebrows, buttons, the nav and the top bar; inline line icons; the mockup's line drawings of pastries (croissant, macaron, cupcake, cake, tart, cookie, whisk), faint in the title bands and in the photo slots' fallbacks |
 | Shapes | one shape language: a circle for round things (the `−%` roundel, icon buttons, the mark, the map pin), 26 px for panels and photos, 14 px for inner parts (buttons, chips, fields, plates, thumbnails); square only where a band meets the window's edge; outlined serif numerals on the collection rows |
 | Buttons | flat; hover changes the colour only; no line under any word or icon (the one exception is a link inside a post's own text); selection rings inside the box |
 | Photos | eight photo slots (the hero's two, About, How ordering works, the offer card, the photo band, the journal, the footer's texture) and one photo per collection: your own photo when the Layout has one, else a designed fallback (the family tint with a drawing, or your own pastries as cut-outs); never a caption or a file name |
-| Theme | light by default; the other mode in the same family (for Clay: page `#140e0c`, cards `#231916`, words `#faede9`, links `#f9957d`); five palettes (Clay, Rosewood, Olive, Indigo) and a custom colour, each re-tinting the whole page; a visitor switcher (a footer row) on the showcase shop only (see [Theme and colours](Theme-and-colours)) |
+| Theme | light by default; the other mode in the same family (for Clay: page `#170c09`, cards `#201411`, words `#fef4f2`, links `#ffffff`); five palettes (Clay, Rosewood, Olive, Indigo) and a custom colour, each re-tinting the whole page; a visitor switcher (a footer row) on the showcase shop only (see [Theme and colours](Theme-and-colours)) |
 | Languages | English and Arabic (right to left); the language and currency pill in the top bar |
 
 ## What you get

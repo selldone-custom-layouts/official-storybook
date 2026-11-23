@@ -21,9 +21,9 @@ Ink, muted words and field edges are then walked until they reach their contrast
 
 ## Storybook's colours
 
-Storybook paints every action with **one colour**, Clay `#9d432e` (white words 6.41:1) on every button, chosen state and link; on the dark top bar and footer the family's light shade (`--ly-act-dk`, `#f18e76`) marks the hover. The Clay family is built from the seed `#9d432e`.
+Storybook paints every action with **one colour**, Clay `#9d432e` (white words 6.41:1) on every button, chosen state and link; on the dark top bar and footer the family's light shade (`--ly-act-dk`, `#ef8d75`) marks the hover. The Clay family is built from the seed `#9d432e`.
 
-Around it, in the light mode: a white page `#ffffff` with soft tint bands and cards `#fff8f7`, plates `#fff0ec`, a deeper tint `#ffded5`, near-black ink `#2a1e1b`, muted words `#685a56`, lines `#f0dad5`; a dark top bar and footer in the family's darkest shade `#2e1914` with words `#fff4f1`. These are the Clay values: with another palette or a custom colour every one of them takes that colour's hue. In the dark mode, the family's night: the page and header `#140e0c`, bands and fields `#1b1311`, cards `#231916`, plates `#311f1a`, words `#faede9`, muted words `#cab9b5`, lines `#372a27`, the top bar and footer `#160604`, the action colour `#ad513b` with white words and links `#f9957d`. Every colour is a token (`--ly-…`): `style/ly-skin.gen.scss` holds the brand palette's values (`:root` is light, `html.ly-dark` is dark) and `ly-family.ts` rewrites them for the palette on the page.
+Around it, in the light mode: a white page `#ffffff` with soft tint bands and cards `#ffede9`, plates `#fdece8`, a deeper tint `#fddfd7`, near-black ink `#2c1813`, muted words `#674f48`, lines `#e6d5d1`; a dark top bar and footer in the family's darkest shade `#2c1813` with words `#fff4f1`. These are the Clay values: with another palette or a custom colour every one of them takes that colour's hue. In the dark mode, the family's night: the page and header `#170c09`, bands and fields `#2b1a16`, cards `#201411`, plates `#e2cfcb`, words `#fef4f2`, muted words `#c6afa9`, lines `#503832`, the top bar and footer `#100403`, the action colour `#af543e` with white words and links `#ffffff`. Every colour is a token (`--ly-…`): `style/ly-skin.gen.scss` holds the brand palette's values (`:root` is light, `html.ly-dark` is dark) and `ly-family.ts` rewrites them for the palette on the page.
 
 The mode from the settings file (light by default) is painted before the first paint on every shop, so the other mode never flashes.
 
@@ -94,10 +94,10 @@ See [Build and Upload](Build-and-Upload) and [Go Live](Go-Live).
 
 | Palette | Seed of the family | Light: action colour, white words on it | Light: link colour on the tint band / the plate | Dark: action colour, white words on it | Dark: link colour on the card |
 | --- | --- | --- | --- | --- | --- |
-| Clay | `#9d432e` | `#9d432e` 6.41:1 | 6.11:1 / 5.78:1 | `#ad513b` 5.23:1 | `#f9957d` on `#231916` 7.87:1 |
-| Rosewood | `#943b59` | `#943b59` 6.93:1 | 6.62:1 / 6.24:1 | `#aa4e6b` 5.24:1 | `#f591ae` on `#23181b` 7.84:1 |
-| Olive | `#586932` | `#586932` 6.03:1 | 5.80:1 / 5.49:1 | `#586932` 6.03:1 | `#a5b87f` on `#1a1d14` 7.94:1 |
-| Indigo | `#3f5a94` | `#3f5a94` 6.77:1 | 6.48:1 / 6.13:1 | `#4f6ca7` 5.20:1 | `#91b1f1` on `#171c24` 7.95:1 |
+| Clay | `#9d432e` | `#9d432e` 6.41:1 | 5.66:1 / 5.60:1 | `#af543e` 5.05:1 | `#ffffff` on `#201411` 17.96:1 |
+| Rosewood | `#943b59` | `#943b59` 6.93:1 | 6.10:1 / 6.03:1 | `#ad526f` 4.98:1 | `#ffffff` on `#1f1316` 18.06:1 |
+| Olive | `#586932` | `#586932` 6.03:1 | 5.38:1 / 5.34:1 | `#65773f` 4.93:1 | `#ffffff` on `#15190e` 17.84:1 |
+| Indigo | `#3f5a94` | `#3f5a94` 6.77:1 | 6.02:1 / 5.97:1 | `#526faa` 4.98:1 | `#ffffff` on `#121721` 17.95:1 |
 
 Each figure is worked out from the colours `scripts/skin-apply.mjs` gives each palette (the same maths as `ly-family-core.ts`). A custom or brand colour goes through `paletteFromColor()`, which moves only its lightness until each role reads against the Layout's surfaces; its family is built from the same colour. The contrast audit must pass with `TOTAL 0` for every palette and for the custom colours `#ffff00`, `#00ffff` and `#111111`, in light and dark.
 
