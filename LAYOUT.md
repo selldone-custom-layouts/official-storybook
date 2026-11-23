@@ -10,7 +10,7 @@
 | Names | `manifest.json` and `selldone-layout.json` from the skin (`package` is permanent after the first upload; the `description` must be right on the FIRST upload, Selldone keeps it) |
 | Dev server | port **9176**, shop `toychi-KX4iQgu0` (`.env`); `npm run serve` (launch entry `storybook-layout`) |
 | Skin | Clay, Rosewood, Olive, Indigo (brand `clay`), Fraunces over DM Sans, radius 26 / 14 px, basket word "bag" |
-| Layout id | (after the first upload) |
+| Layout id | **51** |
 
 ## Home
 
@@ -47,3 +47,4 @@ Every other page keeps the base's flows in the Storybook dress (`style/ly/sb.css
 
 | Version | Date | Layout | Deploy | What |
 | --- | --- | --- | --- | --- |
+| 1.0.0 | 2026-11-24 | 51 | 807 | First release: the Storybook design on the base (header, Explore drawer, footer with the Theme row, the nine home sections, the story card, the listing, the product page, bag drawer and page, checkout, compare, journal, post, 404, toy words and drawings). PROD-CHECK OK on storybook.selldone.shop; server copy: extracting false, error null, shop.js and shop.css match (release 01M85AJESEM3B82TGQ04R826DZ, 272 files). Not pinned yet. |
