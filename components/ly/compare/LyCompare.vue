@@ -52,7 +52,7 @@
                     <p class="ch-p">
                       <span class="now money">{{ fmt(it.price.now) }}</span><template v-if="it.price.was && it.price.was > it.price.now">{{ " " }}<s class="was money">{{ fmt(it.price.was) }}</s></template>
                     </p>
-                    <p class="ch-u">{{ t("ly.card.per", "Per {unit}", { unit: unitOf(it.product) }) }}</p>
+                    <p v-if="ageOf(it.product)" class="ch-u"><bdi>{{ ageOf(it.product) }}</bdi></p>
                     <div class="ch-a"><ly-add :label="t('ly.add.short', 'Add')" :product="it.product" /></div>
                   </div>
                 </div>
@@ -160,6 +160,7 @@ import LyPt from "../ui/LyPt.vue";
 import LyEmpty from "../ui/LyEmpty.vue";
 import LyModal from "../ui/LyModal.vue";
 import { catOf, catTitle, closeLayer, ly, layer, loadDm, money as fmt, openLayer, priceView, productImage, prosOf, unitOf } from "../ly";
+import { ageOf } from "../sb/sb";
 import { t } from "../../kalio/i18n/kalio-i18n";
 
 const list = (items) => {
@@ -240,6 +241,7 @@ export default {
     catTitle,
     prosOf,
     unitOf,
+    ageOf,
     priceView,
     thumb(p) {
       return productImage(p, 128);
