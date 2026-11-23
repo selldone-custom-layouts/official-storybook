@@ -754,3 +754,10 @@ html body .k-sheet__ghost { border-radius: 999px !important; font-weight: 750 !i
 .ly .sb-about .ab-tx p:not(.eyebrow) { color: var(--ly-muted); }
 .ly .sb-about .ils { display: grid; gap: 8px; }
 @media (max-width: 740px) { .ly .sb-about-panel { grid-template-columns: minmax(0, 1fr); } }
+/* the three steps keep their words on a phone (checkout.html at 390) */
+@media (max-width: 760px) {
+  .ly .step:not(.cur) > span:last-child, .ly .step:not(.cur) > a > span:last-child { position: static; width: auto; height: auto; overflow: visible; clip: auto; white-space: nowrap; }
+  .ly .pt .steps { width: 100%; }
+  .ly .step { font-size: 13px; }
+  .ly .step .st-ic { width: 24px; height: 24px; }
+}
