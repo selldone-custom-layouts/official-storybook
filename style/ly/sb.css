@@ -775,3 +775,9 @@ html body .k-sheet__ghost { border-radius: 999px !important; font-weight: 750 !i
 .ly .sb-ftr .ftr-bot .ly-made img, .ly .sb-ftr .ftr-bot .ly-made svg { filter: none; opacity: .75; }
 html.ly-dark .ly .sb-ftr .ftr-bot .ly-made img, html.ly-dark .ly .sb-ftr .ftr-bot .ly-made svg { filter: brightness(0) invert(0.82); opacity: 1; }
 .ly .sb-ftr .ftr-bot nav a:hover, .ly .sb-ftr .ftr-bot .ly-made a:hover { color: var(--ly-act-text) !important; }
+.ly .wm, .ly .qlink { border-radius: var(--ly-r-in); }
+/* words on the family tint use the tint's own readable ink (--ly-soft-ink: 4.6:1 on it for every palette and Custom) */
+.ly .sb-na[aria-current="page"], .ly .sb-shelves .cchip[aria-current="page"], .ly .sb-reading-copy .eyebrow, .ly .tri.dark .tri-ic, .ly .sb-ages-row a:hover, .ly .sb-menu-links a:hover { color: var(--ly-soft-ink); }
+/* photos keep a light plate in dark mode (the collection's image on the title panel, the chosen thumbnail) */
+html.ly-dark .ly .sb-lead-art:not(.-photo) { inset: 12px; inset-inline-start: auto; width: calc(31% - 12px); background: var(--ly-plate); border-radius: var(--ly-r-in); }
+html.ly-dark .ly .pd-t[aria-pressed="true"] { background: var(--ly-plate); }

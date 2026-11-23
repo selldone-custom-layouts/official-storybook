@@ -123,8 +123,11 @@ export default {
     shop() {
       return this.$store.getters.getShop;
     },
+    /* cash on delivery is named from the gateway's own flag (Selldone sends its English name in every language) */
     gateway() {
-      return shopFacts(this.shop).gateway?.name || "";
+      const g = shopFacts(this.shop).gateway;
+      if (!g) return "";
+      return g.cod ? t("sb.bag.cod", "Cash on delivery") : g.name || "";
     },
     basket() {
       return this.getBaskets().find((b) => b?.type === "PHYSICAL") || this.getBaskets().find((b) => b?.items?.length) || null;

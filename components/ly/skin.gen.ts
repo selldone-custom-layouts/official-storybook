@@ -376,7 +376,8 @@ export const SKIN = {
       "sb.saved.more": "Show more",
       "sb.about.eyebrow": "Our story",
       "sb.about.explore": "Explore the collection",
-      "ly.rd.aboutT": "About {shop}"
+      "ly.rd.aboutT": "About {shop}",
+      "sb.bag.cod": "Cash on delivery"
     },
     "ar": {
       "ly.bag.emptyP": "اختر لعبة تناسب طريقتهم في اللعب وأضفها هنا.",
@@ -624,7 +625,8 @@ export const SKIN = {
       "sb.saved.emptyP": "اضغط القلب على أي لعبة لتحتفظ بها هنا.",
       "sb.saved.more": "اعرض المزيد",
       "sb.about.eyebrow": "قصتنا",
-      "sb.about.explore": "تصفّح التشكيلة"
+      "sb.about.explore": "تصفّح التشكيلة",
+      "sb.bag.cod": "الدفع عند الاستلام"
     }
   }
 } as const;
