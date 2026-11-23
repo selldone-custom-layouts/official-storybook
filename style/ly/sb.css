@@ -625,3 +625,66 @@ html, body { background: var(--ly-bg); }
   .ly .co-c { padding: 16px 14px 18px; }
   .ly .crl { padding: 4px 12px; }
 }
+
+/* ───────── no pastry line art in a toy shop: the design has none ───────── */
+.ly .art, .ly .pt-a1, .ly .pt-a2, .ly .nf-a1, .ly .nf-a2, .ly .ly-bc-art { display: none !important; }
+
+/* ───────── the journal ───────── */
+.ly.ly-journal .pt { text-align: center; padding-block: 20px 34px; border-bottom: 1px solid var(--ly-line); }
+.ly.ly-journal .pt-in { align-items: center; text-align: center; }
+.ly.ly-journal .pt .crumbs ol { justify-content: center; }
+.ly.ly-journal .pt-h { font-size: clamp(46px, 6.6vw, 104px); letter-spacing: -.06em; word-spacing: .05em; margin-top: 14px; }
+.ly.ly-journal .pt-l { margin-inline: auto; }
+.ly.ly-journal .sec-s { padding-top: 24px; }
+.ly.ly-journal .sec-s > .wrap { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, .85fr); gap: 0 clamp(20px, 4%, 60px); align-items: start; }
+.ly.ly-journal .sec-s > .wrap > * { grid-column: 1 / -1; }
+.ly.ly-journal .sec-s > .wrap > .bf { grid-column: 1; grid-row: 1 / span 4; }
+.ly.ly-journal .sec-s > .wrap > .bf ~ .bl-bar, .ly.ly-journal .sec-s > .wrap > .bf ~ .bgrid, .ly.ly-journal .sec-s > .wrap > .bf ~ .ly-bl-more { grid-column: 2; }
+.ly .bf { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; padding: 0; background: transparent; border: 0; border-radius: 0; }
+.ly .bf-ph { display: block; aspect-ratio: 1.53; border-radius: var(--ly-r-pn); overflow: hidden; background: var(--ly-tint2); }
+.ly .bf-ph img { width: 100%; height: 100%; object-fit: cover; }
+.ly .bf-tx { padding: 0; display: grid; justify-items: start; gap: 8px; }
+.ly .bf-t { font: 650 clamp(32px, 4vw, 62px)/1 var(--ly-serif); letter-spacing: -.052em; }
+.ly .bf-t a { color: var(--ly-ink); }
+.ly .bf-d { color: var(--ly-muted); }
+.ly .bl-bar { display: flex; flex-direction: column; align-items: stretch; gap: 10px; margin: 0 0 10px; }
+.ly .bl-bar .h3x { font-size: clamp(26px, 2.6vw, 40px); }
+.ly .bl-s { border-radius: 999px; border: 1px solid var(--ly-line); background: var(--ly-surface); }
+.ly .bgrid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 11px; }
+.ly .bc { display: grid; grid-template-columns: minmax(95px, .62fr) minmax(0, 1fr); gap: 12px; align-items: start; padding: 12px 0 0; border: 0; border-top: 1px solid var(--ly-line); border-radius: 0; background: transparent; }
+.ly .bc-ph { aspect-ratio: 1.35; border-radius: var(--ly-r-in); overflow: hidden; background: var(--ly-plate); }
+.ly .bc-ph img { width: 100%; height: 100%; object-fit: cover; }
+.ly .bc h3, .ly .bc-t { font: 650 clamp(19px, 1.8vw, 26px)/1.05 var(--ly-serif); letter-spacing: -.03em; }
+@media (max-width: 740px) {
+  .ly.ly-journal .sec-s > .wrap { grid-template-columns: minmax(0, 1fr); gap: 17px; }
+  .ly.ly-journal .sec-s > .wrap > .bf, .ly.ly-journal .sec-s > .wrap > .bf ~ * { grid-column: 1 !important; grid-row: auto !important; }
+  .ly .bc { grid-template-columns: minmax(0, .52fr) minmax(0, 1fr); }
+}
+
+/* ───────── a post ───────── */
+.ly .pt.art-pt { padding-bottom: 18px; }
+.ly .art-cov.ly-cov-none { display: none; }
+.ly .art-cov { border-radius: var(--ly-r-pn); overflow: hidden; background: var(--ly-plate); }
+.ly .art-m { color: var(--ly-muted); }
+.ly .art-col { max-width: 760px; }
+.ly .art-body h2, .ly .art-body h3 { font-family: var(--ly-serif); font-weight: 650; letter-spacing: -.03em; }
+.ly .ap { border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); background: var(--ly-surface); }
+.ly .ap-t { font: 650 clamp(26px, 2.6vw, 38px)/1.05 var(--ly-serif); letter-spacing: -.045em; }
+.ly .auth { background: var(--ly-band); color: var(--ly-ink); border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); }
+.ly .auth b { color: var(--ly-ink); font-family: var(--ly-serif); font-size: 20px; }
+.ly .auth p { color: var(--ly-muted); }
+
+/* ───────── 404 ───────── */
+.ly .nf { padding-block: 10px 30px; }
+.ly .nf-in { padding: 35px 18px; border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); background: var(--ly-surface); }
+.ly .nf-num { display: none; }
+.ly .nf-h { font: 650 clamp(28px, 2.6vw, 36px)/1.08 var(--ly-serif); letter-spacing: -.03em; }
+.ly .nf-srch { border-radius: 999px; border: 1px solid var(--ly-line); background: var(--ly-bg); box-shadow: none; }
+.ly .nf-try .grid.six, .ly .grid.six { --ly-cols: 3; gap: 16px; }
+.ly .nf-try .sec-hd { text-align: start; margin-bottom: 20px; }
+@media (min-width: 1100px) { .ly .grid.six { --ly-cols: 6; } }
+@media (max-width: 560px) { .ly .grid.six { --ly-cols: 2; gap: 8px; } }
+
+/* ───────── FAQ, contact, about, terms, privacy ───────── */
+.ly .sample-tag { border-radius: 999px; background: var(--ly-tint2); color: var(--ly-soft-ink); font-weight: 750; }
+.ly details.fq, .ly .fq { border-radius: var(--ly-r-in); }
