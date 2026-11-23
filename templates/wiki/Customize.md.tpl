@@ -19,7 +19,7 @@ One file: `components/ly/ly-theme.settings.ts`. See [Theme and colours](Theme-an
 | What | Where |
 | --- | --- |
 | Fonts ({{display_font}} for headings, the wordmark and numbers set large; {{text_font}} for text, buttons and the nav; Material Symbols Rounded only for Selldone's own parts and the shared pieces; an Arabic face only when Arabic is picked) | `components/kalio/kalio-fonts.ts` |
-| Icons (inline line icons, one stroke width) and the mockup's pastry drawings (croissant, macaron, cupcake, cake, tart, cookie, whisk) | `components/ly/pr-icons.ts`, drawn by `LyIcon.vue` and `LyArt.vue` |
+| Icons (inline line icons, one stroke width) and the toy line drawings (croissant, macaron, cupcake, cake, tart, cookie, whisk) | `components/ly/pr-icons.ts`, drawn by `LyIcon.vue` and `LyArt.vue` |
 | Type and shape tokens, and the brand palette's colours for the first paint (light in `:root`, dark in `html.ly-dark`), all generated from the skin | `style/ly-skin.gen.scss`, every name `--ly-…` |
 | Every colour after the first paint: the grounds, plates, lines, words, the dark top bar and footer of the palette on the page | `components/ly/ly-family.ts`, written inline on `<html>` |
 | "Bag" instead of basket in Selldone's own English strings | `components/kalio/kalio-brand.ts` (`bagWords()`) |
@@ -29,14 +29,14 @@ One file: `components/ly/ly-theme.settings.ts`. See [Theme and colours](Theme-an
 
 | Picture | Where it comes from |
 | --- | --- |
-| Pastries on every card, the quick view, the product page, the bag and Today's selection | each product's main photo, a transparent cut-out (PNG or WebP); more photos make the gallery |
+| Toys on every card, the quick view, the product page, the bag and Today's selection | each product's main photo, a transparent cut-out (PNG or WebP); more photos make the gallery |
 | Collections in Shop ⌄ | the collection's best seller's cut-out; the feature card shows the photo of the most-ordered collection that has one |
 | Collection photos: the home's photo rows and gallery, the collection page's title band, the strip under a collection, About | `skins/{{name}}/photos/col-<slug of its title>.webp` when the Layout has it, else its best sellers on a plate |
 | The photo slots: the hero (two), About, How ordering works, the offer card, the photo band, the journal, the footer's texture | `skins/{{name}}/photos/<slot>.webp` when the Layout has it, else the slot's designed fallback (`components/ly/LyPhoto.vue`, `LyCuts.vue`) |
 | The journal and each post | each article's cover image |
 | Contact | a static map of the shop's location (Selldone's map service: the dark style in dark mode, the street style in light) with the shop's pin |
 
-Product pictures are changed in the Selldone dashboard, not in the code. The cut-outs matter: the Layout sets every pastry on a tinted plate, and a photo with its own ground shows as a square. See [Shop Requirements](Shop-Requirements#products).
+Product pictures are changed in the Selldone dashboard, not in the code. The cut-outs matter: the Layout sets every toy on a tinted plate, and a photo with its own ground shows as a square. See [Shop Requirements](Shop-Requirements#products).
 
 The repository's 14 photos (the eight slots and six collection photos) were made for {{shop}}. Photos generated with Magnific (Freepik) for {{shop}} under the owner's Premium plan.
 
@@ -54,9 +54,9 @@ The repository's 14 photos (the eight slots and six collection photos) were made
 | The footer's texture | `footer.webp` | 2400 × 900 | the plain family dark |
 | Each collection's photo | `col-<slug>.webp` | 1400 × 1050 | its best sellers on a plate |
 
-`<slug>` is made from the collection's title: lower case, `&` as "and", every other run of signs a hyphen ("Danish Pastries" → `danish-pastries`). The collection's address name in Selldone is tried too. The repository ships {{shop}}'s six (`col-cookies`, `col-croissants`, `col-danish-pastries`, `col-mini-cakes`, `col-muffins`, `col-tarts`); a collection whose title and address name match none of them shows its plate. To add a photo:
+`<slug>` is made from the collection's title: lower case, `&` as "and", every other run of signs a hyphen ("Building Toys & Blocks" → `building-toys-and-blocks`). The collection's address name in Selldone is tried too. The repository ships {{shop}}'s six (`col-cookies`, `col-croissants`, `col-danish-toys`, `col-mini-cakes`, `col-muffins`, `col-tarts`); a collection whose title and address name match none of them shows its plate. To add a photo:
 
-1. Make it at the exact size, as WebP, with the exact name. No words, logos, price tags or people on it, and no pastry cut by the edge. Where the Layout's words sit over the photo (the hero's dark corner, the offer card's foot, the journal's word), leave that part calm and plain.
+1. Make it at the exact size, as WebP, with the exact name. No words, logos, price tags or people on it, and no toy cut by the edge. Where the Layout's words sit over the photo (the hero's dark corner, the offer card's foot, the journal's word), leave that part calm and plain.
 2. Put it in `skins/{{name}}/photos/`. `components/ly/pr-photos.ts` lists the files that exist at build time, so nothing else changes.
 3. Build and release a new version, and check that the file count stays at 300 or fewer.
 
@@ -75,13 +75,13 @@ To drop a photo, delete its file and release: the slot shows its fallback. A slo
 | Shared data and layers (the collections and catalogue read once, the shop's facts, one layer open at a time) | `components/ly/pr.ts` |
 | Words in circles (the `−%` roundel, the deals panel's "Save") fitted again when the window changes size | `components/ly/pr-fit.ts` |
 | Shared pieces (the title band, card, add box, quick view, modal, empty state, sample label, numerals, icon lines, the shop's mark) | `components/ly/ui/` (`LyPt.vue`, `LyCard.vue`, `LyQuickView.vue`, `LyModal.vue`, `LyEmpty.vue`, `LySampleTag.vue`, `LyNumeral.vue`, `LyIcLine.vue`, `LyMark.vue`), `components/ly/LyAdd.vue` |
-| Listings (a collection, search, deals, every pastry; the title band, the chips, the filter panel, sort, the grid, the strip under a collection) | `components/ly/shop/LyListing.vue`, `LyStrip.vue`, inside `pages/products/StorefrontPageProducts.vue` |
+| Listings (a collection, search, deals, every toy; the title band, the chips, the filter panel, sort, the grid, the strip under a collection) | `components/ly/shop/LyListing.vue`, `LyStrip.vue`, inside `pages/products/StorefrontPageProducts.vue` |
 | Product page (gallery, buy column, options, add box, the delivery lines, the tabs, Buy together, More <collection>, phone buy bar) | `pages/product/StorefrontPageProduct.vue`, `components/ly/product/` (`LyProductOverview.vue`, `LyPdAdd.vue`, `LyProductTabs.vue`, `LyTogether.vue`, `pd.ts`) |
 | Compare | `components/ly/compare/LyCompare.vue`, `pages/comparison/` |
 | Bag page and checkout (the lines, How it reaches you, the receipt, step pills, Contact, Delivery and its windows, address or pickup counter, Billing, note) | `pages/basket/cart/StorefrontPageBasketCart.vue` (Selldone's script, {{Name}}'s markup), `components/ly/buy/pr-cart.ts`, `LyLineQb.vue` |
 | Delivery ways and the delivery sheet | `pages/basket/cart/SCartShippingOptions.vue`, `components/ly/buy/LyShipSheet.vue` |
 | Address sheet and payment window | `components/kalio/checkout/KalioAddressSheet.vue` and Selldone's window, dressed by `style/ly-sd.scss` |
-| Order page (title band, progress, pastries, payment, receiver, chat) | `pages/basket/order/` (and `physical/dashbaord/`), `components/ly/order/` (`LyOrderPay.vue`, `LyOrderReceiver.vue`, `LyOrderChat.vue`, `od.ts`) |
+| Order page (title band, progress, toys, payment, receiver, chat) | `pages/basket/order/` (and `physical/dashbaord/`), `components/ly/order/` (`LyOrderPay.vue`, `LyOrderReceiver.vue`, `LyOrderChat.vue`, `od.ts`) |
 | Account (Overview, Orders, Addresses, Profile) | `components/kalio/account/` (`KalioAccountShell.vue`, `KalioAccountHome.vue`, `KalioOrdersBoard.vue`, `kalio-account.ts`), `pages/user/` |
 | Sign-in sheet | `components/kalio/shell/KalioSignIn.vue` |
 | Journal and post | `pages/blog/list/StorefrontPageBlogsList.vue`, `pages/blog/view/StorefrontPageBlogsView.vue`, `components/ly/read/LyPost.vue` |
@@ -153,4 +153,4 @@ Right to left, {{Name}} keeps these rules:
 - **Moving parts can stop.** The marquee holds on hover and keyboard focus and stands still for reduced motion; the listing's results fade without motion when the visitor asks for less.
 - **Bag, not cart.** In the Layout's words and in Selldone's own English strings.
 - **Honest words.** No invented history, awards, names, counts or reviews; no product count in the shop's words; sample pages say they are samples; "every piece" only when every piece has the same saving; delivery lines and windows only from the shop's own delivery ways; counter hours only from the pickup note or the shop's hours; deal clocks only to a deal's real end date; no stars without reviews; no options without real variants; "not taking payment" when there is no payment method; no fact drawn before the shop's details have loaded.
-- **Live data.** Nothing names a product, price, collection, delivery way or opening hour; another bakery gets its own.
+- **Live data.** Nothing names a product, price, collection, delivery way or opening hour; another toy shop gets its own.

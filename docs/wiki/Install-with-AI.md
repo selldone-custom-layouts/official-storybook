@@ -37,7 +37,7 @@ Set up the Selldone custom Layout "Storybook Toy Shop" on my Selldone shop.
 My shop handle: {SHOP_HANDLE}        (as in {SHOP_HANDLE}.myselldone.com)
 My shop id: {SHOP_ID}
 My GitHub account: {GITHUB_USER}
-New Layout package name (lowercase, permanent, unique to me): {PACKAGE}   e.g. mybakery-classic
+New Layout package name (lowercase, permanent, unique to me): {PACKAGE}   e.g. mytoyshop-storybook
 My theme: {THEME}   e.g. palette "clay", light   or   brandColor "#F5C400", dark
 Where it goes live first: {DOMAIN}   one domain of my shop, e.g. shop.example.com
 (The whole shop only when I say so.)
@@ -71,7 +71,7 @@ Then:
    skins/storybook/photos/col-<slug of its title>.webp (names in components/ly/pr-photos.ts
    and docs/wiki/Customize.md); a slot without its file shows its designed fallback. The 14
    photos in the repository were made for toychi: the eight slot photos, and six collection
-   photos (cookies, croissants, danish-pastries, mini-cakes, muffins, tarts). Remove the six
+   photos (none: the toy collections show their own images). Remove the six
    col-*.webp unless my collections have the same names and I want those photos. Ask
    me whether to keep, replace or remove the eight slot photos. Add only photos I give you,
    with the exact names and sizes.
@@ -79,7 +79,7 @@ Then:
    Set my palette or brandColor (with textOnBrand), and mode. Keep themeSwitcher "showcase"
    unless I asked for my visitors to have the switcher ("on") or none ("off").
 5. In manifest.json set "package" to {PACKAGE}, "name" to a display name of at least
-   8 characters (my shop's name plus "Patisserie" is fine), "version" to 1.0.0 and a
+   8 characters (my shop's name plus "Toy Shop" is fine), "version" to 1.0.0 and a
    one-sentence "description". The description is what Selldone shows for the Layout and
    later uploads do not change it, so get it right before the first upload. Leave
    deploy_server and deploy_path as they are. The package name is permanent after the first
@@ -130,12 +130,12 @@ login modes). Do not place real orders. Run browser checks one at a time.
 
 ## 4. Check the result yourself
 
-- Open your domain. You should see a dark top bar with your counter's hours and the way to pay, a white header with your shop's title as a centred serif wordmark and your city under it, then the hero: your shop's name and "Pastry, one by one" beside the counter photo running to the window's edge, a framed photo across the seam and your three most-ordered collections on the photo's dark corner. Then "<shop> in numbers" on a soft tint band. Not Selldone's default home.
+- Open your domain. You should see the search field, your shop's title as the centred lower-case wordmark with its dot, and the saved, account and bag buttons over a row of links; then the welcome photo beside "A little more time to play.", the collections as cards, the playroom shelf, Find the right fit, the journal, the craft band, a quiet shelf, Good finds at every price and the newest posts.
 - If you picked another palette or a brand colour, the bands, plates, the top bar and the footer take its hue too, not only the buttons.
 - Tap **Add to bag** on a card: it becomes "− 1 +" in place, and the bag's count goes up.
 - Tap the account, then Sign in: the sign-in sheet opens with your shop's own ways in. It should never end on an error page at Selldone.
 - Open the bag from the header, then Checkout: the step pills, your delivery ways as cards, and their time windows.
-- A pastry sitting on a white or coloured square inside its plate is a photo with its own ground: use a cut-out (see [Shop Requirements](Shop-Requirements#products)).
+- A toy sitting on a white or coloured square inside its plate is a photo with its own ground: use a cut-out (see [Shop Requirements](Shop-Requirements#products)).
 - About, Terms, Privacy and FAQ show "Sample text" until you write those pages in Selldone.
 - If something is off, see [Troubleshooting](Troubleshooting).
 

@@ -58,7 +58,7 @@ The repository ships with `VITE_APP_SAMPLE_SHOP_NAME=toychi-KX4iQgu0`, the showc
 
 - **Name:** the wordmark is your **shop's title**, drawn by `components/ly/LyLogo.vue` in Fraunces with its first letter in capitals, and your shop's **city** in small spaced capitals under it; a long title steps the size down so it never leaves the header. The hero's first line and the footer's name are the same title. Change the title in the Selldone dashboard and the Layout follows. `BRAND.name` in `components/kalio/kalio-brand.ts` is `null`; a string there replaces the shop's title everywhere the storefront names the shop.
 - **Mark:** the tab icon and the shop's avatar on order messages are drawn from the title's first letter, a capital in Fraunces on the family's dark (`markFor` in `components/kalio/kalio-brand.ts`, `components/ly/ui/LyMark.vue`). They are inline, so there is no image file to replace.
-- **Photos:** the eight photo slots read `skins/storybook/photos/<slot>.webp`, and each collection's photo reads `skins/storybook/photos/col-<slug of its title>.webp` (its address name is tried too). Without a file, a slot shows its designed fallback (the family tint with a pastry drawing, or your own pastries as cut-outs). The repository ships the 14 photos made for toychi: the eight slots, and six collection photos (`cookies`, `croissants`, `danish-pastries`, `mini-cakes`, `muffins`, `tarts`). Replace or remove them for your own. The names and sizes are in [Customize](Customize#photos).
+- **Photos:** the eight photo slots read `skins/storybook/photos/<slot>.webp`, and each collection's photo reads `skins/storybook/photos/col-<slug of its title>.webp` (its address name is tried too). Without a file, a slot shows its designed fallback (the family tint with a toy drawing, or your own toys as cut-outs). The repository ships the 14 photos made for toychi: the eight slots, and six collection photos (`cookies`, `croissants`, `danish-toys`, `mini-cakes`, `muffins`, `tarts`). Replace or remove them for your own. The names and sizes are in [Customize](Customize#photos).
 - **Theme:** `components/ly/ly-theme.settings.ts`, the one file for colours, dark or light and the visitor switcher. See [Theme and colours](Theme-and-colours).
 
 ## 5. Run it
@@ -67,7 +67,7 @@ The repository ships with `VITE_APP_SAMPLE_SHOP_NAME=toychi-KX4iQgu0`, the showc
 npm run serve
 ```
 
-Open <http://localhost:9176>. Check the home, a collection, a product page, the bag, the checkout and the account against your shop. If a section is missing or a pastry sits on a square, see [Shop Requirements](Shop-Requirements).
+Open <http://localhost:9176>. Check the home, a collection, a product page, the bag, the checkout and the account against your shop. If a section is missing or a toy sits on a square, see [Shop Requirements](Shop-Requirements).
 
 ## 6. Give the Layout your identity
 
@@ -77,8 +77,8 @@ In `manifest.json`:
 {
   "deploy_server": "https://layouts.selldone.com",
   "deploy_path": "",
-  "package": "mybakery-classic",
-  "name": "Mybakery Patisserie",
+  "package": "mytoyshop-storybook",
+  "name": "Mytoyshop Storybook",
   "version": "1.0.0",
   "storefront": true,
   "backoffice": false,

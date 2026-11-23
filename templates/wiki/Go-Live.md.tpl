@@ -61,7 +61,7 @@ If `/` shows a Page Builder landing page while `/shop` shows the Layout, the Hom
 Open the address **without a query** (a query shows the catalogue instead of the home). Then:
 
 - the page source's `window.sdShopLayout` → `"saved"` block names your package and the new version;
-- the header shows the dark top bar and, under it, the white header with your shop's title as the centred serif wordmark and your city under it; the home starts with the hero (your shop's name and "Pastry, one by one" beside the counter photo running to the window's edge), then "<shop> in numbers" on a soft tint band;
+- the header shows the search field, your shop's title as the centred lower-case wordmark with its dot and "PLAY SHOP" under it, and the saved, account and bag buttons, over the row of links; the home starts with the welcome photo beside "A little more time to play.", then "A toy for their kind of play" on the wash band;
 - no blank page and no flash of an old design;
 - Sign in opens the sign-in sheet with your shop's own ways in;
 - the bag drawer opens from the header, and the checkout lists your delivery ways and their windows;
@@ -78,7 +78,7 @@ While Selldone loads the storefront it shows a loading screen. {{Name}} comes wi
 1. Copy `scripts/loading/config.json` and set your brand in it:
    - `name` and `sub`: the name as the header shows it (your shop's title, capitalised) and the line under it ({{Name}} shows the city). A long name wraps to two lines and shrinks; a right-to-left name (Arabic, Persian, Hebrew) is set right to left.
    - `logo` (optional): an **https** URL of your logo, any shape; it is fitted inside a fixed box. Without it the name is drawn as text.
-   - `art`: the line art in the ring: `croissant` ({{Name}}'s), `cupcake`, `tart`, `whisk`, or leave it out for an empty ring.
+   - `art`: the line art in the ring: `croissant`, `cupcake`, `tart`, `whisk`, or leave it out for an empty ring ({{Name}}'s: an empty ring).
    - the colours (`bg`, `ink`, `muted`, `accent` for the ring, `line`) and the two Google Fonts (`serif`, `sans` and their CSS stacks).
 2. Write it:
    ```sh

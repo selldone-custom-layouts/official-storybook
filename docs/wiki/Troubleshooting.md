@@ -53,9 +53,9 @@ The Home is a Page Builder page. Set Home to **Shop** for the shop, or for that 
 
 Selldone keeps the description of the first upload; later uploads do not change it. Write the description before the first upload.
 
-## A pastry sits on a white or coloured square
+## A toy sits on a white or coloured square
 
-Its photo has its own ground. Storybook sets every pastry on a tinted plate (the family's dark plate in dark mode), so the main photo must be a **transparent cut-out** (PNG or WebP). Replace the photo in Selldone; no release is needed. See [Shop Requirements](Shop-Requirements#products).
+Its photo has its own ground. Storybook sets every toy on a tinted plate (the family's dark plate in dark mode), so the main photo must be a **transparent cut-out** (PNG or WebP). Replace the photo in Selldone; no release is needed. See [Shop Requirements](Shop-Requirements#products).
 
 ## A product photo is blurry, or a small one does not load
 
@@ -67,7 +67,7 @@ That is the slot's designed fallback: the Layout has no file for it. Add `skins/
 
 ## A collection shows a photo that is not mine
 
-The repository ships toychi's six collection photos (`col-cookies`, `col-croissants`, `col-danish-pastries`, `col-mini-cakes`, `col-muffins`, `col-tarts` in `skins/storybook/photos/`). A collection of yours whose title (or address name) makes the same slug picks one up. Replace the file with your own photo, or delete it (the collection then shows its best sellers on a plate), and release a new version. The same goes for the eight slot photos: they were made for toychi, and you can replace or delete any of them.
+The repository ships no collection photos (each collection shows its own image from Selldone). A collection of yours whose title (or address name) makes the same slug picks one up. Replace the file with your own photo, or delete it (the collection then shows its best sellers on a plate), and release a new version. The same goes for the eight slot photos: they were made for toychi, and you can replace or delete any of them.
 
 ## A home section is missing
 
@@ -108,7 +108,7 @@ Deals lists the pieces that have a saving. Give the other pieces a discount, or 
 
 That is by design: Shop ⌄, the search and the menus open on a click and close on a second click, Esc, a click outside or a page change.
 
-## The counter hours are missing
+## The shop's hours are missing
 
 They are read from the pickup point's note, as a time range: `8:00-18:00`, `8:00–18:00` or `8:00 to 18:00`, else from the shop info's hours line. Write them that way. Without a range, the hours are left out everywhere; nothing is guessed.
 
@@ -143,9 +143,9 @@ The shop has no payment method for this currency. Add one in the Selldone dashbo
 
 The shop has not written that page yet. The sample is built only from your shop's facts. Write the page (or the FAQ entries) in the Selldone dashboard and the label goes away.
 
-## A post ends with no pastries
+## A post ends with no toys
 
-The panel in a post shows the pastries its text links to (`/product/<id>` links, four at most), else the ones it names. Link the pastries in the article's text.
+The panel in a post shows the toys its text links to (`/product/<id>` links, four at most), else the ones it names. Link the toys in the article's text.
 
 ## Links in a post are underlined
 

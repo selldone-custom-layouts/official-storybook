@@ -13,7 +13,7 @@ Storybook is drawn in one colour family: every colour on the page comes from the
 | Page | white | L .17 |
 | Bands, soft tint | L .985 | L .195 |
 | Cards | L .985, or white | L .225 |
-| Plates under the pastries | L .966 | L .26 |
+| Plates under the toys | L .966 | L .26 |
 | Deeper tint (drawings, lines) | L .925 and .86 | L .31 |
 | The dark top bar and footer | L .24 | L .15 |
 
@@ -126,4 +126,4 @@ Run these from the repository root after a theme change. They need Playwright; s
    All three default to the showcase shop's pages, so always pass `PAGES` (and `SHOP` for the box check, which also opens the menus, a quick view and the bag).
 4. **Colour maths:** `node components/theme-switcher/theme-color.test.mjs` (Node 22.6 or newer).
 
-On Storybook's showcase shop the same checks run with `https://storybook.selldone.shop` (or the dev server, `http://localhost:9176`), `SHOP=toychi-KX4iQgu0`, `PAGES="home=/,category=/croissants-category,product=/product/720375"`, for each palette in light and dark. `scripts/run-checks.sh <base> <log folder>` is the full set that produced 1.0.0's test table, one browser at a time; a few of its checks (the ring, corner and circle checks and one card-edge check) come from a shared check kit that is not part of this repository, so on your own copy run the checks above.
+On Storybook's showcase shop the same checks run with `https://storybook.selldone.shop` (or the dev server, `http://localhost:9176`), `SHOP=toychi-KX4iQgu0`, `PAGES="home=/,category=/cars-trains-vehicles-category,product=/product/720375"`, for each palette in light and dark. `scripts/run-checks.sh <base> <log folder>` is the full set that produced 1.0.0's test table, one browser at a time; a few of its checks (the ring, corner and circle checks and one card-edge check) come from a shared check kit that is not part of this repository, so on your own copy run the checks above.
