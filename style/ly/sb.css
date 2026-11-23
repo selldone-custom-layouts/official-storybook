@@ -543,3 +543,34 @@ html, body { background: var(--ly-bg); }
   .ly .pd-tabs .tp { padding: 14px 12px 16px; }
   .ly .tl-b { flex: none; }
 }
+.ly .pd-tabs .tp { max-width: none; margin: 0; }
+
+/* ───────── the bag drawer ───────── */
+.ly .drawer { width: min(400px, 100vw); background: var(--ly-surface); border-radius: var(--ly-r-pn) 0 0 var(--ly-r-pn); }
+[dir="rtl"] .ly .drawer { border-radius: 0 var(--ly-r-pn) var(--ly-r-pn) 0; }
+.ly .drawer .pn-hd, .ly .panel .pn-hd { border-bottom: 0; }
+.ly .drawer .pn-t, .ly .fp .pn-t { font: 650 25px/1.1 var(--ly-serif); letter-spacing: -.035em; text-transform: none; color: var(--ly-ink); }
+.ly .dw-body { padding: 4px 16px 22px; gap: 14px; }
+.ly .dw-list { gap: 0; }
+.ly .dw-list li { grid-template-columns: 56px minmax(0, 1fr) auto; gap: 4px 12px; padding: 12px 2px; background: transparent; border-radius: 0; border-bottom: 1px solid var(--ly-line); }
+.ly .dw-list .th { width: 56px; height: 56px; border-radius: var(--ly-r-in); }
+.ly .dw-n { font-weight: 750; font-size: 14px; }
+.ly .dw-lt { font-size: 14px; font-weight: 800; }
+.ly .dw-q .qb { width: 130px; grid-template-columns: 34px minmax(0, 1fr) 34px; min-height: 38px; }
+.ly .dw-q .qb button { width: 30px; height: 30px; }
+.ly .dw-sum { border-top: 0; padding-top: 4px; font-size: 14px; gap: 7px; }
+.ly .dw-sum .tot { font-weight: 800; font-size: 15.5px; border-top: 1px solid var(--ly-line); padding-top: 9px; }
+.ly .dw-acts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ly .dw-acts .btn { width: 100%; }
+.ly .dw-empty .em-ic, .ly .em-ic.sb-ic { width: 56px; height: 56px; display: grid; place-items: center; border-radius: 50%; background: var(--ly-tint2); color: var(--ly-act-text); }
+.ly .dw-empty .em-ic .i { width: 26px; height: 26px; }
+.ly .dw-empty h3 { font: 650 26px/1.1 var(--ly-serif); letter-spacing: -.03em; margin-top: 4px; }
+.ly .dw-often { border-top: 1px solid var(--ly-line); }
+.ly .dw-h { font: 650 21px/1.1 var(--ly-serif); letter-spacing: -.02em; }
+.ly .minis { display: grid; gap: 8px; }
+.ly .mini { background: var(--ly-bg); border: 1px solid var(--ly-line); border-radius: var(--ly-r-in); }
+.ly .mini-a .btn { min-height: 36px; padding: 0 14px; font-size: 13.5px; }
+
+/* ───────── quick view ───────── */
+.ly .md-card { border-radius: var(--ly-r-pn); background: var(--ly-surface); border: 1px solid var(--ly-line); }
+.ly .qv-pl { background: var(--ly-plate); border-radius: var(--ly-r-pn); }

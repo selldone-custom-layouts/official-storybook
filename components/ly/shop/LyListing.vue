@@ -263,7 +263,7 @@ import { collectionPhoto } from "../ly-photos";
 import LyPhoto from "../LyPhoto.vue";
 import LyCuts from "../LyCuts.vue";
 import { catImage } from "../ly";
-import { ageKey } from "../sb/sb";
+import { ageKey, ageMonths } from "../sb/sb";
 import { catalogueRoute } from "../../kalio/kalio-catalog";
 
 /* A spec key whose every value reads like a paragraph is a note, not a filter. */
@@ -435,7 +435,7 @@ export default {
       }
       return [...map.entries()]
         .map(([key, set]) => {
-          const values = [...set].sort((a, b) => a.localeCompare(b));
+          const values = [...set].sort((a, b) => (key === this.ageK ? ageMonths(a) - ageMonths(b) : 0) || a.localeCompare(b, undefined, { numeric: true }));
           return { key, values, long: values.some((v) => v.length > LONG), note: values.every((v) => v.length > NOTE) };
         })
         /* a note in sentences (every value a paragraph, or one long sentence

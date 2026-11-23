@@ -24,7 +24,7 @@
             <div class="dw-tx">
               <router-link :to="productTo(it)" class="dw-n" @click="close">{{ it.product?.title }}</router-link>
               <small
-                ><span class="money">{{ amount(it.price, it) }}</span> {{ t("ly.card.perLow", "per {unit}", { unit: unitOf(it.product) }) }}<template v-if="it.dis > 0">
+                ><span v-if="shown(it) > 1" class="money">{{ t("sb.bag.each", "{price} each", { price: amount(it.price, it) }) }}</span><template v-if="it.dis > 0">
                   · <s class="money">{{ amount(it.price + it.dis, it) }}</s></template
                 ></small
               >
@@ -73,15 +73,15 @@
           </p>
         </div>
         <div class="dw-acts">
-          <router-link :to="checkoutTo" class="btn" @click="close">{{ t("ly.bag.checkout", "Checkout") }}<ly-icon name="arrow" /></router-link>
-          <router-link :to="bagTo" class="qlink" @click="close">{{ t("ly.bag.view", "View bag") }}</router-link>
+          <router-link :to="bagTo" class="btn quiet" @click="close">{{ t("ly.bag.view", "View bag") }}</router-link>
+          <router-link :to="checkoutTo" class="btn" @click="close">{{ t("ly.bag.checkout", "Checkout") }}</router-link>
         </div>
       </template>
       <div v-else class="dw-empty">
-        <ly-art cls="dw-art" name="croissant" />
+        <span aria-hidden="true" class="em-ic sb-ic"><ly-icon name="bag" /></span>
         <h3>{{ t("ly.bag.emptyT", "Your bag is empty") }}</h3>
         <p>{{ t("ly.bag.emptyP", "Pastries are sold one by one, so add exactly the pieces you want.") }}</p>
-        <a class="btn sm" href="#selection" @click.prevent="toSelection">{{ t("ly.bag.selection", "Today’s selection") }}</a>
+        <router-link :to="allTo" class="btn sm" @click="close">{{ t("sb.bag.browse", "Browse toys") }}</router-link>
       </div>
       <div v-if="often.length" class="dw-often">
         <h3 class="dw-h">{{ t("ly.bag.often", "Often added") }}</h3>
@@ -177,6 +177,9 @@ export default {
       }
       for (const p of all) if (picks.length < 3 && !inBag.has(p.id) && !picks.includes(p)) picks.push(p);
       return picks;
+    },
+    allTo() {
+      return { name: window.$storefront.routes.SHOP_PAGE, query: { dir: "*" } };
     },
     bagTo() {
       return { name: window.$storefront.routes.BASKET_PAGE, params: { type: "PHYSICAL" } };

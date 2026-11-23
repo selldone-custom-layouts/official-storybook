@@ -12,13 +12,13 @@
       <div class="qv-tx">
         <p v-if="catName" class="pc-c"><bdi>{{ catName }}</bdi></p>
         <h3 class="qv-n">{{ p.title }}</h3>
-        <p class="qv-u">{{ t("ly.card.per", "Per {unit}", { unit }) }} · {{ stock }}</p>
+        <p class="qv-u"><template v-if="age"><bdi>{{ age }}</bdi> · </template>{{ stock }}</p>
         <p class="qv-ly">
           <span class="now money">{{ money(pv.now) }}</span><template v-if="pv.was">{{ " " }}<s class="was money">{{ money(pv.was) }}</s></template
           ><span v-if="pv.save > 0" class="save">{{ t("ly.card.save", "Save {amount}", { amount: money(pv.save) }) }}</span>
         </p>
         <div class="qv-add"><ly-add :product="p" /></div>
-        <router-link :to="to" class="qlink arrowed" @click="close">{{ t("ly.qv.details", "View full details") }}<ly-icon name="arrow" /></router-link>
+        <router-link :to="to" class="btn quiet sm sb-qv-more" @click="close">{{ t("sb.qv.details", "View details") }}</router-link>
       </div>
     </div>
   </ly-modal>
@@ -31,6 +31,7 @@ import LyAdd from "../LyAdd.vue";
 import { catOf, catTitle, closeLayer, layer, money, priceView, productImage, productTo, unitOf } from "../ly";
 import { currentCurrency } from "../../region-switcher/region";
 import { t } from "../../kalio/i18n/kalio-i18n";
+import { ageOf } from "../sb/sb";
 
 export default {
   name: "LyQuickView",
@@ -58,6 +59,9 @@ export default {
     },
     catName() {
       return catTitle(catOf(this.p?.category_id));
+    },
+    age() {
+      return ageOf(this.p);
     },
     stock() {
       const q = Number(this.p?.quantity);
