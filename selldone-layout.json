@@ -1,0 +1,29 @@
+{
+  "name": "Storybook Toy Shop",
+  "shop": "toychi",
+  "kind": "Toys · single shop",
+  "summary": "Toys in a warm storybook dress: centred wordmark, photo welcome, collection cards on arched tints, shelves of toys, shop by age and by price, a filter column from the real specification, a sticky buy box and the whole bag and checkout.",
+  "live": "https://storybook.selldone.shop",
+  "cover": "docs/screenshots/cover.jpg",
+  "screenshots": [
+    "docs/screenshots/desktop-home.jpg",
+    "docs/screenshots/desktop-category.jpg",
+    "docs/screenshots/desktop-product.jpg",
+    "docs/screenshots/desktop-cart.jpg",
+    "docs/screenshots/phone-home.jpg",
+    "docs/screenshots/phone-category.jpg",
+    "docs/screenshots/phone-product.jpg",
+    "docs/screenshots/phone-cart.jpg"
+  ],
+  "tags": [
+    "toys",
+    "kids",
+    "storybook",
+    "single-vendor",
+    "light",
+    "rtl"
+  ],
+  "package": "storybook-toy-shop",
+  "base": "selldone/storefront",
+  "status": "draft"
+}

@@ -1,0 +1,184 @@
+{
+  "$schema": "../../skin.schema.json",
+  "name": "storybook",
+  "package": "storybook-toy-shop",
+  "title": "Storybook Toy Shop",
+  "description": "A warm, storybook-style Layout for a toy shop. A centred lower-case wordmark with a coloured dot between the search and the saved, account and bag buttons, over a calm row of links (Collections, Shop all toys, the play journal, Our story, Deals) with the language and currency. The home: a photo welcome with a big Fraunces line, three collection cards with the toys on an arched tint, the playroom shelf, Find the right fit by age, a journal story beside its photo, a craft-table feature, a quiet-afternoon shelf, Good finds at every price from the shop's own prices, and the newest journal posts. A collection page with a title panel, collection chips, a filter column built from the toys' real specification and a four-column grid of cards with Quick look, save and an Add to bag control that turns into a counter. A product page with a gallery, the toy's own facts, a sticky buy box, its specification in the shop's groups and honest reviews; compare side by side, saved toys, a bag drawer, the bag, a three-step checkout with the address sheet and map, the payment window, the order page with its messages, the account, the journal, About, Terms, Privacy, Contact, FAQ and a 404. One colour family from the chosen palette (Clay by default; Rosewood, Olive, Indigo or any colour), light by default with a dark mode from the footer's Theme row; Fraunces over DM Sans, pill buttons and 26 px panels. English and Arabic, right to left.",
+  "summary": "Toys in a warm storybook dress: centred wordmark, photo welcome, collection cards on arched tints, shelves of toys, shop by age and by price, a filter column from the real specification, a sticky buy box and the whole bag and checkout.",
+  "tagline": "A little more time to play.",
+  "kind": "Toys · single shop",
+  "tags": [
+    "toys",
+    "kids",
+    "storybook",
+    "single-vendor",
+    "light",
+    "rtl"
+  ],
+  "shop": {
+    "name": "toychi",
+    "id": 16144,
+    "xapi": "toychi-KX4iQgu0",
+    "domain": "storybook.selldone.shop",
+    "currency": "USD",
+    "country": "US",
+    "language": "en"
+  },
+  "github": {
+    "org": "selldone-custom-layouts",
+    "repo": "official-storybook",
+    "topics": [
+      "selldone",
+      "selldone-layout",
+      "storefront",
+      "vue",
+      "toys",
+      "kids"
+    ]
+  },
+  "dev": {
+    "port": 9176
+  },
+  "checks": {
+    "product": "741339",
+    "product2": "741335",
+    "category": "/cars-trains-vehicles-category",
+    "search": "wood",
+    "article": "/blog/how-to-increase-the-sale-in-the-post-covid-36406",
+    "compare": "p741339_p741335_p741336",
+    "i18nIgnore": "Cash on delivery|Worldwide shipping"
+  },
+  "palettes": {
+    "brand": "clay",
+    "mode": "light",
+    "list": [
+      {
+        "id": "clay",
+        "name": "Clay",
+        "seed": "#9d432e"
+      },
+      {
+        "id": "rosewood",
+        "name": "Rosewood",
+        "seed": "#943b59"
+      },
+      {
+        "id": "olive",
+        "name": "Olive",
+        "seed": "#586932"
+      },
+      {
+        "id": "indigo",
+        "name": "Indigo",
+        "seed": "#3f5a94"
+      }
+    ],
+    "showcaseShops": [
+      {
+        "id": 15740,
+        "name": "bakio"
+      },
+      {
+        "id": 15549,
+        "name": "digini-hzgablru"
+      },
+      {
+        "id": 15645,
+        "name": "molino"
+      },
+      {
+        "id": 16144,
+        "name": "toychi"
+      }
+    ]
+  },
+  "fonts": {
+    "display": {
+      "family": "Fraunces",
+      "google": "Fraunces:ital,opsz,wght@0,9..144,550..750;1,9..144,550..750",
+      "stack": "\"Fraunces\", \"Noto Naskh Arabic\", Georgia, \"Times New Roman\", serif"
+    },
+    "text": {
+      "family": "DM Sans",
+      "google": "DM+Sans:opsz,wght@9..40,400..800",
+      "stack": "\"DM Sans\", \"Noto Sans Arabic\", \"Segoe UI\", system-ui, sans-serif"
+    },
+    "headingWeight": 650
+  },
+  "shape": {
+    "panel": 26,
+    "inner": 14
+  },
+  "wordmark": {
+    "case": "lower",
+    "italic": false,
+    "dot": true,
+    "sub": "PLAY SHOP",
+    "weight": 650,
+    "tracking": "-.065em",
+    "size": 56
+  },
+  "basket": {
+    "one": "bag",
+    "many": "bags"
+  },
+  "home": [
+    {
+      "section": "hero",
+      "variant": "split"
+    },
+    {
+      "section": "collections",
+      "variant": "cards"
+    },
+    {
+      "section": "journal",
+      "variant": "photo",
+      "band": true
+    }
+  ],
+  "photos": {
+    "hero": {
+      "size": [
+        1500,
+        1000
+      ],
+      "art": "none",
+      "note": "a parent and child building a wooden railway on a rug; the welcome's photo"
+    },
+    "feature": {
+      "size": [
+        1500,
+        1000
+      ],
+      "art": "none",
+      "note": "hands building a little town from wooden blocks; the journal story band, the footer's journal card, About"
+    },
+    "craft": {
+      "size": [
+        1320,
+        880
+      ],
+      "art": "none",
+      "note": "children shaping clay flowers at a table; the craft-table feature"
+    },
+    "collections": {
+      "size": [
+        900,
+        1200
+      ],
+      "pattern": "col-<slug of the collection title>"
+    }
+  },
+  "loading": {
+    "art": "none"
+  },
+  "splash": {
+    "art": "none"
+  },
+  "photoCredit": "The three photos are the approved Storybook design's own lifestyle photos (Toychi Layout Mockups, shared/art).",
+  "words": {
+    "en": {},
+    "ar": {}
+  }
+}

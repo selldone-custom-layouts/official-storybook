@@ -1,0 +1,17 @@
+{
+ "name": "toychi",
+ "art": "none",
+ "bg": "#ffffff",
+ "ink": "#2a1e1b",
+ "muted": "#685a56",
+ "accent": "#9d432e",
+ "line": "#f0dad5",
+ "serif": "Fraunces:wght@650",
+ "sans": "DM+Sans:wght@700",
+ "serifCss": "\"Fraunces\",Georgia,serif",
+ "sansCss": "\"DM Sans\",system-ui,sans-serif",
+ "nameWeight": 650,
+ "nameTracking": "-.065em",
+ "nameLower": true,
+ "dot": "#9d432e"
+}
