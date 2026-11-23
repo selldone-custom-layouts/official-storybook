@@ -734,3 +734,6 @@ html, body { background: var(--ly-bg); }
 .ly .acc-nav, .ly .acc-rail, .ly .acc-card, .ly .oc, .ly .ab-card { border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); background: var(--ly-surface); }
 /* Selldone's own buttons inside the Layout speak in normal case too (Add discount code, the payment window) */
 .ly .v-btn, .ly-layers .v-btn, .s--storefront-master-payment-dialog .v-btn { text-transform: none; letter-spacing: 0; font-weight: 750; }
+/* the address sheet's buttons in the design's words: "Save address", normal case, capsules */
+html body .k-sheet__go { text-transform: none !important; letter-spacing: 0 !important; text-box: normal !important; text-indent: 0 !important; font: 750 15px/1 var(--ly-sans) !important; min-height: 46px; padding: 0 22px !important; border-radius: 999px !important; }
+html body .k-sheet__ghost { border-radius: 999px !important; font-weight: 750 !important; }
