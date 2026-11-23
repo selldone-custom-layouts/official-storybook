@@ -84,7 +84,7 @@
                   <span v-if="nx_cat(it)" class="pc-c"><bdi>{{ nx_cat(it) }}</bdi></span>
                   <router-link :to="productTo({ id: it.product_id })" class="cr-n">{{ it.product?.title }}</router-link>
                   <span class="cr-u"
-                    >{{ t("ly.co.perUnit", "{price} per {unit}", { price: nx_money(it.price), unit: nx_unit(it) }) }} · <span :class="{ low: dmLow(it) }">{{ dmStock(it) }}</span></span
+                    ><template v-if="nx_shown(it) > 1">{{ t("sb.bag.each", "{price} each", { price: nx_money(it.price) }) }} · </template><span :class="{ low: dmLow(it) }">{{ dmStock(it) }}</span></span
                   >
                 </div>
                 <div class="cr-q"><ly-line-qb :item="it" /></div>
