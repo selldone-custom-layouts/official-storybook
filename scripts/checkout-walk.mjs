@@ -101,7 +101,7 @@ for (const W of WIDTHS) {
     console.log(`  bag drawer open, ${drawerLines} line(s)`);
     if (!drawerLines) bad(W, "the drawer shows no line after adding a piece");
     await shot("01-drawer");
-    await page.locator("#drawer a.btn").first().click();
+    await page.locator("#drawer .dw-acts a.btn:not(.quiet)").first().click(); /* Storybook: View bag, then Checkout */
     await page.waitForSelector("#co-details", { timeout: 45000 });
     await sleep(3500);
     console.log(`  checkout: ${await page.evaluate(() => location.pathname + location.search)}`);
