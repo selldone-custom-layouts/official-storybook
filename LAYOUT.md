@@ -14,9 +14,19 @@
 
 ## Home
 
-1. **hero** (split): The shop's name and line on the left; the counter photo bleeding to the right edge of the frame, a framed inset across the seam with the best seller, the three most-ordered collections set large on the photo's dark corner (from Pralino).
-2. **collections** (cards): The same four as a 2 × 2 grid of cards, the photo on top inside the card (Domino).
-3. **journal** (photo, tint band): The four newest posts beside a tall photo with the big word 'Journal' (from Pralino; best last).
+The approved Storybook design (Toychi Layout Mockups/storybook), drawn from live data only (`components/ly/sb/home/`):
+
+1. **sb-welcome**: the hero photo in a 26 px panel with a capsule to the most-ordered collection, beside "A little more time to *play.*" and Explore the toy shop.
+2. **sb-rooms** (wash band): three collections as cards, each collection's own image on an arched tint, its name and description.
+3. **sb-shelf · playroom**: four best sellers, one collection after another (story cards).
+4. **sb-ages**: Find the right fit, every age the toys' own spec names, youngest first (opens `?age=`).
+5. **sb-reading**: the journal's newest post on the tint beside the feature photo.
+6. **sb-craft** (wash band): the craft photo beside a making collection and Shop <collection>.
+7. **sb-shelf · quiet**: four toys of the calm collection (puzzles, games, books…), Browse <collection>.
+8. **sb-budget** (wash band): three price bands from the live prices (opens `?price=-N`).
+9. **sb-journal**: the four newest posts (last section).
+
+Every other page keeps the base's flows in the Storybook dress (`style/ly/sb.css`, loaded last): the header (search, centred wordmark, saved, account, bag pill; the link row and the Explore drawer), the footer (Find a toy, Here to help, the journal card, the Theme row), the story card, the listing (title panel with the collection's own image, collection chips, the filter column from the real spec, the no-deals state with "Good finds under <price>"), the product page (gallery, the toy's own words and first facts, a sticky buy box with save and compare, Specifications / About this toy / Reviews), the bag drawer and page, the three-step checkout, compare, the journal, About, Terms, Privacy, Contact, FAQ and the 404. The base's pastry words and line drawings are replaced with a toy shop's (skin words, `ly-icons.ts`).
 
 ## Photos
 
