@@ -43,14 +43,23 @@
         </ul>
       </div>
 
-      <div class="pd-buy">
-        <router-link v-if="cat" :to="catTo(cat)" class="eyebrow pd-cat"><bdi>{{ catName }}</bdi></router-link>
+      <div class="pd-intro sb-intro">
+        <p class="eyebrow pd-cat"><bdi>{{ brandWord }}</bdi></p>
         <h1 class="pd-h">{{ $product.title }}</h1>
-        <p class="pd-u">
-          {{ t("ly.card.per", "Per {unit}", { unit }) }} ·
+        <p class="pd-u sb-pd-rate">
+          <template v-if="rated"><ly-icon name="star" /><b>{{ rate }}</b> ({{ $product.rate_count }}) · </template>
           <a class="pd-rv" href="#tabs" @click.prevent="goReviews">{{ reviewsWord }}</a>
         </p>
+        <p v-if="introText" class="sb-pd-lead"><bdi>{{ introText }}</bdi></p>
+        <dl v-if="facts.length" class="sb-facts">
+          <div v-for="r in facts" :key="r[0]">
+            <dt><bdi>{{ r[0] }}</bdi></dt>
+            <dd><bdi>{{ r[1] }}</bdi></dd>
+          </div>
+        </dl>
+      </div>
 
+      <aside class="pd-buy sb-purchase">
         <div v-if="isSubscription" class="opts ly-sd-sub">
           <s-subscription-price-select
             v-model="selected_subscription_price"
@@ -68,11 +77,10 @@
         </template>
         <s-product-section-tax></s-product-section-tax>
 
-        <p :class="['pd-stock', { low: stock > 0 && stock <= 5, out: stock <= 0 }]">
-          <span aria-hidden="true" class="dot"></span
-          ><template v-if="stock <= 0">{{ t("ly.pd.soldOut", "Sold out") }}</template
+        <p :class="['pd-stock', 'sb-stock', { low: stock > 0 && stock <= 5, out: stock <= 0 }]">
+          <ly-icon :name="stock <= 0 ? 'close' : 'check'" /><template v-if="stock <= 0">{{ t("ly.pd.soldOut", "Sold out") }}</template
           ><template v-else-if="stock <= 5">{{ t("ly.card.onlyLeftCap", "Only {n} left", { n: stock }) }}</template
-          ><template v-else>{{ stockLine }}</template>
+          ><template v-else>{{ t("sb.pd.inStock", "In stock") }}</template>
         </p>
         <p v-if="!has_original_warranty" class="pd-u">{{ $t("product_info.fake") }}</p>
 
@@ -122,7 +130,7 @@
           ></s-product-section-extra-pricings>
         </div>
 
-        <div id="pd-acts" ref="add" class="pd-acts">
+        <div id="pd-acts" ref="add" class="pd-acts sb-pd-acts">
           <div class="pd-add">
             <ly-pd-add v-if="simple" :needs-choice="needsChoice" :product="$product" :variant="current_variant" />
             <s-product-section-buy-button
@@ -138,13 +146,15 @@
               class="ly-sd-buy"
             ></s-product-section-buy-button>
           </div>
-          <button class="btn soft cmpb" type="button" @click="compareNow"><ly-icon name="compare" />{{ t("ly.pd.compare", "Compare") }}</button>
+          <button :aria-label="t('sb.pd.saveAria', 'Save {name}', { name: $product.title })" :aria-pressed="isSaved ? 'true' : 'false'" class="sb-heart sb-heart-lg" type="button" @click="save"><ly-icon name="heart" /></button>
         </div>
+        <button class="sb-more sb-cmp" type="button" @click="compareNow"><ly-icon name="compare" />{{ comparing ? t("sb.pd.viewCompare", "View comparison") : t("sb.pd.compare", "Compare toy") }}</button>
+        <p v-if="$product.sku" class="sb-sku">{{ t("sb.pd.sku", "SKU {sku}", { sku: $product.sku }) }}</p>
 
         <ul v-if="lines.length" class="ils">
           <ly-ic-line v-for="l in lines" :key="l.key" :icon="l.icon" :text="l.line" :title="l.title" />
         </ul>
-      </div>
+      </aside>
     </div>
 
     <!-- The phone's buy bar, once the Add box has scrolled away. -->
@@ -183,6 +193,8 @@ import { currentCurrency } from "../../region-switcher/region";
 import { fitInCircle } from "../../bakini/fit-in-circle";
 import { fitOnResize } from "../ly-fit";
 import { t } from "../../kalio/i18n/kalio-i18n";
+import { specGroups } from "../ly";
+import { isSaved as savedOf, toggleSaved } from "../sb/sb";
 
 export default {
   name: "LyProductOverview",
@@ -280,6 +292,31 @@ export default {
       if (p.valuation || (p.extra_pricings && p.extra_pricings.length)) return false;
       return true;
     },
+    brandWord() {
+      return String(this.$product?.brand || "").trim() || this.catName || (this.shop || this.$shop)?.title || "";
+    },
+    rated() {
+      return Number(this.$product.rate_count) > 0 && Number(this.$product.rate) > 0;
+    },
+    rate() {
+      return (Math.round(Number(this.$product.rate) * 10) / 10).toFixed(1);
+    },
+    /* the product's own words: the first paragraph of its article (Selldone's article_pack) */
+    introText() {
+      const body = String(this.$product?.article_pack?.article?.body || "");
+      const m = body.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
+      const raw = (m ? m[1] : body).replace(/<[^>]*>/g, " ").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+      const tx = document.createElement("textarea");
+      tx.innerHTML = raw;
+      return tx.value.length > 420 ? tx.value.slice(0, 400).replace(/\s+\S*$/, "") + "…" : tx.value;
+    },
+    /* the first three rows of the product's own spec */
+    facts() {
+      return specGroups(this.$product).flatMap((g) => g.rows).slice(0, 3);
+    },
+    isSaved() {
+      return savedOf(this.$product);
+    },
     comparing() {
       return (this.$store.getters.getProductsComparison || []).some((p) => p.id === this.$product.id);
     },
@@ -349,6 +386,9 @@ export default {
         .map((r) => `p${r.p}${r.v ? `v${r.v}` : ""}`)
         .join("_");
       this.$router.push({ name: window.$storefront.routes.COMPARISON_PAGE, query: { list } });
+    },
+    save() {
+      toggleSaved(this, this.$product);
     },
     toAdd() {
       this.$refs.add?.scrollIntoView({ behavior: "smooth", block: "center" });

@@ -50,12 +50,12 @@
 
       <section v-if="more.length" aria-labelledby="more-h" class="sec-s more">
         <div class="wrap">
-          <header class="sec-hd sm">
-            <p class="eyebrow">{{ t("ly.pd.moreEyebrow", "From the same counter") }}</p>
-            <h2 id="more-h" class="h2">{{ t("ly.pd.moreH", "More {name}", { name: catTitle(cat) }) }}</h2>
+          <header class="sb-top">
+            <h2 id="more-h">{{ t("sb.pd.moreFrom", "More from {name}", { name: catTitle(cat) }) }}</h2>
+            <router-link v-if="cat" :to="catTo(cat)" class="sb-more">{{ t("sb.pd.viewCollection", "View collection") }}<ly-icon cls="fl" name="arrow" /></router-link>
           </header>
-          <div class="grid six">
-            <ly-card v-for="p in more" :key="p.id" :product="p" no-cat />
+          <div class="sb-grid4">
+            <ly-card v-for="p in more" :key="p.id" :product="p" />
           </div>
         </div>
       </section>
@@ -67,6 +67,7 @@
 import NotificationService from "@selldone/components-vue/plugins/notification/NotificationService.ts";
 import LyPt from "../../components/ly/ui/LyPt.vue";
 import LyCard from "../../components/ly/ui/LyCard.vue";
+import LyIcon from "../../components/ly/LyIcon.vue";
 import LyProductOverview from "../../components/ly/product/LyProductOverview.vue";
 import LyProductTabs from "../../components/ly/product/LyProductTabs.vue";
 import LyTogether from "../../components/ly/product/LyTogether.vue";
@@ -94,6 +95,7 @@ export default {
   components: {
     LyPt,
     LyCard,
+    LyIcon,
     LyProductOverview,
     LyProductTabs,
     LyTogether,
@@ -130,6 +132,7 @@ export default {
     },
     crumbs() {
       const out = [];
+      out.push({ to: { name: window.$storefront.routes.SHOP_PAGE, query: { dir: "*" } }, label: t("sb.pd.shop", "Shop") });
       if (this.cat) out.push({ to: catTo(this.cat), label: catTitle(this.cat) });
       if (this.product) out.push({ label: this.product.title });
       return out;
@@ -139,7 +142,7 @@ export default {
     more() {
       if (!this.product) return [];
       const l = bySells(this.ly.products.filter((p) => p.category_id === this.product.category_id && p.id !== this.product.id));
-      const n = l.length >= 6 ? 6 : l.length >= 3 ? 3 : l.length >= 2 ? 2 : 0;
+      const n = l.length >= 4 ? 4 : l.length >= 2 ? 2 : 0;
       return l.slice(0, n);
     },
   },

@@ -7,11 +7,11 @@
 -->
 <template>
   <button v-if="!q" :aria-disabled="blocked ? 'true' : undefined" :class="['btn', 'add', { '-off': blocked }]" type="button" @click.prevent.stop="more">
-    {{ shownLabel }}
+    <ly-icon v-if="!blocked" cls="add-i" name="bag" /><span class="add-w">{{ shownLabel }}</span>
   </button>
   <div v-else :aria-label="t('ly.add.inBag', '{name} in bag', { name: product.title })" class="qb" role="group">
     <button :aria-label="t('ly.add.less', 'Remove one {name}', { name: product.title })" type="button" @click.prevent.stop="less"><ly-icon name="minus" /></button>
-    <span aria-live="polite" class="qn">{{ q }}</span>
+    <span aria-live="polite" class="qn"><b>{{ q }}</b><small class="qn-w">{{ t("sb.add.inBag", "in bag") }}</small></span>
     <button
       ref="plus"
       :aria-disabled="full ? 'true' : undefined"

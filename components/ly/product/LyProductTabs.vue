@@ -30,25 +30,8 @@
         </button>
       </div>
 
-      <div id="tp-desc" :hidden="cur !== 'desc'" aria-labelledby="tb-desc" class="tp" role="tabpanel">
-        <div :class="['pd-desc', { 'ly-solo': !pros.length }]">
-          <div class="pd-lead">
-            <p v-for="(l, i) in lead" :key="i">{{ l }}</p>
-          </div>
-          <template v-if="pros.length">
-            <h3 class="pd-sub">{{ t("ly.pd.love", "Why you’ll love it") }}</h3>
-            <ul class="pros">
-              <li v-for="(x, i) in pros" :key="i">
-                <span class="ck"><ly-icon name="check" /></span>
-                <div>
-                  <b>{{ x[0] }}</b>
-                  <p v-if="x[1]">{{ x[1] }}</p>
-                </div>
-              </li>
-            </ul>
-          </template>
-        </div>
-        <div v-if="articleBody" class="ly-pd-article" v-html="articleBody"></div>
+      <div v-if="articleBody" id="tp-desc" :hidden="cur !== 'desc'" aria-labelledby="tb-desc" class="tp" role="tabpanel">
+        <div class="ly-pd-article sb-article" v-html="articleBody"></div>
       </div>
 
       <div id="tp-info" :hidden="cur !== 'info'" aria-labelledby="tb-info" class="tp" role="tabpanel">
@@ -62,14 +45,7 @@
               </div>
             </dl>
           </div>
-          <div v-if="product.sku" class="spec-g ly-sku">
-            <dl class="spec-t">
-              <div>
-                <dt>{{ t("ly.pd.sku", "SKU") }}</dt>
-                <dd>{{ product.sku }}</dd>
-              </div>
-            </dl>
-          </div>
+
         </div>
       </div>
 
@@ -109,7 +85,7 @@ export default {
   name: "LyProductTabs",
   components: { LyIcon, LyEmpty, KalioReviews },
   props: { product: { type: Object, required: true } },
-  data: () => ({ cur: "desc", writing: false }),
+  data: () => ({ cur: "info", writing: false }),
   computed: {
     user() {
       return this.$store.getters.getUser;
@@ -127,10 +103,11 @@ export default {
       return specGroups(this.product);
     },
     tabs() {
+      const n = Number(this.product.rate_count) || 0;
       return [
-        { k: "desc", label: t("ly.pd.tabDesc", "Description") },
-        { k: "info", label: t("ly.pd.tabInfo", "Additional information") },
-        { k: "rev", label: t("ly.pd.tabRev", "Reviews ({n})", { n: Number(this.product.rate_count) || 0 }) },
+        { k: "info", label: t("sb.pd.tabSpecs", "Specifications") },
+        ...(this.articleBody ? [{ k: "desc", label: t("sb.pd.tabAbout", "About this toy") }] : []),
+        { k: "rev", label: n ? t("ly.pd.tabRev", "Reviews ({n})", { n }) : t("sb.pd.tabReviews", "Reviews") },
       ];
     },
     /* The lead: the finish, "Sold as one <unit>, and good with <pairing>",
@@ -159,7 +136,7 @@ export default {
   },
   watch: {
     "product.id"() {
-      this.cur = "desc";
+      this.cur = "info";
       this.writing = false;
     },
   },
