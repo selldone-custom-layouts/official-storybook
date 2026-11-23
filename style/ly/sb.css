@@ -688,3 +688,35 @@ html, body { background: var(--ly-bg); }
 /* ───────── FAQ, contact, about, terms, privacy ───────── */
 .ly .sample-tag { border-radius: 999px; background: var(--ly-tint2); color: var(--ly-soft-ink); font-weight: 750; }
 .ly details.fq, .ly .fq { border-radius: var(--ly-r-in); }
+
+/* ───────── round 2: checkout numbers, contact's help band, sign-in wordmark, search hints ───────── */
+.ly .step .st-ic b { font: 800 12.5px/1 var(--ly-sans); }
+.ly .cf { background: var(--ly-band); color: var(--ly-ink); border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); }
+.ly .cf .eyebrow { color: var(--ly-act-text); }
+.ly .cf .h3x { color: var(--ly-ink); }
+.ly .cf-a { color: var(--ly-ink); border-top-color: var(--ly-line); font-family: var(--ly-sans); font-weight: 750; }
+.ly .cf-a:hover { color: var(--ly-act-text); }
+.ly .lg-wm.wm { display: flex; flex-direction: column; align-items: center; padding: 0; }
+.ly .lg-wm .wm-name { font-size: 44px; line-height: .92; letter-spacing: -.065em; font-weight: 650; }
+.ly .sb-srch .srch-hint { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; color: var(--ly-muted); font-size: 14px; }
+.ly .sb-srch .srch-hint .chip { min-height: 32px; }
+/* no dark bands in the Storybook design: About's first tile, the deals' biggest saving, the journal's card */
+.ly .tri.dark { background: var(--ly-tint2); color: var(--ly-ink); }
+.ly .tri.dark h3 { color: var(--ly-ink); }
+.ly .tri.dark p { color: var(--ly-muted); }
+.ly .tri.dark .tri-ic { color: var(--ly-act-text); }
+.ly .tri.dark :focus-visible, .ly .deal-top:focus-visible, .ly .cf :focus-visible, .ly .auth :focus-visible { box-shadow: inset 0 0 0 2px var(--ly-ring) !important; }
+.ly .deal-top { background: var(--ly-surface); color: var(--ly-ink); border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); }
+.ly .deal-top:hover { color: var(--ly-ink); }
+.ly .deal-top:hover b { color: var(--ly-act-text); }
+.ly .dt-tx .eyebrow { color: var(--ly-act-text); }
+.ly .dt-ly .now { color: var(--ly-ink); }
+.ly .dt-ly .was { color: var(--ly-muted); }
+.ly .dt-sv { background: var(--ly-act); color: var(--ly-act-on); }
+.ly .deal-top:hover .dt-sv b { color: var(--ly-act-on); }
+/* saved toys */
+.ly.ly-saved { display: grid; gap: 16px; }
+.ly .sb-saved-h { font: 650 clamp(30px, 3.2vw, 44px)/1.05 var(--ly-serif); letter-spacing: -.05em; color: var(--ly-ink); }
+.ly .sb-saved-l { color: var(--ly-muted); margin-top: 6px; }
+.ly .sb-saved-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); }
+@media (max-width: 740px) { .ly .sb-saved-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

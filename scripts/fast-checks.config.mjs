@@ -84,7 +84,7 @@ const runs = [
   { name: "contrast-ar-dark", check: "contrast", lang: "ar", theme: DARK, pages: pages(PAGES_MAIN) },
   { name: "cart-dark", check: "cart", theme: DARK, env: { SHOP, WAIT: ".ly .ftr", CART: ".bag-btn", STORAGE_KEY: SK }, argv: [BASE, BRAND, "dark"] },
   { name: "cart-light", check: "cart", theme: LIGHT, env: { SHOP, WAIT: ".ly .ftr", CART: ".bag-btn", STORAGE_KEY: SK }, argv: [BASE, BRAND, "light"] },
-  { name: "currency", check: "currency", widths: W3, env: { WIDTHS: "1440,1024,390", SHOP, MENU: ".menu-btn", MEGA: "[aria-controls=dd-shop]", CART: ".bag-btn >> visible=true", CATEGORY: CAT, DEALS } },
+  { name: "currency", check: "currency", widths: W3, env: { WIDTHS: "1440,1024,390", SHOP, MENU: ".menu-btn", MEGA: ".sb-nav [aria-controls=menu]", CART: ".bag-btn >> visible=true", CATEGORY: CAT, DEALS } },
   { name: "box-dark", check: "box", theme: DARK, widths: [...W3, ...WIDE], pages: pages(BOX_PAGES, "first"), states: true },
   { name: "box-light", check: "box", theme: LIGHT, widths: [...W3, ...WIDE], pages: pages(BOX_PAGES, "first"), states: true },
   { name: "box-ar", check: "box", lang: "ar", widths: widths("1440,390"), pages: pages(BOX_PAGES, "first"), states: false },
@@ -130,25 +130,25 @@ export default {
     shape: path.join(ROOT, "scripts/shape-check.cjs"),
     underline: path.join(ROOT, "scripts/underline-check.cjs"),
   },
-  box: { mega: "[aria-controls=dd-shop]", quick: ".pc-qv", category: CAT },
+  box: { mega: ".sb-nav [aria-controls=menu]", quick: ".sb-ql", category: CAT },
   shape: {
     states(label, w) {
       const s = [];
       if (w < 980) s.push(["menu", ".menu-btn"]);
       else {
-        s.push(["shop-menu", "[aria-controls=dd-shop]"]);
+        s.push(["shop-menu", ".sb-nav [aria-controls=menu]"]);
         s.push(["region", ".rg-pill"]);
       }
       s.push(["search", "[aria-controls=srch]"]);
       if (label === "home" || label === "category") s.push(["bag", ".bag-btn"]);
       if (label === "category") {
         if (w < 1200) s.push(["filter-sheet", ".fbtn"]);
-        s.push(["quick", ".pc-qv"]);
+        s.push(["quick", ".sb-ql"]);
       }
       if (label === "account") s.push(["signin", "@signin"]);
       return s;
     },
-    scopes: { menu: "#menu", "shop-menu": "#dd-shop", region: "#rgp", search: "#srch", bag: "#drawer", "filter-sheet": ".fp.panel", quick: "#qv", signin: "#loginm" },
+    scopes: { menu: "#menu", "shop-menu": "#menu", region: "#rgp", search: "#srch", bag: "#drawer", "filter-sheet": ".fp.panel", quick: "#qv", signin: "#loginm" },
     signin: () => {
       const b = [...document.querySelectorAll(".acc-nav button, .ly button")].find((x) => /sign in/i.test(x.textContent));
       if (!b) return false;

@@ -100,7 +100,17 @@ export default {
     /* The step pills' icons and states as the mockup draws them. */
     pr_steps(this: any) {
       const icons: Record<string, string> = { bag: "bag", details: "user", delivery: "bike", payment: "cash" };
-      return this.nx_steps.map((s: any) => ({ ...s, icon: icons[s.key], state: s.state === "todo" ? "next" : s.state }));
+      /* Storybook: three steps, Bag › Delivery › Payment (the design's checkout); "Details" (the contact) is part of Delivery */
+      const steps = this.nx_steps;
+      const det = steps.find((x: any) => x.key === "details");
+      const merged = steps
+        .filter((x: any) => x.key !== "details")
+        .map((x: any) => {
+          if (x.key !== "delivery" || !det) return x;
+          const state = det.state === "done" && x.state === "done" ? "done" : det.state === "todo" && x.state === "todo" ? "todo" : "cur";
+          return { ...x, state, anchor: det.state === "done" ? x.anchor : det.anchor || x.anchor };
+        });
+      return merged.map((s: any) => ({ ...s, icon: icons[s.key], state: s.state === "todo" ? "next" : s.state }));
     },
     /* "Often added": six best sellers not in the bag, from other collections first. */
     pr_often(this: any): any[] {

@@ -12,88 +12,46 @@
   - Tread carefully, for you're treading on dreams.
   -->
 
+<!--
+  Saved toys (Storybook design, wishlist.html): the buyer's Selldone wishlist as the story cards, four to a row (two
+  on a phone), every heart already pressed; a toy taken out of the list leaves it at once. Empty: a calm card and
+  "Browse toys". Live data only: the shop's own wishlist answer (only_in_wishlist).
+-->
 <template>
-  <v-container fluid>
-    <div class="widget-box -x-large min-height-60vh">
-      <u-widget-header :title="$t('user_favorites.title')" icon="favorite">
-      </u-widget-header>
-      <!-- ⬬⬬⬬⬬⬬⬬⬬⬬⬬⬬⬬⬬⬬⬬⬬⬬ User favorites  ⬬⬬⬬⬬⬬⬬⬬⬬⬬⬬⬬⬬⬬⬬⬬⬬ -->
-
-      <u-loading-progress v-if="busy_fetch"></u-loading-progress>
-
-      <v-data-iterator
-        v-model:options="options"
-        v-model:page="page"
-        :items="products"
-        :items-length="totalItems"
-        :items-per-page="itemsPerPage"
-        :search="search"
-        :sort-by="sortBy"
-        class="bg-transparent"
-        density="compact"
-        hide-default-footer
-        no-data-text=""
-      >
-        <template v-slot:no-results></template>
-
-        <template v-slot:header>
-          <s-data-iterator-toolbar
-            v-model:items-per-page="itemsPerPage"
-            v-model:search="search"
-            v-model:sort-key="sortBy[0].key"
-            v-model:sort-order="sortBy[0].order"
-            :sort-keys="keys"
-          ></s-data-iterator-toolbar>
-        </template>
-
-        <template v-slot:default>
-          <v-row class="m-2" no-gutters>
-            <v-col
-              v-for="product in products"
-              :key="product.id"
-              class="p-2"
-              cols="12"
-              lg="3"
-              md="4"
-              sm="6"
-            >
-              <s-shop-product-card
-                :product="product"
-                :quick-buy="false"
-                :to="{
-                  name: window.$storefront.routes.PRODUCT_PAGE,
-                  params: {
-                    shop_name: $shop.name,
-                    product_id: product.id,
-                  },
-                }"
-                rounded
-              />
-            </v-col>
-          </v-row>
-        </template>
-
-        <template v-slot:bottom>
-          <div class="text-center pt-2 mt-3">
-            <v-pagination v-model="page" :length="pageCount" rounded />
-          </div>
-        </template>
-      </v-data-iterator>
+  <div class="ly ly-saved">
+    <header class="sb-saved-hd">
+      <h2 class="sb-saved-h">{{ t("sb.saved.title", "Saved toys") }}</h2>
+      <p class="sb-saved-l">{{ t("sb.saved.lead", "Come back to the toys you’re thinking about.") }}</p>
+    </header>
+    <div v-if="busy_fetch && !products.length" aria-hidden="true" class="sb-grid4 sb-saved-grid">
+      <div v-for="i in 4" :key="i" class="pc ly-skel"><div class="pc-plate"></div><div class="pc-tx"><span class="sk-l"></span><span class="sk-l s"></span></div></div>
     </div>
-  </v-container>
+    <div v-else-if="shown.length" class="sb-grid4 sb-saved-grid">
+      <ly-card v-for="p in shown" :key="p.id" :product="p" />
+    </div>
+    <ly-empty v-else :text="t('sb.saved.emptyP', 'Tap the heart on any toy to keep it here.')" :title="t('sb.saved.emptyT', 'Nothing saved yet')" cls="boxed" icon="heart">
+      <template #acts>
+        <router-link :to="allTo" class="btn">{{ t("sb.bag.browse", "Browse toys") }}</router-link>
+      </template>
+    </ly-empty>
+    <div v-if="products.length < totalItems" class="ly-or-more">
+      <button :aria-disabled="busy_fetch ? 'true' : undefined" class="btn quiet" type="button" @click="more">{{ t("sb.saved.more", "Show more") }}</button>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { t } from "../../../components/kalio/i18n/kalio-i18n";
 import NotificationService from "@selldone/components-vue/plugins/notification/NotificationService.ts";
 
-import SShopProductCard from "@selldone/components-vue/storefront/product/card/SShopProductCard.vue";
-import SDataIteratorToolbar from "@selldone/components-vue/ui/toolbar/SDataIteratorToolbar.vue";
-import { throttle } from "lodash-es";
+import LyCard from "../../../components/ly/ui/LyCard.vue";
+import LyEmpty from "../../../components/ly/ui/LyEmpty.vue";
+import { loadDm } from "../../../components/ly/ly";
+import { isSaved, saved } from "../../../components/ly/sb/sb";
 
 export default {
   name: "StorefrontPageUserWishlist",
-  components: { SDataIteratorToolbar, SShopProductCard },
+  components: { LyCard, LyEmpty },
   inject: ["$shop"],
   data: () => ({
     products: [],
@@ -107,11 +65,20 @@ export default {
     busy_fetch: false,
     // Pagination:
     page: 1,
-    itemsPerPage: 8,
+    itemsPerPage: 24,
+    saved,
     totalItems: 0,
     options: {},
   }),
   computed: {
+    /* a toy unsaved on this page leaves the list at once */
+    shown() {
+      void this.saved;
+      return this.products.filter((p) => isSaved(p));
+    },
+    allTo() {
+      return { name: window.$storefront.routes.SHOP_PAGE, query: { dir: "*" } };
+    },
     pageCount() {
       return Math.ceil(this.totalItems / this.itemsPerPage);
     },
@@ -128,33 +95,26 @@ export default {
     },
   },
 
-  watch: {
-    // Pagination:
-    options: {
-      handler() {
-        const { sortBy, sortDesc, page } = this.options;
-        this.fetchData(page, sortBy[0]?.key, sortBy[0]?.order === "desc");
-      },
-      deep: true,
-    },
-
-    search: throttle(function () {
-      //   console.log("search", newVal);
-      const { sortBy, sortDesc } = this.options;
-      this.fetchData(1, sortBy[0]?.key, sortBy[0]?.order === "desc");
-    }, window.SERACH_THROTTLE),
-  },
-
   created() {
-    this.setPageTitle(t("account.pageTitle.saved", "Saved")); // Set Page Title!
+    this.setPageTitle(t("sb.saved.title", "Saved toys")); // Set Page Title!
+    loadDm();
+    this.fetchData(1);
   },
 
   methods: {
-    fetchData(page, sortBy, sortDesc = true) {
+    t,
+    more() {
+      if (this.busy_fetch) return;
+      this.page++;
+      this.fetchData(this.page, null, true, true);
+    },
+    fetchData(page, sortBy = null, sortDesc = true, append = false) {
       this.busy_fetch = true;
 
       const handleSuccessResponse = ({ products, total }) => {
-        this.products = products;
+        const list = (products || []).map((p) => ({ ...p, wishlist: true }));
+        for (const p of list) if (this.saved[p.id] === undefined) this.saved[p.id] = true;
+        this.products = append ? [...this.products, ...list.filter((p) => !this.products.some((q) => q.id === p.id))] : list;
 
         this.totalItems = total;
       };

@@ -30,7 +30,7 @@
           </div>
           <div class="md-body">
             <div :data-step="step === 'code' ? 2 : 1" class="lg">
-              <div aria-hidden="true" class="lg-wm ly-wm"><span class="wm-name">{{ shopWord }}</span><span v-if="shopCity" class="wm-sub">{{ shopCity }}</span></div>
+              <div aria-hidden="true" class="lg-wm ly-wm wm"><span class="wm-name">{{ shopWord }}<i v-if="wmDot && shopWord" class="wm-dot"></i></span><span v-if="shopCity" class="wm-sub">{{ shopCity }}</span></div>
 
               <template v-if="step !== 'done'">
                 <p class="lg-p">{{ t("ly.lg.why", "Sign in to see your orders and saved addresses.") }}</p>
@@ -124,6 +124,7 @@ import LyIcon from "../../ly/LyIcon.vue";
 import { guestCheckout, shopFacts } from "../../ly/ly";
 import { isRtl } from "../../region-switcher/region";
 import { t } from "../i18n/kalio-i18n";
+import { wordmarkDot, wordmarkSub, wordmarkWord } from "../../ly/ly-wordmark";
 
 /* The social ways in this sheet draws, in the mockup's order. */
 const SOCIAL = [
@@ -161,13 +162,16 @@ export default {
     rtl() {
       return isRtl();
     },
+    /* the header's wordmark: the skin's case and dot, its sub line (ly-wordmark.ts) */
     shopWord() {
-      const w = String(this.shop?.title || "").trim();
-      return w.charAt(0).toUpperCase() + w.slice(1);
+      return wordmarkWord(String(this.shop?.title || "").trim());
+    },
+    wmDot() {
+      return wordmarkDot;
     },
     shopCity() {
       try {
-        return shopFacts(this.shop).city || "";
+        return wordmarkSub(shopFacts(this.shop).city || "");
       } catch {
         return "";
       }

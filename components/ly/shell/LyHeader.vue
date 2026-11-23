@@ -42,7 +42,8 @@
               autocomplete="off"
               enterkeyhint="search"
               type="search"
-              @focus="query && openLayer('srch')"
+              @click="openLayer('srch')"
+              @focus="openLayer('srch')"
               @input="onType($event.target.value)"
               @keydown.down.prevent="move(1)"
               @keydown.up.prevent="move(-1)"
@@ -94,9 +95,14 @@
       </nav>
 
       <!-- Suggestions while typing (the live catalogue); Enter opens every result. -->
-      <div id="srch" :class="['srch', 'sb-srch', { open: is('srch') && !!query }]">
+      <div id="srch" :class="['srch', 'sb-srch', { open: is('srch') }]">
         <div class="wrap srch-in">
           <div class="srch-out">
+            <p v-if="!query" class="srch-hint">
+              <template v-if="popular.length">{{ t("ly.hdr.popular", "Popular:") }}</template><template v-else>{{ t("sb.hdr.typeToSearch", "Type a toy, a collection or an age.") }}</template>
+              <button v-for="w in popular" :key="w" class="chip" type="button" @click="setQuery(w)">{{ w }}</button>
+            </p>
+            <template v-else>
             <ul v-if="hits.length" class="srch-list" role="listbox">
               <li v-for="(p, i) in hits" :key="p.id">
                 <router-link :class="{ hl: i === cursor }" :to="productTo(p)" role="option">
@@ -110,6 +116,7 @@
             </ul>
             <p v-if="!hits.length" class="srch-hint">{{ t("ly.hdr.noMatch", "Nothing matches “{q}”. Try another word.", { q: query }) }}</p>
             <router-link v-else :to="searchTo(query)" class="srch-all">{{ t("ly.hdr.allFor", "See every result for “{q}”", { q: query }) }}<ly-icon name="arrow" /></router-link>
+            </template>
           </div>
         </div>
       </div>
@@ -492,8 +499,7 @@ export default {
     },
     onType(v) {
       this.q = v;
-      if (this.query) openLayer("srch");
-      else if (this.is("srch")) closeLayer(true);
+      if (!this.is("srch")) openLayer("srch");
     },
     /* Under the pill, its right edge on the pill's, never within 12px of an edge. */
     place() {

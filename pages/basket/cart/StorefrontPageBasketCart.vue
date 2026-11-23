@@ -167,12 +167,12 @@
     <template v-else>
       <ly-pt :crumbs="[{ to: { query: {} }, label: t('ly.co.yourBag', 'Your bag') }, { label: t('ly.co.checkout', 'Checkout') }]" :title="t('ly.co.checkout', 'Checkout')" art="tart" art2="macaron" cls="compact">
         <ol :aria-label="t('ly.co.steps', 'Checkout steps')" class="steps">
-          <li v-for="s in pr_steps" :key="s.key" :aria-current="s.state === 'cur' ? 'step' : undefined" :class="['step', s.state]">
+          <li v-for="(s, si) in pr_steps" :key="s.key" :aria-current="s.state === 'cur' ? 'step' : undefined" :class="['step', s.state]">
             <a v-if="s.key === 'bag'" href="#" @click.prevent="nx_go_bag"
               ><span class="st-ic"><ly-icon name="check" /></span><span>{{ s.label }}</span></a
             >
             <a v-else :href="'#' + s.anchor" @click.prevent="nx_scroll_to(s.anchor)"
-              ><span class="st-ic"><ly-icon :name="s.state === 'done' ? 'check' : s.icon" /></span><span>{{ s.label }}</span></a
+              ><span class="st-ic"><ly-icon v-if="s.state === 'done'" name="check" /><b v-else>{{ si + 1 }}</b></span><span>{{ s.label }}</span></a
             >
           </li>
         </ol>
