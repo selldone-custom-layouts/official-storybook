@@ -63,6 +63,14 @@ for (let attempt = 1; !html; attempt++) {
   }
 }
 const before = html;
+/* A domain with no Layout pinned yet (a new Layout's own domain before its first pin) saves Selldone's standard
+   storefront: point that saved block at the local build as a private release, so the check runs on the shop the
+   Layout is made for (Storybook 1.0.0: storybook.selldone.shop had no release before the first upload). */
+if (!/\\\/layouts\\\/\d+\\\/releases\\\//.test(html))
+  html = html.replace(
+    /"saved":\{"mode":"standard","js":"https?:\\\/\\\/[^"]*?\\\/shop\.js","css":"https?:\\\/\\\/[^"]*?\\\/shop\.css"/,
+    `"saved":{"mode":"private","js":"https:\\/\\/cdn.selldone.com\\/public\\/layouts\\/0\\/releases\\/00000000000000000000000000\\/app\\/shop.js","css":"https:\\/\\/cdn.selldone.com\\/public\\/layouts\\/0\\/releases\\/00000000000000000000000000\\/app\\/shop.css"`,
+  );
 html = html
   .replace(/https?:\\\/\\\/[^"]*?\\\/layouts\\\/\d+\\\/releases\\\/[0-9A-Za-z]{26}\\\/app\\\/shop\.(js|css)/g, (_m, ext) => `http:\\/\\/localhost:${PORT}\\/__ly\\/app\\/shop.${ext}`)
   .replace(/"assetBases":\[/, `"assetBases":["http:\\/\\/localhost:${PORT}\\/__ly\\/",`)
