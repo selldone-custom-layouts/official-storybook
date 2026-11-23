@@ -784,3 +784,4 @@ html.ly-dark .ly .pd-t[aria-pressed="true"] { background: var(--ly-plate); }
 /* right to left: the shop's own words keep their own direction (the wordmark, names, descriptions, posts, facts) */
 .ly .wm-name { unicode-bidi: plaintext; }
 [dir="rtl"] .ly :is(.sb-room h3, .sb-room p, .pc-t, .pc-c, .sb-post h3, .sb-post p, .sb-reading-copy h2, .sb-reading-copy p, .pt-l, .pt-h, .sb-pd-lead, .sb-facts dt, .sb-facts dd, .sb-fj-t, .sb-shelves .cchip, .sb-menu .pn-list a > span, .sb-age, .pd-h, .eyebrow.pd-cat, .sb-ftr-col a, .dw-n, .cr-n, .bf-t, .bf-d, .bc h3, .sb-nodeals-card p, .sb-welcome figcaption a) { unicode-bidi: plaintext; }
+[dir="rtl"] .ly :is(.sb-room h3, .sb-room p, .pc-t, .pc-c, .sb-post h3, .sb-post p, .sb-reading-copy h2, .sb-reading-copy p, .sb-pd-lead, .sb-facts dt, .sb-facts dd, .pd-h, .dw-n, .cr-n, .bf-t, .bf-d, .bc h3, .sb-ftr-col a, .pt-l, .pt-h) { text-align: right; }
