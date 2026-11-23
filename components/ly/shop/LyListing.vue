@@ -26,44 +26,57 @@
 <template>
   <div class="ly ly-listing">
     <!-- The title band -->
-    <ly-pt v-if="kind === 'search'" :crumbs="[{ label: t('ly.ls.search', 'Search') }]" :title="search ? t('ly.ls.resultsFor', 'Results for “{q}”', { q: search }) : t('ly.ls.search', 'Search')" art="cupcake" art2="cookie" cls="compact">
-      <form class="pt-srch" role="search" @submit.prevent="submitSearch">
-        <label class="sr" for="ly-sq">{{ t("ly.ls.searchLabel", "Search the bakery") }}</label>
-        <ly-icon name="search" />
-        <input id="ly-sq" :placeholder="searchPh" :value="q" autocomplete="off" enterkeyhint="search" type="search" @input="q = $event.target.value" />
-        <button class="btn sm" type="submit">{{ t("ly.ls.searchBtn", "Search") }}</button>
-      </form>
-    </ly-pt>
-    <ly-pt v-else-if="kind === 'category'" :crumbs="[{ label: catTitle(cat) || categoryName }]" :cuts="catPhoto ? [] : catCuts" :eyebrow="t('ly.ls.theCollection', 'The collection')" :lead="catLead" :photo="catPhoto" :title="catTitle(cat) || ''" cls="compact" />
-    <ly-pt v-else-if="kind === 'deals'" :crumbs="[{ label: t('ly.ls.deals', 'Deals') }]" :lead="dealsLead" :title="t('ly.ls.deals', 'Deals')" art="macaron" art2="cake" cls="compact" />
-    <ly-pt v-else-if="brandQ" :crumbs="[{ label: brandQ }]" :eyebrow="t('ly.ls.theBrand', 'The brand')" :lead="brandLead" :title="brandQ" art="croissant" art2="macaron" cls="compact" />
-    <ly-pt v-else :crumbs="[{ label: t('ly.ls.all', 'Every pastry') }]" :lead="allLead" :title="t('ly.ls.all', 'Every pastry')" art="croissant" art2="macaron" cls="compact" />
+    <ly-pt v-if="kind === 'search'" :crumbs="[{ label: t('sb.ls.searchT', 'Search results') }]" :lead="searchLead" :title="t('sb.ls.searchT', 'Search results')" cls="compact" />
+    <div v-else-if="kind === 'category'" class="wrap sb-lead-w">
+      <ly-pt :crumbs="[{ label: t('sb.ls.allToys', 'All toys'), to: allTo }, { label: catTitle(cat) || categoryName }]" :lead="catLead" :title="catTitle(cat) || ''" cls="compact sb-lead">
+        <span v-if="catLeadImg" aria-hidden="true" class="sb-lead-art"><img :src="catLeadImg" alt="" decoding="async" /></span>
+        <span v-else-if="catCuts.length" aria-hidden="true" class="sb-lead-art -cuts"><ly-cuts :products="catCuts" kind="trio" /></span>
+      </ly-pt>
+    </div>
+    <ly-pt v-else-if="kind === 'deals'" :crumbs="[{ label: t('ly.ls.deals', 'Deals') }]" :lead="dealsLead" :title="t('ly.ls.deals', 'Deals')" cls="compact" />
+    <ly-pt v-else-if="brandQ" :crumbs="[{ label: t('sb.ls.allToys', 'All toys'), to: allTo }, { label: brandQ }]" :eyebrow="t('ly.ls.theBrand', 'The brand')" :lead="brandLead" :title="brandQ" cls="compact" />
+    <div v-else class="wrap sb-lead-w">
+      <ly-pt :crumbs="[{ label: t('sb.ls.allToys', 'All toys') }]" :eyebrow="t('sb.home.eyebrow', 'The {shop} play shop', { shop: shopName })" :lead="allLead" :title="ageQ ? t('sb.ls.forAge', 'Toys for {age}', { age: ageQ }) : t('sb.ls.allToys', 'All toys')" cls="compact sb-lead -photo">
+        <span aria-hidden="true" class="sb-lead-art -photo"><ly-photo name="craft" pos="55% center"><template #fallback><ly-cuts :products="topCuts" kind="trio" /></template></ly-photo></span>
+      </ly-pt>
+    </div>
 
     <section :aria-label="sectionLabel" class="sec-s">
       <div class="wrap">
         <!-- Search: nothing matches -->
         <template v-if="kind === 'search' && ready && !base.length">
-          <ly-empty :text="noMatchLine" :title="search ? t('ly.ls.noMatchT', 'Nothing matches “{q}”', { q: search }) : t('ly.ls.searchT', 'Search the bakery')" cls="boxed" icon="search">
-            <template v-if="popular.length" #acts>
-              <router-link v-for="w in popular" :key="w" :to="searchTo(w)" class="chip">{{ w }}</router-link>
+          <ly-empty :text="t('sb.ls.noMatchP', 'Check the spelling, try a shorter word, or start from a collection.')" :title="search ? t('sb.ls.noMatchT', 'No toys found for “{q}”', { q: search }) : t('sb.ls.searchT', 'Search results')" cls="boxed sb-nores" icon="search" tag="h2">
+            <template #acts>
+              <form class="sb-retry" role="search" @submit.prevent="submitSearch">
+                <label class="sr" for="ly-sq">{{ t("sb.ls.searchAgain", "Search again") }}</label>
+                <input id="ly-sq" :value="q" autocomplete="off" enterkeyhint="search" type="search" @input="q = $event.target.value" />
+                <button class="btn sm" type="submit"><ly-icon name="search" />{{ t("ly.ls.searchBtn", "Search") }}</button>
+              </form>
+            </template>
+            <template #extra>
+              <nav :aria-label="t('ly.ls.collections', 'Collections')" class="cchips sb-shelves -center">
+                <ul>
+                  <li v-for="c in ly.cats.slice(0, 6)" :key="c.id">
+                    <router-link :to="catTo(c)" class="cchip"><span><bdi>{{ catTitle(c) }}</bdi></span></router-link>
+                  </li>
+                </ul>
+              </nav>
+              <router-link :to="allTo" class="sb-more">{{ t("sb.ls.seeAll", "See all toys") }}</router-link>
             </template>
           </ly-empty>
-          <nav :aria-label="t('ly.ls.collections', 'Collections')" class="cchips">
-            <ul>
-              <li v-for="c in ly.cats" :key="c.id">
-                <router-link :to="catTo(c)" class="cchip"><span class="cc-pl"><img v-if="topImg(c)" :src="topImg(c)" alt="" loading="lazy" /></span><span><bdi>{{ catTitle(c) }}</bdi></span></router-link>
-              </li>
-            </ul>
-          </nav>
         </template>
 
         <template v-else>
           <!-- A collection: every collection as a chip -->
-          <nav v-if="kind === 'category'" :aria-label="t('ly.ls.collections', 'Collections')" class="cchips">
+          <nav v-if="kind !== 'search' || base.length" :aria-label="t('ly.ls.collections', 'Collections')" :class="['cchips', 'sb-shelves', { '-boxed': kind === 'all' && !brandQ }]">
             <ul>
+              <li v-if="kind === 'all' && !brandQ" class="sb-shelves-l">{{ t("sb.ls.byInterest", "Explore by interest") }}</li>
+              <li v-else>
+                <router-link :aria-current="kind === 'all' || kind === 'search' ? 'page' : undefined" :to="allTo" class="cchip"><span>{{ t("sb.ls.allToys", "All toys") }}</span></router-link>
+              </li>
               <li v-for="c in ly.cats" :key="c.id">
                 <router-link :aria-current="cat && c.id === cat.id ? 'page' : undefined" :to="catTo(c)" class="cchip"
-                  ><span class="cc-pl"><img v-if="topImg(c)" :src="topImg(c)" alt="" loading="lazy" /></span><span><bdi>{{ catTitle(c) }}</bdi></span></router-link
+                  ><span><bdi>{{ catTitle(c) }}</bdi></span></router-link
                 >
               </li>
             </ul>
@@ -81,8 +94,28 @@
             <span ref="dtsv" class="dt-sv"><span>{{ t("ly.ls.saveCap", "Save") }}</span><b>{{ breakable(money(pv(topSave).save)) }}</b></span>
           </router-link>
 
-          <div :class="['lst', { 'has-fp': filters }]">
-            <div v-if="tabCats.length > 1" :aria-label="t('ly.ls.collections', 'Collections')" class="tabs" role="group">
+          <div v-if="kind === 'deals' && ready && !base.length" class="sb-nodeals">
+            <div class="sb-nodeals-card">
+              <span aria-hidden="true" class="sb-ic"><ly-icon name="sparkle" /></span>
+              <div>
+                <h2>{{ t("sb.ls.noDealsT", "No offers right now") }}</h2>
+                <p>{{ underLine ? t("sb.ls.noDealsP", "New offers appear here first. Until then, these toys are all {price} or less.", { price: money(under, true) }) : t("sb.ls.noDealsP0", "New offers appear here first.") }}</p>
+              </div>
+              <router-link :to="allTo" class="btn quiet sm">{{ t("sb.ls.browseAll", "Browse all toys") }}</router-link>
+            </div>
+            <template v-if="underList.length">
+              <header class="sb-top">
+                <h2>{{ t("sb.ls.goodFinds", "Good finds under {price}", { price: money(under, true) }) }}</h2>
+                <router-link :to="underTo" class="sb-more">{{ t("sb.ls.seeAll", "See all toys") }}<ly-icon cls="fl" name="arrow" /></router-link>
+              </header>
+              <div class="grid sb-grid">
+                <ly-card v-for="p in underList" :key="p.id" :product="p" />
+              </div>
+            </template>
+          </div>
+
+          <div v-else :class="['lst', { 'has-fp': filters }]">
+            <div v-if="false && tabCats.length > 1" :aria-label="t('ly.ls.collections', 'Collections')" class="tabs" role="group">
               <button :aria-pressed="tab === 'all' ? 'true' : 'false'" class="tab" type="button" @click="setTab('all')">{{ t("ly.ls.allTab", "All") }}</button>
               <button v-for="c in tabCats" :key="c.id" :aria-pressed="tab === c.id ? 'true' : 'false'" class="tab" type="button" @click="setTab(c.id)">
                 <bdi>{{ catTitle(c) }}</bdi>
@@ -159,6 +192,7 @@
                   <button v-if="filters" :aria-controls="fpId" :aria-expanded="layer.open === fpId ? 'true' : 'false'" class="btn quiet sm fbtn" type="button" @click="toggleLayer(fpId, $event.currentTarget)">
                     <ly-icon name="filter" />{{ t("ly.ls.filterBtn", "Filter") }}<span v-if="active.length" class="fcount">{{ active.length }}</span>
                   </button>
+                  <p v-if="ready" class="sb-count">{{ t("sb.ls.count", { one: "{n} toy", other: "{n} toys" }, { n: list.length }) }}</p>
                   <div class="actf">
                     <button v-for="a in active" :key="a.id" :aria-label="t('ly.ls.removeFilter', 'Remove filter {name}', { name: a.label })" class="chip on" type="button" @click="a.clear()">
                       <span><bdi>{{ a.label }}</bdi></span><ly-icon name="close" />
@@ -208,7 +242,7 @@
     </section>
 
     <!-- A collection ends with the strip: the courier, the collection's photo, pickup. -->
-    <ly-strip v-if="kind === 'category' && cat" :cat="cat" />
+    <!-- (Storybook: no strip under the collection) -->
   </div>
 </template>
 
@@ -226,6 +260,11 @@ import { breakable, fitInCircle } from "../../bakini/fit-in-circle";
 import { fitOnResize } from "../ly-fit";
 import { t } from "../../kalio/i18n/kalio-i18n";
 import { collectionPhoto } from "../ly-photos";
+import LyPhoto from "../LyPhoto.vue";
+import LyCuts from "../LyCuts.vue";
+import { catImage } from "../ly";
+import { ageKey } from "../sb/sb";
+import { catalogueRoute } from "../../kalio/kalio-catalog";
 
 /* A spec key whose every value reads like a paragraph is a note, not a filter. */
 const NOTE = 80;
@@ -234,7 +273,7 @@ const LONG = 30;
 
 export default {
   name: "LyListing",
-  components: { LyIcon, LyPt, LyEmpty, LyCard, LyStrip },
+  components: { LyIcon, LyPt, LyEmpty, LyCard, LyStrip, LyPhoto, LyCuts },
   props: {
     categoryName: { type: String, default: null },
     search: { type: String, default: "" },
@@ -296,7 +335,52 @@ export default {
       return "all";
     },
     filters() {
-      return this.kind === "category";
+      return this.kind !== "search" || this.base.length > 0;
+    },
+    searchLead() {
+      if (!this.search) return "";
+      if (!this.ready) return "";
+      return this.base.length ? t("sb.ls.resultsFor", "Toys matching “{q}”", { q: this.search }) : t("sb.ls.noResultsFor", "No results for “{q}”", { q: this.search });
+    },
+    shopName() {
+      const n = this.shop?.title || "";
+      return n.charAt(0).toUpperCase() + n.slice(1);
+    },
+    allTo() {
+      return catalogueRoute({ dir: "*" });
+    },
+    /* ?age= (the home's "Find the right fit"): the toys for that age, by the shop's own age row */
+    ageQ() {
+      return this.kind === "all" ? String(this.$route?.query?.age || "").trim() : "";
+    },
+    ageK() {
+      return ageKey(this.ly.products);
+    },
+    /* the collection's own image for the title panel */
+    catLeadImg() {
+      return this.cat ? collectionPhoto(this.cat) || catImage(this.cat, null) || "" : "";
+    },
+    topCuts() {
+      return bySells(this.ly.products).slice(0, 3);
+    },
+    /* No deals: "Good finds under <price>", the round amount under which about a dozen toys are, from live prices. */
+    under() {
+      void this.currency;
+      const prices = this.ly.products.filter((p) => p.quantity > 0).map((p) => this.pv(p).now).sort((a, b) => a - b);
+      if (prices.length < 4) return 0;
+      const target = prices[Math.min(prices.length - 1, 11)];
+      const step = target <= 20 ? 5 : target <= 100 ? 10 : target <= 500 ? 50 : 100;
+      return Math.ceil(target / step) * step;
+    },
+    underLine() {
+      return this.under > 0;
+    },
+    underList() {
+      if (!this.under) return [];
+      return bySells(this.ly.products.filter((p) => p.quantity > 0 && this.pv(p).now <= this.under + 0.001)).slice(0, 12);
+    },
+    underTo() {
+      return catalogueRoute({ price: "-" + Math.round(this.under) });
     },
     cat() {
       return this.ly.cats.find((c) => c.name === this.categoryName) || null;
@@ -357,6 +441,8 @@ export default {
         /* a note in sentences (every value a paragraph, or one long sentence
            shared by all) is not a filter: it would select everything. */
         .filter((x) => !x.note && x.values.length && !(x.values.length === 1 && x.long))
+        /* every toy of the shop: only the rows most toys have (an age, a material), not each collection's own */
+        .filter((x) => this.kind === "category" || this.base.filter((p) => specValue(p, x.key)).length >= this.base.length * 0.6)
         .sort((a, b) => (a.values.length > 1 ? 0 : 1) - (b.values.length > 1 ? 0 : 1));
     },
     sorts() {
@@ -433,7 +519,7 @@ export default {
       return t("ly.ls.dealsLead", "{off}, already in the price. No code to enter.", { off: this.offLine.charAt(0).toUpperCase() + this.offLine.slice(1) });
     },
     allLead() {
-      return t("ly.ls.allLead", "Every piece on the counter, collection by collection.");
+      return t("sb.ls.allLead", "Browse a playroom’s worth of toys by age, interest and price.");
     },
     sectionLabel() {
       if (this.kind === "category") return catTitle(this.cat) || "";
@@ -487,6 +573,7 @@ export default {
     base: {
       handler(list) {
         this.resetRange();
+        this.presetAge();
         this.snapshot = null;
         if (this.ready && (this.kind !== "category" || this.cat)) this.$emit("fetched", { parent: this.cat || null, products: list });
         this.$nextTick(() => this.fit());
@@ -614,6 +701,9 @@ export default {
       if (key === "new") return out.sort((a, b) => String(b.created_at || "").localeCompare(String(a.created_at || "")) || b.id - a.id);
       if (key === "saving") return out.sort((a, b) => this.pv(b).save - this.pv(a).save || a.id - b.id);
       return out;
+    },
+    presetAge() {
+      if (this.ageQ && this.ageK && !(this.f[this.ageK] || []).length) this.f = { ...this.f, [this.ageK]: [this.ageQ] };
     },
     resetRange() {
       this.min = this.lo;

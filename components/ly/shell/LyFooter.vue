@@ -12,7 +12,7 @@
     <footer class="ftr sb-ftr">
       <div class="wrap sb-ftr-main">
         <div class="sb-ftr-note">
-          <ly-logo />
+          <div class="sb-ftr-brand"><span aria-hidden="true" class="sb-glyph"><ly-icon name="sparkle" /></span><ly-logo /></div>
           <p class="sb-ftr-h">{{ t("sb.ftr.line", "Make time for play.") }}</p>
           <router-link :to="{ name: r.SHOP_PROFILE_PAGE_ABOUT_US }" class="sb-more">{{ t("sb.ftr.story", "The {shop} story", { shop: shopName }) }}</router-link>
         </div>

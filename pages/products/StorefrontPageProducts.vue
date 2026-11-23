@@ -23,7 +23,7 @@
     <ly-home v-if="show_home" />
     <ly-listing
       v-else
-      :key="'ls-' + (category_name || '') + '|' + search_query + '|' + (deals_page ? 1 : 0) + '|' + ($route.query.brand || '') + '|' + ($route.query.price || '')"
+      :key="'ls-' + (category_name || '') + '|' + search_query + '|' + (deals_page ? 1 : 0) + '|' + ($route.query.brand || '') + '|' + ($route.query.price || '') + '|' + ($route.query.age || '')"
       :category-name="category_name"
       :deals="deals_page"
       :initial-sort="String($route.query.sort || '')"
@@ -40,7 +40,7 @@ import { StorefrontSeo } from "../../helpers/StorefrontSeo";
 
 /* The query keys that ask for the listing. Anything else in the address
    (utm_*, fbclid, gclid, a cache-buster…) keeps the home. */
-const LISTING_KEYS = ["search", "filter", "sort", "dir", "page", "offset", "vendor_id", "tags", "price", "brand"];
+const LISTING_KEYS = ["search", "filter", "sort", "dir", "page", "offset", "vendor_id", "tags", "price", "brand", "age"];
 
 function filterOf(query: any): any {
   try {
