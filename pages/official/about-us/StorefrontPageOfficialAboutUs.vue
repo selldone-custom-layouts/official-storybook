@@ -17,86 +17,26 @@
   <div class="ly ly-about">
     <ly-pt :crumbs="[{ label: t('ly.rd.about', 'About') }]" :lead="bandLead" :title="t('ly.rd.aboutT', 'About {shop}', { shop: name })" art="croissant" art2="macaron" />
 
-    <section aria-labelledby="ab-h" class="sec ab-in">
-      <ly-art name="cupcake" wrap="ab-a1" />
-      <div class="wrap ab-g">
-        <div class="ab-tx">
-          <p class="eyebrow">{{ t("ly.rd.whoWeAre", "Who we are") }}</p>
-          <h2 id="ab-h" class="h2">{{ own ? t("ly.rd.aboutT", "About {shop}", { shop: name }) : t("ly.rd.aboutH", "Made to be chosen one at a time") }}</h2>
-          <ly-sample-tag v-if="!own" />
-          <div v-if="own" class="art-body ly-own" v-html="ownHtml"></div>
-          <template v-else>
-            <p>{{ storyP1 }}</p>
-            <p v-if="storyP2">{{ storyP2 }}</p>
-          </template>
-          <ul v-if="lines.length" class="ils">
-            <ly-ic-line v-for="l in lines" :key="l.key" :icon="l.icon" :text="l.text" :title="l.title" />
-          </ul>
-        </div>
-        <ly-photo art="croissant" class="ab-ph" name="about">
-          <template v-if="spread.length" #fallback><ly-cuts :products="spread" kind="spread" /></template>
-        </ly-photo>
-      </div>
-    </section>
-
-    <section :aria-label="t('ly.rd.theCounter', 'The counter')" class="trio-s ab-trio">
-      <div class="wrap trio">
-        <div class="tri dark">
-          <ly-art cls="tri-ic" name="cake" />
-          <h3>{{ t("ly.rd.theCounter", "The counter") }}</h3>
-          <p>{{ counterText }}</p>
-          <router-link :to="contactTo" class="btn sm on-dark">{{ t("ly.rd.findUs", "Find us") }}</router-link>
-        </div>
-        <router-link v-if="photoCat" :to="catTo(photoCat)" aria-hidden="true" class="tri photo" tabindex="-1">
-          <img v-if="colPhoto(photoCat)" :src="colPhoto(photoCat)" alt="" loading="lazy" />
-          <ly-cuts v-else :products="bySells(inCat(photoCat.id))" kind="trio" />
-        </router-link>
-        <div class="tri light">
-          <ly-art cls="tri-ic" name="whisk" />
-          <h3>{{ t("ly.rd.oneByOne", "Sold one by one") }}</h3>
-          <p>{{ oneByOne }}</p>
-          <router-link :to="shopTo" class="btn sm">{{ t("ly.rd.everyPiece", "See every piece") }}</router-link>
-        </div>
-      </div>
-    </section>
-
-    <section v-if="ly.cats.length" aria-labelledby="abc-h" class="sec ab-cols">
+    <!-- Storybook (about.html): one panel, the story beside the skin's feature photo; the shop's own facts under the words -->
+    <section aria-labelledby="ab-h" class="sb-about">
       <div class="wrap">
-        <header class="sec-hd">
-          <p class="eyebrow">{{ t("ly.rd.theCollections", "The collections") }}</p>
-          <h2 id="abc-h" class="h2">{{ t("ly.rd.colsH", { one: "One collection at the counter", other: "{w} collections at the counter" }, { n: ly.cats.length, w: numberWord(ly.cats.length) }) }}</h2>
-          <p class="lead c">{{ t("ly.rd.colsP", "Each one is a short list of individual pieces, each with its own price.") }}</p>
-        </header>
-        <div class="acg">
-          <article v-for="c in ly.cats" :key="c.id" class="acc-c">
-            <router-link :to="catTo(c)" aria-hidden="true" class="acc-ph" tabindex="-1">
-              <img v-if="colPhoto(c)" :src="colPhoto(c)" alt="" loading="lazy" />
-              <ly-cuts v-else :products="bySells(inCat(c.id))" kind="trio" />
-            </router-link>
-            <div class="acc-tx">
-              <h3>
-                <router-link :to="catTo(c)"><bdi>{{ catTitle(c) }}</bdi></router-link>
-              </h3>
-              <p v-if="c.description"><bdi>{{ c.description }}</bdi></p>
-              <router-link :to="catTo(c)" class="qlink">{{ t("ly.rd.shopCol", "Shop {name}", { name: catTitle(c).toLowerCase() }) }}<ly-icon cls="flip-rtl" name="arrow" /></router-link>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section v-if="collage.length >= 6" aria-labelledby="abl-h" class="sec band ab-col">
-      <div class="wrap ab-cg">
-        <div aria-hidden="true" class="clg">
-          <span v-for="(p, i) in collage" :key="p.id" :class="['clg-i', 'c' + i]"><img :src="productImage(p)" alt="" loading="lazy" /></span>
-        </div>
-        <div class="ab-tx">
-          <p class="eyebrow">{{ t("ly.rd.pieceByPiece", "Piece by piece") }}</p>
-          <h2 id="abl-h" class="h2">{{ t("ly.rd.tableH", "A small table of favourites") }}</h2>
-          <p>{{ tableText }}</p>
-          <div class="ab-acts">
-            <router-link :to="shopTo" class="btn">{{ t("ly.rd.startOrder", "Start an order") }}</router-link>
-            <router-link :to="faqTo" class="qlink">{{ t("ly.rd.questions", "Questions") }}</router-link>
+        <div class="sb-about-panel">
+          <ly-photo :alt="t('sb.home.featureAlt', 'Hands building a little town')" class="sb-about-ph" name="feature">
+            <template v-if="spread.length" #fallback><ly-cuts :products="spread" kind="spread" /></template>
+          </ly-photo>
+          <div class="ab-tx">
+            <p class="eyebrow">{{ t("sb.about.eyebrow", "Our story") }}</p>
+            <h2 id="ab-h" class="h2">{{ own ? t("ly.rd.aboutT", "About {shop}", { shop: name }) : t("sb.ftr.line", "Make time for play.") }}</h2>
+            <ly-sample-tag v-if="!own" />
+            <div v-if="own" class="art-body ly-own" v-html="ownHtml"></div>
+            <template v-else>
+              <p>{{ storyP1 }}</p>
+              <p v-if="storyP2">{{ storyP2 }}</p>
+            </template>
+            <ul v-if="lines.length" class="ils">
+              <ly-ic-line v-for="l in lines" :key="l.key" :icon="l.icon" :text="l.text" :title="l.title" />
+            </ul>
+            <router-link :to="shopTo" class="btn">{{ t("sb.about.explore", "Explore the collection") }}</router-link>
           </div>
         </div>
       </div>

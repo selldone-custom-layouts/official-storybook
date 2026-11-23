@@ -744,3 +744,13 @@ html body .k-sheet__ghost { border-radius: 999px !important; font-weight: 750 !i
 .ly .toc-d { border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); }
 .ly .toc-d summary { letter-spacing: .13em; font-weight: 800; color: var(--ly-act-text); }
 .ly .pv-glance > * { border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); background: var(--ly-surface); }
+/* About (about.html): one panel, the photo beside the story */
+.ly .sb-about { padding-block: 0 64px; }
+.ly .sb-about-panel { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(18px, 4%, 56px); align-items: center; padding: clamp(16px, 2.2%, 32px); border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); background: var(--ly-surface); }
+.ly .sb-about-ph { position: relative; aspect-ratio: 1.68; border-radius: var(--ly-r-pn); overflow: hidden; background: var(--ly-tint2); }
+.ly .sb-about-ph .ph-img { object-fit: cover; }
+.ly .sb-about .ab-tx { display: grid; gap: 12px; justify-items: start; max-width: 480px; }
+.ly .sb-about .ab-tx .h2 { font-size: clamp(30px, 3vw, 42px); letter-spacing: -.045em; }
+.ly .sb-about .ab-tx p:not(.eyebrow) { color: var(--ly-muted); }
+.ly .sb-about .ils { display: grid; gap: 8px; }
+@media (max-width: 740px) { .ly .sb-about-panel { grid-template-columns: minmax(0, 1fr); } }

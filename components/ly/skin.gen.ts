@@ -373,7 +373,10 @@ export const SKIN = {
       "sb.saved.lead": "Come back to the toys you’re thinking about.",
       "sb.saved.emptyT": "Nothing saved yet",
       "sb.saved.emptyP": "Tap the heart on any toy to keep it here.",
-      "sb.saved.more": "Show more"
+      "sb.saved.more": "Show more",
+      "sb.about.eyebrow": "Our story",
+      "sb.about.explore": "Explore the collection",
+      "ly.rd.aboutT": "About {shop}"
     },
     "ar": {
       "ly.bag.emptyP": "اختر لعبة تناسب طريقتهم في اللعب وأضفها هنا.",
@@ -619,7 +622,9 @@ export const SKIN = {
       "sb.saved.lead": "عد إلى الألعاب التي تفكر فيها.",
       "sb.saved.emptyT": "لا شيء محفوظ بعد",
       "sb.saved.emptyP": "اضغط القلب على أي لعبة لتحتفظ بها هنا.",
-      "sb.saved.more": "اعرض المزيد"
+      "sb.saved.more": "اعرض المزيد",
+      "sb.about.eyebrow": "قصتنا",
+      "sb.about.explore": "تصفّح التشكيلة"
     }
   }
 } as const;
