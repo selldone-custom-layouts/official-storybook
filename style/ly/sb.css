@@ -327,7 +327,7 @@ html, body { background: var(--ly-bg); }
 }
 
 /* ───────── the product card (story card) ───────── */
-.ly .pc.sb-card { container: pc / inline-size; display: flex; flex-direction: column; min-width: 0; padding: 11px 11px 8px; background: var(--ly-surface); border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); box-shadow: none; gap: 0; }
+.ly .pc.sb-card { container: pc / inline-size; display: flex; flex-direction: column; min-width: 0; padding: 12px; background: var(--ly-surface); border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); box-shadow: none; gap: 0; }
 .ly .sb-card .pc-plate { display: block; position: relative; aspect-ratio: 1.03; padding: 12px; background: var(--ly-plate); border-radius: var(--ly-r-in); overflow: hidden; }
 .ly .sb-card .pc-plate img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
 .ly .sb-card .pc-tx { display: grid; gap: 7px; padding: 14px 4px 10px; min-width: 0; }
@@ -370,7 +370,7 @@ html, body { background: var(--ly-bg); }
   .ly .btn.add .add-i { display: none; }
 }
 @media (max-width: 560px) {
-  .ly .pc.sb-card { padding: 10px 10px 6px; }
+  .ly .pc.sb-card { padding: 12px; }
   .ly .sb-card .pc-tx { padding: 9px 1px 7px; gap: 5px; }
   .ly .sb-card .pc-plate { padding: 5px; }
   .ly .sb-ql { font-size: 12px; }
@@ -426,7 +426,7 @@ html, body { background: var(--ly-bg); }
 .ly .sortm .so { border-radius: 999px; }
 .ly .upd { border-radius: 999px; }
 .ly .lst .grid, .ly .sb-nodeals .grid { --ly-cols: 4; gap: 16px; }
-.ly .lst .grid > .pc, .ly .sb-nodeals .grid > .pc { padding: 11px 11px 8px !important; }
+.ly .lst .grid > .pc, .ly .sb-nodeals .grid > .pc { padding: 12px !important; }
 .ly .empty.boxed { padding: 35px 18px; }
 .ly .empty .em-ic { width: 56px; height: 56px; border-radius: 50%; background: var(--ly-tint2); color: var(--ly-act-text); display: grid; place-items: center; }
 .ly .empty .em-t { font: 650 clamp(24px, 2.4vw, 32px)/1.08 var(--ly-serif); letter-spacing: -.03em; }
@@ -457,7 +457,7 @@ html, body { background: var(--ly-bg); }
 }
 @media (max-width: 560px) {
   .ly .lst .grid, .ly .sb-nodeals .grid { --ly-cols: 2 !important; gap: 7px; }
-  .ly .lst .grid > .pc { padding: 10px 10px 6px !important; }
+  .ly .lst .grid > .pc { padding: 12px !important; }
 }
 .ly .crumbs li:not(:last-child)::after { content: none !important; }
 
