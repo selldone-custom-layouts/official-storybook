@@ -22,11 +22,11 @@ export const SKIN = {
         "text": "#9d432e"
       },
       "dark": {
-        "primary": "#ad513b",
-        "deep": "#9c422d",
-        "soft": "#43241c",
+        "primary": "#af543e",
+        "deep": "#9f4530",
+        "soft": "#42251e",
         "onPrimary": "#ffffff",
-        "text": "#f9957d"
+        "text": "#ffffff"
       }
     },
     {
@@ -41,11 +41,11 @@ export const SKIN = {
         "text": "#943b59"
       },
       "dark": {
-        "primary": "#aa4e6b",
-        "deep": "#99405d",
-        "soft": "#42232c",
+        "primary": "#ad526f",
+        "deep": "#9d4361",
+        "soft": "#41242c",
         "onPrimary": "#ffffff",
-        "text": "#f591ae"
+        "text": "#ffffff"
       }
     },
     {
@@ -60,11 +60,11 @@ export const SKIN = {
         "text": "#586932"
       },
       "dark": {
-        "primary": "#586932",
-        "deep": "#4a5b24",
-        "soft": "#293214",
+        "primary": "#65773f",
+        "deep": "#576831",
+        "soft": "#293217",
         "onPrimary": "#ffffff",
-        "text": "#a5b87f"
+        "text": "#ffffff"
       }
     },
     {
@@ -79,11 +79,11 @@ export const SKIN = {
         "text": "#3f5a94"
       },
       "dark": {
-        "primary": "#4f6ca7",
-        "deep": "#425d97",
-        "soft": "#212d47",
+        "primary": "#526faa",
+        "deep": "#45609b",
+        "soft": "#222d45",
         "onPrimary": "#ffffff",
-        "text": "#91b1f1"
+        "text": "#ffffff"
       }
     }
   ],
@@ -109,26 +109,26 @@ export const SKIN = {
   ],
   "vuetify": {
     "darkColors": {
-      "background": "#140e0c",
-      "surface": "#231916",
-      "surface-bright": "#311f1a",
-      "surface-variant": "#402a24",
-      "on-background": "#faede9",
-      "on-surface": "#faede9",
-      "on-surface-variant": "#cab9b5",
-      "secondary": "#f18e76",
-      "on-secondary": "#140e0c",
+      "background": "#170c09",
+      "surface": "#201411",
+      "surface-bright": "#e2cfcb",
+      "surface-variant": "#42251e",
+      "on-background": "#fef4f2",
+      "on-surface": "#fef4f2",
+      "on-surface-variant": "#c6afa9",
+      "secondary": "#ef8d75",
+      "on-secondary": "#170c09",
       "error": "#f1a497",
-      "info": "#f18e76",
+      "info": "#ef8d75",
       "success": "#9fbf8f",
       "warning": "#e8c27f"
     },
     "lightColors": {
       "background": "#ffffff",
       "surface": "#ffffff",
-      "on-background": "#2a1e1b",
-      "on-surface": "#2a1e1b",
-      "secondary": "#2e1914",
+      "on-background": "#2c1813",
+      "on-surface": "#2c1813",
+      "secondary": "#2c1813",
       "on-secondary": "#ffffff",
       "error": "#a3322a"
     }
@@ -180,7 +180,7 @@ export const SKIN = {
     "art": "none"
   },
   "mark": {
-    "bg": "#2e1914",
+    "bg": "#2c1813",
     "ink": "#fff4f1",
     "font": "\"Fraunces\", \"Noto Naskh Arabic\", Georgia, \"Times New Roman\", serif"
   },

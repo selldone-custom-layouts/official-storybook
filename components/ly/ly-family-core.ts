@@ -94,22 +94,27 @@ export function family(input: string): { light: Family; dark: Family } {
     return x;
   };
 
-  const l50 = f(0.985, 0.012);
-  const l100 = f(0.962, 0.025);
-  const l200 = f(0.925, 0.045);
-  const l300 = f(0.86, 0.07);
-  const lInkBg = f(0.24, 0.035);
-  const lInk = walk(0.25, 0.02, -0.004, (x) => contrast(x, l300) >= 7);
-  const lMuted = walk(0.48, 0.02, -0.004, (x) => contrast(x, l200) >= 4.6);
+  /* Storybook (Toychi design, shared/style.css): a warm paper page, near-white cards, a wash band, a tint, a
+     media plate for the toys' photos; the same hue in dark, the photo plate kept light in both modes. */
+  const l50 = f(0.979, 0.009); /* --paper: the page */
+  const lSurf = f(0.995, 0.003); /* --surface: cards and panels */
+  const l100 = f(0.959, 0.02); /* --wash: bands, fields' ground, chips */
+  const l200 = f(0.925, 0.035); /* --tint: chosen states, arches */
+  const l300 = f(0.86, 0.06);
+  const lMedia = f(0.956, 0.019); /* --media: the photo plate */
+  const lInkBg = f(0.235, 0.035);
+  const lInk = walk(0.235, 0.035, -0.004, (x) => contrast(x, l300) >= 7);
+  const lMuted = walk(0.45, 0.035, -0.004, (x) => contrast(x, l200) >= 4.6);
   const lField = walk(0.62, 0.03, -0.004, (x) => contrast(x, l100) >= 3);
-  const dBg = f(0.17, 0.012);
-  const dBand = f(0.195, 0.014);
-  const dSurf = f(0.225, 0.018);
+  const dBg = f(0.169, 0.02); /* --paper (dark) */
+  const dBand = f(0.24, 0.028); /* --wash (dark) */
+  const dSurf = f(0.205, 0.021); /* --surface (dark) */
   const dPlate = f(0.26, 0.03);
-  const d300 = f(0.31, 0.035);
-  const dInkBg = f(0.15, 0.03);
-  const dInk = walk(0.955, 0.015, 0.004, (x) => contrast(x, d300) >= 7);
-  const dMuted = walk(0.8, 0.02, 0.004, (x) => contrast(x, d300) >= 4.6);
+  const d300 = f(0.3, 0.046); /* --tint (dark) */
+  const dMedia = f(0.87, 0.022); /* the photo plate stays light */
+  const dInkBg = f(0.13, 0.025);
+  const dInk = walk(0.974, 0.011, 0.004, (x) => contrast(x, d300) >= 7);
+  const dMuted = walk(0.772, 0.028, 0.004, (x) => contrast(x, d300) >= 4.6);
   const dField = walk(0.5, 0.03, 0.004, (x) => contrast(x, dPlate) >= 3);
   const onInk = f(0.975, 0.015);
   const onMuted = f(0.84, 0.03);
@@ -117,41 +122,41 @@ export function family(input: string): { light: Family; dark: Family } {
   let onAct = at(La, C0, h);
   for (let i = 0; i < 300 && contrast(onAct, lInkBg) < 7; i++) onAct = at((La += 0.002), C0, h);
 
-  /* the soft fill and the words on it (the switcher's action colour is tested on these same surfaces) */
-  const pal = paletteFromColor(hex, { lightSurfaces: ["#ffffff", l50, l100], darkSurfaces: [dBg, dBand, dSurf, dPlate] } as any);
-  const lSoft = pal.light.soft;
-  const dSoft = f(0.3, 0.05);
-  const lSoftInk = contrast(pal.light.text, lSoft) >= 4.6 ? pal.light.text : walk(0.42, 0.08, -0.004, (x) => contrast(x, lSoft) >= 4.6);
-  const dSoftInk = walk(0.86, 0.06, 0.004, (x) => contrast(x, dSoft) >= 4.6);
+  /* the soft fill (the design's tint) and the words on it */
+  const pal = paletteFromColor(hex, { lightSurfaces: [lSurf, l50, l100], darkSurfaces: [dBg, dBand, dSurf, dPlate] } as any);
+  const lSoft = l200;
+  const dSoft = d300;
+  const lSoftInk = contrast(pal.light.text, lSoft) >= 4.6 ? pal.light.text : walk(0.42, 0.12, -0.004, (x) => contrast(x, lSoft) >= 4.6);
+  const dSoftInk = walk(0.82, 0.12, 0.004, (x) => contrast(x, dSoft) >= 4.6);
 
   const light: Family = {
-    bg: "#ffffff", band: l50, surface: l50, paper: "#ffffff", card: l50, "card-2": "#ffffff", plate: f(0.966, 0.018), tint2: l200,
-    ink: lInk, muted: lMuted, line: f(0.905, 0.025), "line-2": f(0.86, 0.04), field: "#ffffff", "field-line": lField,
+    bg: l50, band: l100, surface: lSurf, paper: lSurf, card: lSurf, "card-2": lSurf, plate: lMedia, media: lMedia, wash: l100, tint2: l200,
+    ink: lInk, muted: lMuted, line: f(0.886, 0.02), "line-2": f(0.84, 0.03), field: lSurf, "field-line": lField,
     "act-soft": lSoft, "act-dk": onAct, "soft-ink": lSoftInk,
     alt: lInk, "alt-on": "#ffffff", "alt-deep": f(0.16, 0.02),
     "top-bg": lInkBg, "top-ink": onInk, "top-hover": onAct,
-    "hdr-bg": "#ffffff", "hdr-ink": lInk, "hdr-hover": "var(--ly-act-text)", "hdr-line": f(0.93, 0.02),
+    "hdr-bg": l50, "hdr-ink": lInk, "hdr-hover": "var(--ly-act-text)", "hdr-line": f(0.886, 0.02),
     dark: lInkBg, "dark-2": f(0.31, 0.035), "dark-ink": onInk, "dark-muted": onMuted, "dark-line": rgba(onInk, 0.16),
-    art: l200, ph: l100, "ph-2": l50, "ph-3": l200, "ph-line": l300, phd: f(0.38, 0.04), "phd-2": f(0.44, 0.04), "phd-3": f(0.3, 0.035),
+    art: l200, ph: lMedia, "ph-2": l50, "ph-3": l200, "ph-line": l300, phd: f(0.38, 0.04), "phd-2": f(0.44, 0.04), "phd-3": f(0.3, 0.035),
     "on-photo": "#ffffff", "on-photo-hover": l200, "phd-ink-btn": lInkBg,
     ring: lInk, "ring-in": "#ffffff", "num-stroke": f(0.8, 0.05), "ck-bg": lInk, "ck-ink": "#ffffff", "icon-line": "var(--ly-act-text)", hash: "var(--ly-act-text)",
-    "count-bg": "var(--ly-act)", "count-ink": "var(--ly-act-on)", "sample-bg": lSoft, "sample-ink": lSoftInk,
+    "count-bg": l200, "count-ink": lInk, "sample-bg": lSoft, "sample-ink": lSoftInk,
     "seg-bg": l100, err: "#a3322a", "err-soft": "#fbecea",
     "map-land": l50, "map-block": l200, "map-road": "#ffffff", "map-main": l200, "map-water": l300, "map-park": l100, "map-label": lMuted, "map-pin": lInk,
     scrim: rgba(f(0.16, 0.02), 0.5), "brand-sw": "var(--ly-act)",
   };
   const dark: Family = {
-    bg: dBg, band: dBand, surface: dSurf, paper: dSurf, card: dSurf, "card-2": dSurf, plate: dPlate, tint2: d300,
-    ink: dInk, muted: dMuted, line: f(0.3, 0.02), "line-2": f(0.36, 0.025), field: dBand, "field-line": dField,
+    bg: dBg, band: dBand, surface: dSurf, paper: dSurf, card: dSurf, "card-2": dSurf, plate: dMedia, media: dMedia, wash: dBand, tint2: d300,
+    ink: dInk, muted: dMuted, line: f(0.365, 0.036), "line-2": f(0.42, 0.04), field: dBg, "field-line": dField,
     "act-soft": dSoft, "act-dk": onAct, "soft-ink": dSoftInk,
     alt: dInk, "alt-on": dBg, "alt-deep": "#ffffff",
     "top-bg": dInkBg, "top-ink": onInk, "top-hover": onAct,
-    "hdr-bg": dBg, "hdr-ink": dInk, "hdr-hover": "var(--ly-act-text)", "hdr-line": f(0.24, 0.016),
+    "hdr-bg": dBg, "hdr-ink": dInk, "hdr-hover": "var(--ly-act-text)", "hdr-line": f(0.365, 0.036),
     dark: dInkBg, "dark-2": f(0.24, 0.03), "dark-ink": onInk, "dark-muted": onMuted, "dark-line": rgba(onInk, 0.12),
-    art: dPlate, ph: dSurf, "ph-2": dBand, "ph-3": dPlate, "ph-line": d300, phd: f(0.3, 0.035), "phd-2": f(0.34, 0.035), "phd-3": f(0.24, 0.03),
+    art: dPlate, ph: dMedia, "ph-2": dBand, "ph-3": dPlate, "ph-line": d300, phd: f(0.3, 0.035), "phd-2": f(0.34, 0.035), "phd-3": f(0.24, 0.03),
     "on-photo": "#ffffff", "on-photo-hover": l200, "phd-ink-btn": lInkBg,
     ring: dInk, "ring-in": dBg, "num-stroke": f(0.42, 0.04), "ck-bg": dInk, "ck-ink": dBg, "icon-line": "var(--ly-act-text)", hash: "var(--ly-act-text)",
-    "count-bg": "var(--ly-act)", "count-ink": "var(--ly-act-on)", "sample-bg": dSoft, "sample-ink": dSoftInk,
+    "count-bg": d300, "count-ink": dInk, "sample-bg": dSoft, "sample-ink": dSoftInk,
     "seg-bg": dPlate, err: "#f1a497", "err-soft": "#3a201c",
     "map-land": f(0.21, 0.016), "map-block": dPlate, "map-road": f(0.3, 0.02), "map-main": f(0.36, 0.03), "map-water": f(0.3, 0.035), "map-park": f(0.25, 0.03), "map-label": dMuted, "map-pin": dInk,
     scrim: rgba(f(0.1, 0.02), 0.62), "brand-sw": "var(--ly-act)",
@@ -163,6 +168,6 @@ export function family(input: string): { light: Family; dark: Family } {
 export function actionPalette(input: string): { light: Record<string, string>; dark: Record<string, string> } {
   const hex = normalizeHex(input) || "#808080";
   const f = family(hex);
-  const pal = paletteFromColor(hex, { lightSurfaces: ["#ffffff", f.light.band, f.light.ph], darkSurfaces: [f.dark.bg, f.dark.band, f.dark.surface, f.dark.plate] } as any);
+  const pal = paletteFromColor(hex, { lightSurfaces: [f.light.surface, f.light.bg, f.light.band], darkSurfaces: [f.dark.bg, f.dark.band, f.dark.surface, f.dark.plate] } as any);
   return { light: pal.light, dark: pal.dark };
 }
