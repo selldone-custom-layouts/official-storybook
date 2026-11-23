@@ -82,11 +82,13 @@ for (const W of WIDTHS) {
     // ── home and one piece in the bag
     await page.goto(BASE + "/", { waitUntil: "domcontentloaded", timeout: 120000 });
     await page.waitForSelector(".ly .ftr", { timeout: 90000 });
-    await page.waitForSelector(".ly .srow .add", { timeout: 60000 });
+    /* Storybook: the playroom shelf's first story card ("Add to bag") */
+    const ADD = ".ly .sb-shelf .pc-add button.add";
+    await page.waitForSelector(ADD, { timeout: 60000 });
     await sleep(2500);
-    const addBtn = page.locator(".ly .srow .add").first();
+    const addBtn = page.locator(ADD).first();
     await addBtn.scrollIntoViewIfNeeded();
-    const piece = await page.evaluate(() => document.querySelector(".ly .srow")?.querySelector(".s-t")?.textContent?.trim());
+    const piece = await page.evaluate(() => document.querySelector(".ly .sb-shelf .pc")?.querySelector(".pc-t")?.textContent?.trim());
     await addBtn.click();
     console.log(`  added one piece: ${piece || "(first row)"}`);
     await sleep(3500);
