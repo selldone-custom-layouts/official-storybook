@@ -442,8 +442,10 @@ export default {
            shared by all) is not a filter: it would select everything. */
         .filter((x) => !x.note && x.values.length && !(x.values.length === 1 && x.long))
         /* every toy of the shop: only the rows most toys have (an age, a material), not each collection's own */
-        .filter((x) => this.kind === "category" || this.base.filter((p) => specValue(p, x.key)).length >= this.base.length * 0.6)
-        .sort((a, b) => (a.values.length > 1 ? 0 : 1) - (b.values.length > 1 ? 0 : 1));
+        .filter((x) => this.kind === "category" || this.base.filter((p) => specValue(p, x.key)).length >= this.base.length * 0.9)
+        .sort((a, b) => (a.values.length > 1 ? 0 : 1) - (b.values.length > 1 ? 0 : 1))
+        /* the age row first on every page (Storybook: "Suggested Age" leads the filters) */
+        .sort((a, b) => (b.key === this.ageK ? 1 : 0) - (a.key === this.ageK ? 1 : 0));
     },
     sorts() {
       const s = [

@@ -55,7 +55,7 @@ html, body { background: var(--ly-bg); }
 [dir="rtl"] .ly .fl, html[dir="rtl"] .ly .fl { transform: scaleX(-1); }
 
 /* ───────── page title (LyPt): crumbs, a big serif title, a lead ───────── */
-.ly .pt { background: var(--ly-bg); color: var(--ly-ink); text-align: start; padding-block: 25px 27px; overflow: visible; }
+.ly .pt { background: transparent; color: var(--ly-ink); text-align: start; padding-block: 25px 27px; overflow: visible; }
 .ly .pt::after { content: none !important; }
 .ly .pt .art, .ly .pt .ly-art { display: none; }
 .ly .pt-in { align-items: flex-start; text-align: start; }
@@ -459,3 +459,4 @@ html, body { background: var(--ly-bg); }
   .ly .lst .grid, .ly .sb-nodeals .grid { --ly-cols: 2 !important; gap: 7px; }
   .ly .lst .grid > .pc { padding: 10px 10px 6px !important; }
 }
+.ly .crumbs li:not(:last-child)::after { content: none !important; }
