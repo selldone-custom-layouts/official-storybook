@@ -12,7 +12,7 @@
     <div class="sb-journal-grid">
       <article v-for="b in list" :key="b.id" class="sb-post">
         <router-link :to="postRoute(b)">
-          <span class="sb-post-cover"><img v-if="postPic(b)" :src="postPic(b)" alt="" loading="lazy" /><ly-icon v-else name="sparkle" /></span>
+          <span class="sb-post-cover"><sb-post-cover :post="b" sizes="(max-width: 760px) 46vw, 330px" /></span>
           <span class="sb-post-tx">
             <time v-if="b.created_at" :datetime="b.created_at" class="eyebrow">{{ fmtDate(b.created_at) }}</time>
             <h3><bdi>{{ b.title }}</bdi></h3>
@@ -27,13 +27,14 @@
 
 <script>
 import LyIcon from "../../LyIcon.vue";
+import SbPostCover from "../SbPostCover.vue";
 import homeData from "../../home/home-data";
 import { loadPosts, postImage, posts } from "../sb";
 import { journalRoute } from "../../../kalio/pages/kalio-journal";
 
 export default {
   name: "SbJournal",
-  components: { LyIcon },
+  components: { LyIcon, SbPostCover },
   mixins: [homeData],
   data: () => ({ posts }),
   computed: {

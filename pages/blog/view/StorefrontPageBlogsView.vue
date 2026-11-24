@@ -12,7 +12,7 @@
 <template>
   <div class="ly ly-article">
     <template v-if="article">
-      <ly-pt :crumbs="crumbs" :title="article.title" art="whisk" art2="croissant" cls="art-pt">
+      <ly-pt :crumbs="crumbs" :lead="lede" :title="article.title" art="whisk" art2="croissant" cls="art-pt">
         <p class="art-m">
           <ly-icon name="cal" /><time v-if="article.created_at" :datetime="article.created_at">{{ fmtDate(article.created_at) }}</time
           ><template v-if="article.created_at"><span>·</span></template><span>{{ t("ly.rd.journalOf", "{shop} journal", { shop: shopName }) }}</span>
@@ -25,7 +25,6 @@
             <ly-art v-else name="whisk" wrap="ly-bc-art" />
           </figure>
           <div class="art-col">
-            <p v-if="lede" class="art-lead">{{ lede }}</p>
             <div v-if="body" class="art-body" @click="bodyClick" v-html="body"></div>
             <ly-sample-tag v-else :text="t('ly.rd.onlySummary', 'Only this post’s summary is in the shop for now.')" />
 
@@ -136,7 +135,7 @@ import { ly, fmtDate, loadDm, money, priceView, productImage, productTo, shopFac
 import { plainText, shortAddress } from "@app-storefront/components/ly/read/rd";
 import { addCount, basketLine, mayBuy } from "@app-storefront/components/kalio/kalio-basket";
 import { dropSrcset, photoSrcset } from "@app-storefront/components/kalio/kalio-catalog";
-import { journalPage, journalPost, journalRoute, productsIn } from "@app-storefront/components/kalio/pages/kalio-journal";
+import { journalPage, journalPost, journalRoute, postRoute, productsIn } from "@app-storefront/components/kalio/pages/kalio-journal";
 import { currentCurrency } from "@app-storefront/components/region-switcher/region";
 import { t } from "@app-storefront/components/kalio/i18n/kalio-i18n";
 
@@ -176,9 +175,15 @@ export default {
     },
     /* The shop's text, with the editor's leftovers taken out. */
     body() {
-      return String(this.article?.body || "")
+      const html = String(this.article?.body || "")
         .replace(/\scontenteditable="[^"]*"/g, "")
         .replace(/src="http:/g, 'src="');
+      /* Storybook: the description stands under the title (the design's lead); when the text opens with the same
+         words, that first paragraph is not said twice. */
+      const d = plainText(this.article?.description);
+      const m = /^\s*<p[^>]*>([\s\S]*?)<\/p>/i.exec(html);
+      if (d && m && plainText(m[1]).slice(0, 40) === d.slice(0, 40)) return html.slice(m[0].length);
+      return html;
     },
     /* The cover, unless the text opens with the same picture. */
     cover() {
@@ -194,10 +199,7 @@ export default {
     },
     /* The description, unless it is only the first words of the text. */
     lede() {
-      const d = plainText(this.article?.description);
-      if (!d) return "";
-      const start = plainText(this.article?.body).slice(0, 40);
-      return start && d.startsWith(start) ? "" : d;
+      return plainText(this.article?.description);
     },
     /* The pastries the story links to (else the ones it names), at most four. */
     products() {
@@ -258,8 +260,22 @@ export default {
       this.busy = true;
       this.article = null;
       this.more = [];
-      journalPost(asked)
+      /* The post's own address is /blog/<slug>-<blog id>. An address that starts with a number (/blog/<id>-<slug>, an
+         article id or a blog id) still opens the post: the number is tried as the blog id, then looked up among the
+         journal's posts as an article id; the address then becomes the post's own. */
+      const lead = /^(\d+)(?:-|$)/.exec(String(asked || ""));
+      const num = lead ? lead[1] : asked;
+      journalPost(num)
+        .catch((err: any) => {
+          if (!lead) throw err;
+          return journalPage({ page: 1, limit: 60 }).then(({ articles }: any) => {
+            const hit = (articles || []).find((a: any) => String(a.id) === num || String(a.parent_id) === num);
+            if (!hit) throw err;
+            return journalPost(hit.parent_id || hit.id);
+          });
+        })
         .then((data: any) => {
+          if (lead && asked === this.blogId && data?.article) this.$router.replace(postRoute(data.article)).catch(() => {});
           if (asked !== this.blogId) return;
           this.article = data.article;
           this.setPageTitle?.(data.article.title);

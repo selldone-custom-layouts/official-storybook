@@ -792,3 +792,16 @@ html.ly-dark .ly .pd-t[aria-pressed="true"] { background: var(--ly-plate); }
 .ly .ly-ship-none .i { width: 18px; height: 18px; flex: none; margin-top: 1px; color: var(--ly-act-text); }
 /* the bag's "Add discount code" in the Layout's own words: normal case, no tracking (the base sets capitals) */
 .ly .ly-code .discount-code-row > .v-btn:not(.v-btn--icon) { letter-spacing: 0 !important; text-transform: none !important; font: 750 14px/1.2 var(--ly-sans) !important; }
+/* the post (article.html): the title, its lead and the date in the reading column; the cover under them, not over
+   the title (the base pulls it up into a deep title band, which Storybook does not have) */
+.ly .pt.art-pt .pt-in > :not(.crumbs) { max-width: 760px; margin-inline: auto; }
+.ly .pt.art-pt .pt-in > .pt-h { width: 100%; font-size: clamp(36px, 4.4vw, 62px); }
+.ly .pt.art-pt .pt-in > .pt-l, .ly .pt.art-pt .pt-in > .art-m { width: 100%; }
+.ly .artl .art-cov { max-width: 760px; margin: 8px auto 0; aspect-ratio: 16 / 9; }
+.ly .artl .art-col { padding-top: 30px; }
+/* a post without a cover: the card's plate with the sparkle (the journal list, More from the journal) */
+.ly .sb-post-none { display: grid; place-items: center; width: 100%; height: 100%; color: var(--ly-act-text); }
+.ly .sb-post-none .i { width: 44px; height: 44px; }
+.ly .sb-post-cuts { display: flex; align-items: center; justify-content: center; gap: 6%; width: 100%; height: 100%; padding: 8% 8%; background: var(--ly-plate); }
+.ly .sb-post-cuts img, .ly .bc-ph .sb-post-cuts img, .ly .bf-ph .sb-post-cuts img, .ly .sb-post-cover .sb-post-cuts img { width: 40%; height: 86%; object-fit: contain; }
+.ly .sb-post-cover .sb-post-none .i { width: 30px; height: 30px; }

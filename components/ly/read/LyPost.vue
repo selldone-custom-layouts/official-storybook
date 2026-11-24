@@ -7,8 +7,7 @@
 <template>
   <article class="bc">
     <router-link :to="to" aria-hidden="true" class="bc-ph" tabindex="-1">
-      <img v-if="img" :src="img" :srcset="srcset" alt="" height="1000" loading="lazy" sizes="(max-width: 760px) 46vw, 400px" width="1600" @error="dropSrcset" />
-      <ly-art v-else name="whisk" wrap="ly-bc-art" />
+      <sb-post-cover :post="post" />
     </router-link>
     <div class="bc-tx">
       <p v-if="post.created_at" class="p-m">
@@ -26,6 +25,7 @@
 <script>
 import LyIcon from "../LyIcon.vue";
 import LyArt from "../LyArt.vue";
+import SbPostCover from "../sb/SbPostCover.vue";
 import { fmtDate } from "../ly";
 import { postRoute } from "../../kalio/pages/kalio-journal";
 import { dropSrcset, photoSrcset } from "../../kalio/kalio-catalog";
@@ -33,7 +33,7 @@ import { t } from "../../kalio/i18n/kalio-i18n";
 
 export default {
   name: "LyPost",
-  components: { LyIcon, LyArt },
+  components: { LyIcon, LyArt, SbPostCover },
   props: { post: { type: Object, required: true } },
   computed: {
     to() {

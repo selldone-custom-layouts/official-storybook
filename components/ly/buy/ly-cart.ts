@@ -300,10 +300,11 @@ export default {
       if (way.type === ShopTransportations.Pickup.code) return true;
       return !(Number(way.const) > 0) && !(Number(way.distance_rate) > 0) && !(Number(way.weight_rate) > 0);
     },
-    /* The bag's delivery ways in the checkout's order: the ways, then pickup. */
+    /* The bag's delivery ways in the checkout's order: the ways, then pickup (only with a pickup point: without one,
+       checkout never offers it; the Rino rule, as deliveryWays() in ly.ts). */
     nx_ways_in_order(this: any): any[] {
-      const list = this.transportation_list || [];
       const pickup = ShopTransportations.Pickup.code;
+      const list = (this.transportation_list || []).filter((w: any) => w.type !== pickup || (Array.isArray(w.pickups) && w.pickups.length > 0));
       return [...list.filter((w: any) => w.type !== pickup), ...list.filter((w: any) => w.type === pickup)];
     },
     shopTo(): any {

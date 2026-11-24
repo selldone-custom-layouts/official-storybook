@@ -133,3 +133,26 @@ export function loadPosts(): void {
 export function postImage(b: any): string | null {
   return b?.image ? (window.CDN?.GET_SHOP_IMAGE_PATH ? window.CDN.GET_SHOP_IMAGE_PATH(b.image, null) : b.image) : null;
 }
+
+/* ━━━━━━━━━━━━ A post without a cover: the toys it names, as on the design's journal cards ━━━━━━━━━━━━
+   The journal list carries no text, so the post is read once (one request per coverless post) and the toys its
+   text names are found in the catalogue (productsIn). No toy named: the card keeps the sparkle on its plate. */
+import { journalPost, productsIn } from "../../kalio/pages/kalio-journal";
+import { ly, loadDm } from "../ly";
+
+const cutsRead = reactive({} as Record<string, string>);
+export function postCuts(b: any): any[] {
+  if (!b || b.image) return [];
+  const key = String(b.parent_id || b.id || "");
+  if (!key) return [];
+  if (!(key in cutsRead)) {
+    cutsRead[key] = "";
+    loadDm();
+    journalPost(key)
+      .then((data: any) => {
+        cutsRead[key] = String(data?.article?.body || "");
+      })
+      .catch(() => {});
+  }
+  return cutsRead[key] && ly.products.length ? productsIn(cutsRead[key], ly.products, 2) : [];
+}

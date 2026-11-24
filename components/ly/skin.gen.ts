@@ -381,7 +381,8 @@ export const SKIN = {
       "ly.rd.aboutT": "About {shop}",
       "sb.bag.cod": "Cash on delivery",
       "ly.co.noWayYet": "Add the delivery address to see how your order can reach you.",
-      "ly.co.noWayHere": "No delivery way reaches this address yet. Try another address, or write to the shop."
+      "ly.co.noWayHere": "No delivery way reaches this address yet. Try another address, or write to the shop.",
+      "ly.co.noWayBag": "The ways to your door show at checkout, once your address is in."
     },
     "ar": {
       "ly.bag.emptyP": "اختر لعبة تناسب طريقتهم في اللعب وأضفها هنا.",
@@ -634,7 +635,8 @@ export const SKIN = {
       "sb.about.explore": "تصفّح التشكيلة",
       "sb.bag.cod": "الدفع عند الاستلام",
       "ly.co.noWayYet": "أضف عنوان التوصيل لترى كيف يمكن أن يصلك طلبك.",
-      "ly.co.noWayHere": "لا توجد طريقة توصيل تصل إلى هذا العنوان بعد. جرّب عنوانًا آخر، أو راسل المتجر."
+      "ly.co.noWayHere": "لا توجد طريقة توصيل تصل إلى هذا العنوان بعد. جرّب عنوانًا آخر، أو راسل المتجر.",
+      "ly.co.noWayBag": "تظهر طرق التوصيل إلى بابك عند إتمام الطلب، بعد إدخال عنوانك."
     }
   }
 } as const;

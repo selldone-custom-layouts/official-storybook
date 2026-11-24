@@ -15,8 +15,7 @@
       <div class="wrap">
         <article v-if="feature" class="bf">
           <router-link :to="postRoute(feature)" aria-hidden="true" class="bf-ph" tabindex="-1">
-            <img v-if="feature.image" :src="image(feature)" :srcset="srcset(feature)" alt="" height="1000" sizes="(max-width: 760px) 92vw, 760px" width="1600" @error="dropSrcset" />
-            <ly-art v-else name="whisk" wrap="ly-bc-art" />
+            <sb-post-cover :post="feature" sizes="(max-width: 760px) 92vw, 760px" />
           </router-link>
           <div class="bf-tx">
             <p class="eyebrow">{{ t("ly.rd.newest", "Newest post") }}</p>
@@ -73,6 +72,7 @@
 
 <script lang="ts">
 import LyIcon from "@app-storefront/components/ly/LyIcon.vue";
+import SbPostCover from "@app-storefront/components/ly/sb/SbPostCover.vue";
 import LyArt from "@app-storefront/components/ly/LyArt.vue";
 import LyPost from "@app-storefront/components/ly/read/LyPost.vue";
 import LyPt from "@app-storefront/components/ly/ui/LyPt.vue";
@@ -87,7 +87,7 @@ const FIRST = 13;
 
 export default {
   name: "StorefrontPageBlogsList",
-  components: { LyIcon, LyArt, LyPost, LyPt, LyEmpty },
+  components: { LyIcon, LyArt, LyPost, LyPt, LyEmpty, SbPostCover },
   inject: ["$shop"],
 
   data: () => ({ articles: [] as any[], total: 0, busy: false, page: 1, categories: [] as any[], q: "" }),
