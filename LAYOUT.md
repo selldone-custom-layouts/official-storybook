@@ -42,15 +42,15 @@ Every other page keeps the base's flows in the Storybook dress (`style/ly/sb.css
 <!-- CHECKS:START -->
 Fast checks (`new-shop-kits/fast-checks` with `scripts/fast-checks.config.mjs`: 50 runs, 390 to 3840 px, light and dark, Clay, Rosewood, Olive, Indigo and the custom colours #ffff00, #00ffff and #111111, Arabic) and the guest checkout walk (`scripts/checkout-walk.mjs`, 1440 and 390 px) on https://storybook.selldone.shop, 24 Nov 2026, each through `new-shop-kits/pw-lock.sh`:
 
-| Check | 1.0.1 | 1.0.2 | 1.0.3 | 1.0.4 |
-| --- | --- | --- | --- | --- |
-| ring, card-edge, corner, circle, cart, currency, box, i18n (Arabic), text-col, underline, variant | 0 | 0 | 0 | 0 |
-| contrast (424 states) | 0 | 0 | 0 | 3 (the post's "All posts" link at 2.1:1; the checks read a dead demo post until 1.0.4) |
-| shape | 832 (the journal band's and the product tabs' joined halves, the menu thumbs at 10 px, the checkboxes at 5 px) | 0 | 0 | 0 |
-| corner (Arabic) | 13 (a hanging space past the clamped collection and post lines) | 0 | 0 | 0 |
-| checkout walk | 6 (no way showed before an address, so the walk stopped there) | WALK OK | WALK OK | WALK OK |
+| Check | 1.0.1 | 1.0.2 | 1.0.3 | 1.0.4  | 1.0.6 |
+| --- | --- | --- | --- | ---  | --- |
+| ring, card-edge, corner, circle, cart, currency, box, i18n (Arabic), text-col, underline, variant | 0 | 0 | 0 | 0  | 0 |
+| contrast (424 states) | 0 | 0 | 0 | 3 (the post's "All posts" link at 2.1:1; the checks read a dead demo post until 1.0.4)  | 0 |
+| shape | 832 (the journal band's and the product tabs' joined halves, the menu thumbs at 10 px, the checkboxes at 5 px) | 0 | 0 | 0  | 0 |
+| corner (Arabic) | 13 (a hanging space past the clamped collection and post lines) | 0 | 0 | 0  | 0 |
+| checkout walk | 6 (no way showed before an address, so the walk stopped there) | WALK OK | WALK OK | WALK OK  | WALK OK |
 
-**1.0.6** (1.0.5's "All posts" link in the tint's own ink, 5.7:1 on Clay on the dev server, plus the Arabic order lines) is pinned; its live run is pending: Selldone's storefront hosting reset every *.selldone.shop connection from about 08:00 UTC on 24 Nov 2026, answered again from 09:51 UTC (1.0.6 was released, verified and pinned then) and was resetting again when the suite started (about 10:09 UTC).
+**1.0.6** (1.0.5's "All posts" link in the tint's own ink, plus the Arabic order lines) is pinned and checked on the live domain: the full suite at **TOTAL 0** and the walk OK at 1440 and 390 (24 Nov 2026, 10:39-10:49 UTC, after Selldone's storefront hosting came back from its outage).
 
 The walk: one toy in the bag → the bag drawer → Checkout → contact → the Delivery card says "Add the delivery address…" (the shop's only way to the door is a local courier within 30 km) → the address sheet (map on: the pin, the details, Save) → Toychi courier with its windows → the delivery sheet → Place order → Selldone's payment window (cash on delivery) → ✕ → the bag emptied. Nothing is ordered; every `/buy/` call is blocked.
 
