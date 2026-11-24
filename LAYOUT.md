@@ -42,15 +42,15 @@ Every other page keeps the base's flows in the Storybook dress (`style/ly/sb.css
 <!-- CHECKS:START -->
 Fast checks (`new-shop-kits/fast-checks` with `scripts/fast-checks.config.mjs`: 50 runs, 390 to 3840 px, light and dark, Clay, Rosewood, Olive, Indigo and the custom colours #ffff00, #00ffff and #111111, Arabic) and the guest checkout walk (`scripts/checkout-walk.mjs`, 1440 and 390 px) on https://storybook.selldone.shop, 24 Nov 2026, each through `new-shop-kits/pw-lock.sh`:
 
-| Check | 1.0.1 | 1.0.2 | 1.0.3 | 1.0.4  | 1.0.6 |
-| --- | --- | --- | --- | ---  | --- |
-| ring, card-edge, corner, circle, cart, currency, box, i18n (Arabic), text-col, underline, variant | 0 | 0 | 0 | 0  | 0 |
-| contrast (424 states) | 0 | 0 | 0 | 3 (the post's "All posts" link at 2.1:1; the checks read a dead demo post until 1.0.4)  | 0 |
-| shape | 832 (the journal band's and the product tabs' joined halves, the menu thumbs at 10 px, the checkboxes at 5 px) | 0 | 0 | 0  | 0 |
-| corner (Arabic) | 13 (a hanging space past the clamped collection and post lines) | 0 | 0 | 0  | 0 |
-| checkout walk | 6 (no way showed before an address, so the walk stopped there) | WALK OK | WALK OK | WALK OK  | WALK OK |
+| Check | 1.0.1 | 1.0.2 | 1.0.3 | 1.0.4  | 1.0.6 | 1.0.8 |
+| --- | --- | --- | --- | ---  | --- | --- |
+| ring, card-edge, corner, circle, cart, currency, box, i18n (Arabic), text-col, underline, variant | 0 | 0 | 0 | 0  | 0 | 0 |
+| contrast (424 states) | 0 | 0 | 0 | 3 (the post's "All posts" link at 2.1:1; the checks read a dead demo post until 1.0.4)  | 0 | 0 |
+| shape | 832 (the journal band's and the product tabs' joined halves, the menu thumbs at 10 px, the checkboxes at 5 px) | 0 | 0 | 0  | 0 | 0 |
+| corner (Arabic) | 13 (a hanging space past the clamped collection and post lines) | 0 | 0 | 0  | 0 | 0 |
+| checkout walk | 6 (no way showed before an address, so the walk stopped there) | WALK OK | WALK OK | WALK OK  | WALK OK | WALK OK × 3 (below) |
 
-**1.0.6** (1.0.5's "All posts" link in the tint's own ink, plus the Arabic order lines) is pinned and checked on the live domain: the full suite at **TOTAL 0** and the walk OK at 1440 and 390 (24 Nov 2026, 10:39-10:49 UTC, after Selldone's storefront hosting came back from its outage).
+**1.0.8** is pinned and checked on the live domain (24 Nov 2026): the full suite at **TOTAL 0** with the tablet width 820 added to the checks (516 contrast states, 173 shape states), and three guest walks at 1440, 820 and 390, each WALK OK: the default walk (the address at the warehouse, then the courier, the van and the pickup point, each to Selldone's payment window), the van to an address searched far away (`WALK_PLACE="Los Angeles, CA" WALK_WAY="van|truck"`: only the van and the pickup reach it) and the pickup point alone (`WALK_WAY=pickup`, no address). On 1.0.7 the suite found 38: 32 + 2 from the checks themselves (they looked for the phone's menu button at 820, where a tablet keeps the link row) and 4 from Selldone's pickup chip at 4.1:1 on the custom yellow and cyan (fixed in 1.0.8). The tablet pass (`scripts/tablet-probe.cjs`: orphan rows, squeezed or covered photos, stray tracks, overflow) is at **TOTAL 0** at 768, 820, 1024 and 1180, light and dark, on the dev server, and at 820 and 1024 on the live domain.
 
 The walk: one toy in the bag → the bag drawer → Checkout → contact → the Delivery card says "Add the delivery address…" (the shop's only way to the door is a local courier within 30 km) → the address sheet (map on: the pin, the details, Save) → Toychi courier with its windows → the delivery sheet → Place order → Selldone's payment window (cash on delivery) → ✕ → the bag emptied. Nothing is ordered; every `/buy/` call is blocked.
 
@@ -63,6 +63,7 @@ A journal post opened fresh at its own address (`/blog/<slug>-<blog id>`) shows 
 
 | Version | Date | Layout | Deploy | What |
 | --- | --- | --- | --- | --- |
+| 1.0.8 | 2026-11-24 | 51 | 828 | Selldone's pickup chip under the price in the tint's own ink (it showed at 4.1:1 on the custom yellow and cyan once the pickup way had a point). PROD-CHECK OK; 272 files; server js/css match (release 01M86RV5MBE0EPW7T6WN7KS0SW); pinned on domain 1278. |
 | 1.0.7 | 2026-11-24 | 51 | 826 | The shop's new delivery setup: the van ("Toychi delivery van", a truck icon; "Delivered to your door" when its reach has no real limit, not "within 99,999 km"), the pickup point under its own name ("Toychi Pickup · Bryant Park", not "Pickup at Toychi Pickup …"); the bag says delivery to the door shows at checkout; the ways' cards share the row (one way fills it). Tablet pass at 768, 820, 1024 and 1180, light and dark (`scripts/tablet-probe.cjs`): no orphan rows, no squeezed or covered photos, no stray tracks. PROD-CHECK OK; 272 files; server js/css match (release 01M86NM0QY5TWG9ZXC9Z7EGEWV); pinned on domain 1278. |
 | 1.0.6 | 2026-11-24 | 51 | 824 | Arabic keeps the order's messages and its payment and delivery lines in their own direction (English punctuation no longer jumps to the wrong end). PROD-CHECK OK; 272 files; server js/css match (release 01M86FT5NEKNVBY67G544SEKVH); pinned on domain 1278. |
 | 1.0.5 | 2026-11-24 | 51 | 823 | The post's journal card ("All posts") in the tint's own ink: the checks reading the real post found it at 2.1:1 (the base's link colour for a dark band). PROD-CHECK OK; server js/css match (release 01M86DXV85FHMCFPSG8QYE5CNT); pinned on domain 1278. |
