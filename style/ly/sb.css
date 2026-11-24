@@ -805,3 +805,8 @@ html.ly-dark .ly .pd-t[aria-pressed="true"] { background: var(--ly-plate); }
 .ly .sb-post-cuts { display: flex; align-items: center; justify-content: center; gap: 6%; width: 100%; height: 100%; padding: 8% 8%; background: var(--ly-plate); }
 .ly .sb-post-cuts img, .ly .bc-ph .sb-post-cuts img, .ly .bf-ph .sb-post-cuts img, .ly .sb-post-cover .sb-post-cuts img { width: 40%; height: 86%; object-fit: contain; }
 .ly .sb-post-cover .sb-post-none .i { width: 30px; height: 30px; }
+/* the order page as the design (order.html): the status and the receipt on the left; the delivery, the payment and
+   the messages on the right */
+.ly .sb-od-side { display: grid; gap: 16px; align-content: start; min-width: 0; }
+.ly .od-tl .sb-od-h { margin-bottom: 18px; }
+.ly .ly-od-share .v-btn { text-transform: none !important; letter-spacing: 0 !important; font: 750 14px/1.2 var(--ly-sans) !important; color: var(--ly-act-text) !important; }

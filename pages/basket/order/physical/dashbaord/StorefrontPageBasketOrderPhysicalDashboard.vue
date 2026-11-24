@@ -26,24 +26,25 @@
 <template>
   <section :aria-label="t('ly.od.aria', 'Order')" class="sec-s">
     <div class="wrap od">
-      <div v-if="tone !== 'off'" class="od-tl">
-        <ol :aria-label="t('ly.od.progress', 'Order progress')" class="tl4">
-          <li v-for="(s, i) in steps" :key="s.key" :aria-current="stateOf(i) === 'cur' ? 'step' : undefined" :class="['t', stateOf(i)]">
-            <span class="t-ic"><ly-icon :name="stateOf(i) === 'done' ? 'check' : s.icon" /></span><span class="t-l">{{ s.label }}</span>
-          </li>
-        </ol>
-        <p v-if="wayLine" class="od-line">
-          <ly-icon :name="wayIcon(basket.delivery_info?.type)" /><span
-            ><b>{{ wayLine }}</b>{{ " · " }}{{ basket.delivery_price > 0 ? amount(basket.delivery_price) : t("ly.od.free", "Free") }}</span
-          >
-        </p>
-      </div>
-      <div v-else class="od-tl ly-od-off">
-        <ly-empty :text="t('ly.od.offP', 'Nothing more will happen with it. Write to the bakery if you have a question.')" :title="t('ly.od.offT', 'This order was cancelled')" icon="close" tag="h2" />
-      </div>
-
       <div class="od-g">
         <div class="od-main">
+          <div v-if="tone !== 'off'" class="od-tl">
+            <h2 class="co-h sb-od-h">{{ t("sb.od.status", "Order status") }}</h2>
+            <ol :aria-label="t('ly.od.progress', 'Order progress')" class="tl4">
+              <li v-for="(s, i) in steps" :key="s.key" :aria-current="stateOf(i) === 'cur' ? 'step' : undefined" :class="['t', stateOf(i)]">
+                <span class="t-ic"><ly-icon :name="stateOf(i) === 'done' ? 'check' : s.icon" /></span><span class="t-l">{{ s.label }}</span>
+              </li>
+            </ol>
+            <p v-if="wayLine" class="od-line">
+              <ly-icon :name="wayIcon(basket.delivery_info?.type)" /><span
+                ><b>{{ wayLine }}</b>{{ " · " }}{{ basket.delivery_price > 0 ? amount(basket.delivery_price) : t("ly.od.free", "Free") }}</span
+              >
+            </p>
+          </div>
+          <div v-else class="od-tl ly-od-off">
+            <ly-empty :text="t('ly.od.offP', 'Nothing more will happen with it. Write to the bakery if you have a question.')" :title="t('ly.od.offT', 'This order was cancelled')" icon="close" tag="h2" />
+          </div>
+
           <div class="od-c">
             <div class="ly-od-hd">
               <h2 class="co-h">{{ t("ly.od.pastries", "Pastries") }}</h2>
@@ -92,10 +93,6 @@
             </dl>
           </div>
 
-          <div class="od-two">
-            <ly-order-pay :basket="basket" />
-            <ly-order-receiver :basket="basket" />
-          </div>
 
           <div v-if="transfers.length" class="od-c ly-od-sd">
             <h2 class="co-h">{{ t("ly.od.transfer", "Pay by bank transfer") }}</h2>
@@ -110,7 +107,11 @@
           <s-shop-customer-order-withdraw :order="basket" :payment="basket.payment" class="ly-od-sd" @request:refresh="$emit('request:refresh')" />
         </div>
 
-        <ly-order-chat :basket="basket" />
+        <div class="sb-od-side">
+          <ly-order-receiver :basket="basket" />
+          <ly-order-pay :basket="basket" />
+          <ly-order-chat :basket="basket" />
+        </div>
       </div>
     </div>
   </section>

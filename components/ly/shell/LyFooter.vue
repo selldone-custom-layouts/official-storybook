@@ -111,8 +111,9 @@ export default {
     faqTo() {
       return this.$router.hasRoute("ShopFAQ") ? { name: "ShopFAQ" } : { name: this.r.SHOP_CONTACT_US };
     },
+    /* the newest post with a cover (a small photo card), else the newest */
     post() {
-      return this.posts.list[0] || null;
+      return this.posts.list.find((b) => b && b.image) || this.posts.list[0] || null;
     },
     postPic() {
       return this.post ? postImage(this.post) : null;
