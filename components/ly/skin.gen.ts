@@ -284,12 +284,14 @@ export const SKIN = {
       "ly.nf.tryH": "A few toys to look at instead",
       "ly.od.chatHello": "Questions about this order? Write here and the shop answers in this chat.",
       "ly.od.leadBaking": "Thank you — your order is being prepared.",
+      "ly.od.leadPlaced": "Thank you! Your order has been placed.",
       "ly.od.leadReady": "Thank you — your order is ready to collect.",
       "ly.od.offP": "Nothing more will happen with it. Write to the shop if you have a question.",
-      "ly.od.pastries": "Toys",
+      "ly.od.pastries": "Receipt",
       "ly.od.payAtCounter": "You pay at the shop when you collect it.",
       "ly.od.pickAt": "Collect it at the shop",
       "ly.od.stBaking": "Preparing",
+      "ly.od.stPlaced": "Order placed",
       "ly.pd.btThis": "{name} (this toy)",
       "ly.pd.btThisK": "This toy",
       "ly.pd.btTick": "Tick the toys to add",
@@ -377,7 +379,9 @@ export const SKIN = {
       "sb.about.eyebrow": "Our story",
       "sb.about.explore": "Explore the collection",
       "ly.rd.aboutT": "About {shop}",
-      "sb.bag.cod": "Cash on delivery"
+      "sb.bag.cod": "Cash on delivery",
+      "ly.co.noWayYet": "Add the delivery address to see how your order can reach you.",
+      "ly.co.noWayHere": "No delivery way reaches this address yet. Try another address, or write to the shop."
     },
     "ar": {
       "ly.bag.emptyP": "اختر لعبة تناسب طريقتهم في اللعب وأضفها هنا.",
@@ -448,12 +452,14 @@ export const SKIN = {
       "ly.nf.tryH": "بعض الألعاب لتلقي نظرة عليها",
       "ly.od.chatHello": "لديك أسئلة عن هذا الطلب؟ اكتب هنا وسيجيبك المتجر في هذه المحادثة.",
       "ly.od.leadBaking": "شكرًا لك — طلبك قيد التجهيز.",
+      "ly.od.leadPlaced": "شكرًا لك! تم تسجيل طلبك.",
       "ly.od.leadReady": "شكرًا لك — طلبك جاهز للاستلام.",
       "ly.od.offP": "لن يحدث أي شيء آخر بشأنه. راسل المتجر إن كان لديك سؤال.",
-      "ly.od.pastries": "الألعاب",
+      "ly.od.pastries": "الإيصال",
       "ly.od.payAtCounter": "تدفع في المتجر عند استلامه.",
       "ly.od.pickAt": "استلمه من المتجر",
       "ly.od.stBaking": "قيد التجهيز",
+      "ly.od.stPlaced": "تم الطلب",
       "ly.pd.btThis": "{name} (هذه اللعبة)",
       "ly.pd.btThisK": "هذه اللعبة",
       "ly.pd.btTick": "حدّد الألعاب التي تريد إضافتها",
@@ -626,7 +632,9 @@ export const SKIN = {
       "sb.saved.more": "اعرض المزيد",
       "sb.about.eyebrow": "قصتنا",
       "sb.about.explore": "تصفّح التشكيلة",
-      "sb.bag.cod": "الدفع عند الاستلام"
+      "sb.bag.cod": "الدفع عند الاستلام",
+      "ly.co.noWayYet": "أضف عنوان التوصيل لترى كيف يمكن أن يصلك طلبك.",
+      "ly.co.noWayHere": "لا توجد طريقة توصيل تصل إلى هذا العنوان بعد. جرّب عنوانًا آخر، أو راسل المتجر."
     }
   }
 } as const;

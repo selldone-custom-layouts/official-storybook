@@ -5,16 +5,18 @@
 -->
 <template>
   <section v-if="post" :aria-labelledby="'sb-read-h'" class="wrap sb-sec sb-reading">
-    <div class="sb-reading-copy">
-      <p class="eyebrow">{{ t("sb.home.fromJournal", "From the play journal") }}</p>
-      <h2 id="sb-read-h"><bdi>{{ post.title }}</bdi></h2>
-      <p v-if="post.description"><bdi>{{ post.description }}</bdi></p>
-      <router-link :to="postRoute(post)" class="btn quiet">{{ t("sb.home.readStory", "Read the story") }}</router-link>
-    </div>
-    <div class="sb-reading-photo">
-      <ly-photo :alt="t('sb.home.featureAlt', 'Hands building a little town')" name="feature" pos="55% 58%">
-        <template #fallback><img v-if="postPic" :src="postPic" alt="" class="ph-img" loading="lazy" /></template>
-      </ly-photo>
+    <div class="sb-reading-in">
+      <div class="sb-reading-copy">
+        <p class="eyebrow">{{ t("sb.home.fromJournal", "From the play journal") }}</p>
+        <h2 id="sb-read-h"><bdi>{{ post.title }}</bdi></h2>
+        <p v-if="post.description"><bdi>{{ post.description }}</bdi></p>
+        <router-link :to="postRoute(post)" class="btn quiet">{{ t("sb.home.readStory", "Read the story") }}</router-link>
+      </div>
+      <div class="sb-reading-photo">
+        <ly-photo :alt="t('sb.home.featureAlt', 'Hands building a little town')" name="feature" pos="55% 58%">
+          <template #fallback><img v-if="postPic" :src="postPic" alt="" class="ph-img" loading="lazy" /></template>
+        </ly-photo>
+      </div>
     </div>
   </section>
 </template>

@@ -16,7 +16,7 @@
           <span class="sb-post-tx">
             <time v-if="b.created_at" :datetime="b.created_at" class="eyebrow">{{ fmtDate(b.created_at) }}</time>
             <h3><bdi>{{ b.title }}</bdi></h3>
-            <p v-if="b.description"><bdi>{{ b.description }}</bdi></p>
+            <p v-if="b.description">{{ b.description }}</p>
             <span class="sb-more">{{ t("sb.home.readStory", "Read the story") }}<ly-icon cls="fl" name="arrow" /></span>
           </span>
         </router-link>

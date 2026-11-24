@@ -13,59 +13,61 @@
 <template>
   <section id="tabs" :aria-label="t('ly.pd.details', 'Details')" class="pd-tabs">
     <div class="wrap">
-      <div :aria-label="t('ly.pd.detailsAria', 'Product details')" class="tl" role="tablist" @keydown="keys">
-        <button
-          v-for="tb in tabs"
-          :id="'tb-' + tb.k"
-          :key="tb.k"
-          :aria-controls="'tp-' + tb.k"
-          :aria-selected="cur === tb.k ? 'true' : 'false'"
-          :tabindex="cur === tb.k ? 0 : -1"
-          class="tl-b"
-          role="tab"
-          type="button"
-          @click="cur = tb.k"
-        >
-          {{ tb.label }}
-        </button>
-      </div>
-
-      <div v-if="articleBody" id="tp-desc" :hidden="cur !== 'desc'" aria-labelledby="tb-desc" class="tp" role="tabpanel">
-        <div class="ly-pd-article sb-article" v-html="articleBody"></div>
-      </div>
-
-      <div id="tp-info" :hidden="cur !== 'info'" aria-labelledby="tb-info" class="tp" role="tabpanel">
-        <div class="spec">
-          <div v-for="g in groups" :key="g.group" class="spec-g">
-            <h3 v-if="g.group" class="pd-sub">{{ g.group }}</h3>
-            <dl class="spec-t">
-              <div v-for="r in g.rows" :key="r[0]">
-                <dt>{{ r[0] }}</dt>
-                <dd>{{ r[1] }}</dd>
-              </div>
-            </dl>
-          </div>
-
+      <div class="sb-tabs-in">
+        <div :aria-label="t('ly.pd.detailsAria', 'Product details')" class="tl" role="tablist" @keydown="keys">
+          <button
+            v-for="tb in tabs"
+            :id="'tb-' + tb.k"
+            :key="tb.k"
+            :aria-controls="'tp-' + tb.k"
+            :aria-selected="cur === tb.k ? 'true' : 'false'"
+            :tabindex="cur === tb.k ? 0 : -1"
+            class="tl-b"
+            role="tab"
+            type="button"
+            @click="cur = tb.k"
+          >
+            {{ tb.label }}
+          </button>
         </div>
-      </div>
 
-      <div id="tp-rev" :hidden="cur !== 'rev'" aria-labelledby="tb-rev" class="tp" role="tabpanel">
-        <div v-if="!rated" :class="['revs', { 'ly-solo': !criteria.length }]">
-          <ly-empty :text="noReviewsText" :title="t('ly.pd.noReviewsT', 'No reviews yet')" icon="star">
-            <template v-if="!writing" #acts>
-              <button class="btn sm" type="button" @click="write">{{ user ? t("ly.pd.writeFirst", "Write the first review") : t("ly.pd.signInReview", "Sign in to write a review") }}</button>
-            </template>
-          </ly-empty>
-          <div v-if="criteria.length" class="crit">
-            <h3 class="pd-sub">{{ t("ly.pd.willScore", "What reviews will score") }}</h3>
-            <ul>
-              <li v-for="c in criteria" :key="c">
-                <span>{{ c }}</span><span aria-hidden="true" class="crit-bar"></span><span class="crit-v">{{ t("ly.pd.noScore", "No score yet") }}</span>
-              </li>
-            </ul>
+        <div v-if="articleBody" id="tp-desc" :hidden="cur !== 'desc'" aria-labelledby="tb-desc" class="tp" role="tabpanel">
+          <div class="ly-pd-article sb-article" v-html="articleBody"></div>
+        </div>
+
+        <div id="tp-info" :hidden="cur !== 'info'" aria-labelledby="tb-info" class="tp" role="tabpanel">
+          <div class="spec">
+            <div v-for="g in groups" :key="g.group" class="spec-g">
+              <h3 v-if="g.group" class="pd-sub">{{ g.group }}</h3>
+              <dl class="spec-t">
+                <div v-for="r in g.rows" :key="r[0]">
+                  <dt>{{ r[0] }}</dt>
+                  <dd>{{ r[1] }}</dd>
+                </div>
+              </dl>
+            </div>
+
           </div>
         </div>
-        <div v-if="rated || writing" class="ly-rv-sd"><kalio-reviews /></div>
+
+        <div id="tp-rev" :hidden="cur !== 'rev'" aria-labelledby="tb-rev" class="tp" role="tabpanel">
+          <div v-if="!rated" :class="['revs', { 'ly-solo': !criteria.length }]">
+            <ly-empty :text="noReviewsText" :title="t('ly.pd.noReviewsT', 'No reviews yet')" icon="star">
+              <template v-if="!writing" #acts>
+                <button class="btn sm" type="button" @click="write">{{ user ? t("ly.pd.writeFirst", "Write the first review") : t("ly.pd.signInReview", "Sign in to write a review") }}</button>
+              </template>
+            </ly-empty>
+            <div v-if="criteria.length" class="crit">
+              <h3 class="pd-sub">{{ t("ly.pd.willScore", "What reviews will score") }}</h3>
+              <ul>
+                <li v-for="c in criteria" :key="c">
+                  <span>{{ c }}</span><span aria-hidden="true" class="crit-bar"></span><span class="crit-v">{{ t("ly.pd.noScore", "No score yet") }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div v-if="rated || writing" class="ly-rv-sd"><kalio-reviews /></div>
+        </div>
       </div>
     </div>
   </section>

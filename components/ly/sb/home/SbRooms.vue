@@ -18,7 +18,7 @@
           </span>
           <span class="sb-room-tx">
             <h3><bdi>{{ catTitle(c) }}</bdi></h3>
-            <p v-if="c.description"><bdi>{{ c.description }}</bdi></p>
+            <p v-if="c.description">{{ c.description }}</p>
           </span>
           <ly-icon cls="fl sb-room-go" name="arrow" />
         </router-link>

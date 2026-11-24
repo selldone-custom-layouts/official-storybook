@@ -130,7 +130,7 @@ html, body { background: var(--ly-bg); }
 .ly .sb-menu .pn-list a, .ly .sb-menu .pn-more { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 6px 12px 6px 6px; border: 1px solid var(--ly-line); border-radius: var(--ly-r-in); background: var(--ly-surface); font: 700 14px/1.25 var(--ly-sans); letter-spacing: 0; color: var(--ly-ink); width: 100%; }
 .ly .sb-menu .pn-list a:hover, .ly .sb-menu .pn-more:hover { background: var(--ly-band); color: var(--ly-ink); }
 .ly .sb-menu .pn-list a > span:nth-child(2) { flex: 1; min-width: 0; }
-.ly .sb-menu .pn-list .th { width: 34px; height: 34px; border-radius: 10px; background: var(--ly-plate); display: grid; place-items: center; overflow: hidden; flex: none; }
+.ly .sb-menu .pn-list .th { width: 34px; height: 34px; border-radius: var(--ly-r-in); background: var(--ly-plate); display: grid; place-items: center; overflow: hidden; flex: none; }
 .ly .sb-menu .pn-list .th img { width: 88%; height: 88%; object-fit: contain; }
 .ly .sb-menu .pn-list .chev { width: 18px; height: 18px; margin-inline-end: 4px; }
 .ly .sb-menu .pn-more { justify-content: center; color: var(--ly-ink); }
@@ -253,13 +253,12 @@ html, body { background: var(--ly-bg); }
 .ly .sb-ages-row a { display: grid; place-items: center; min-height: 49px; padding: 5px; border: 1px solid var(--ly-line); background: var(--ly-surface); border-radius: 999px; color: var(--ly-ink); font-size: 14.5px; font-weight: 750; text-align: center; white-space: nowrap; }
 .ly .sb-ages-row a:hover { background: var(--ly-tint2); color: var(--ly-ink); box-shadow: inset 0 0 0 1px var(--ly-act-text); }
 
-.ly .sb-reading { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); align-items: stretch; }
-.ly .sb-reading-copy { display: grid; align-content: center; justify-items: start; gap: 13px; padding: clamp(18px, 3.5cqw, 50px); background: var(--ly-tint2); border-radius: var(--ly-r-pn) 0 0 var(--ly-r-pn); min-width: 0; }
-[dir="rtl"] .ly .sb-reading-copy { border-radius: 0 var(--ly-r-pn) var(--ly-r-pn) 0; }
+/* one panel (the tint) holding the copy and the photo: the panel keeps the shape, its two halves are square inside it */
+.ly .sb-reading-in { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); align-items: stretch; border-radius: var(--ly-r-pn); overflow: hidden; background: var(--ly-tint2); }
+.ly .sb-reading-copy { display: grid; align-content: center; justify-items: start; gap: 13px; padding: clamp(18px, 3.5cqw, 50px); min-width: 0; }
 .ly .sb-reading h2, .ly .sb-craft h2 { font-size: clamp(34px, 4.4vw, 70px); letter-spacing: -.063em; line-height: .97; font-weight: 650; color: var(--ly-ink); overflow-wrap: anywhere; }
 .ly .sb-reading-copy p:not(.eyebrow), .ly .sb-craft-copy p:not(.eyebrow) { color: var(--ly-muted); max-width: 35ch; }
-.ly .sb-reading-photo { position: relative; overflow: hidden; min-width: 0; min-height: 320px; width: 100%; border-radius: 0 var(--ly-r-pn) var(--ly-r-pn) 0; background: var(--ly-tint2); }
-[dir="rtl"] .ly .sb-reading-photo { border-radius: var(--ly-r-pn) 0 0 var(--ly-r-pn); }
+.ly .sb-reading-photo { position: relative; overflow: hidden; min-width: 0; min-height: 320px; width: 100%; }
 .ly .sb-reading-photo .ph { position: absolute; inset: 0; border-radius: 0; }
 .ly .sb-reading-photo .ph .ph-img { object-fit: cover; }
 .ly .sb-craft-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(10px, 4%, 50px); }
@@ -317,9 +316,8 @@ html, body { background: var(--ly-bg); }
   .ly .sb-room h3 { font-size: 22px; }
   .ly .sb-room p { font-size: 13px; }
   .ly .sb-room-go { display: none; }
-  .ly .sb-reading, .ly .sb-craft-in { grid-template-columns: minmax(0, 1fr); }
-  .ly .sb-reading-copy { border-radius: var(--ly-r-pn) var(--ly-r-pn) 0 0 !important; }
-  .ly .sb-reading-photo { aspect-ratio: 1.7; min-height: 0; border-radius: 0 0 var(--ly-r-pn) var(--ly-r-pn) !important; }
+  .ly .sb-reading-in, .ly .sb-craft-in { grid-template-columns: minmax(0, 1fr); }
+  .ly .sb-reading-photo { aspect-ratio: 1.7; min-height: 0; }
   .ly .sb-craft-copy { padding: 7px 4px 0; }
   .ly .sb-budget .wrap { padding-block: 19px; }
   .ly .sb-budget-row, .ly .sb-budget-row.n2 { grid-template-columns: minmax(0, 1fr); gap: 6px; }
@@ -417,7 +415,8 @@ html, body { background: var(--ly-bg); }
 .ly .mbox { flex: 1; width: auto; height: 42px; border-radius: 999px; background: var(--ly-surface); box-shadow: inset 0 0 0 1px var(--ly-line); padding: 0 12px; }
 .ly .mbox > span { color: var(--ly-muted); }
 .ly .ck-l { font-size: 14px; }
-.ly .cbx { border-radius: 5px; }
+/* a checkbox on the shape scale: the inner 14px on a 20px box is its circle */
+.ly .cbx { border-radius: var(--ly-r-in); }
 .ly .lst-bar { margin-bottom: 14px; }
 .ly .sb-count { font-size: 14px; font-weight: 750; color: var(--ly-ink); }
 .ly .sort-btn { border-radius: 999px; min-height: 42px; background: var(--ly-surface); box-shadow: inset 0 0 0 1px var(--ly-line); font-weight: 600; padding-inline: 14px 16px; }
@@ -506,9 +505,10 @@ html, body { background: var(--ly-bg); }
 .ly .sb-purchase .opts { width: 100%; margin-top: 12px; }
 /* the detail sheet */
 .ly .pd-tabs { --ly-bg: transparent; background: transparent; padding-block: 28px 8px; }
-.ly .pd-tabs > .wrap { }
-.ly .pd-tabs .tl { justify-content: flex-start; gap: 8px; margin: 0; padding: 22px 26px 0; border: 1px solid var(--ly-line); border-bottom: 0; border-radius: var(--ly-r-pn) var(--ly-r-pn) 0 0; background: var(--ly-surface); }
-.ly .pd-tabs .tp { padding: 18px 26px 26px; border: 1px solid var(--ly-line); border-top: 0; border-radius: 0 0 var(--ly-r-pn) var(--ly-r-pn); background: var(--ly-surface); }
+/* the tabs and their panel are one bordered panel: the panel keeps the shape, the tab row and the sheet are square inside it */
+.ly .pd-tabs .sb-tabs-in { border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); background: var(--ly-surface); }
+.ly .pd-tabs .tl { justify-content: flex-start; gap: 8px; margin: 0; padding: 22px 26px 0; border: 0; border-radius: 0; background: transparent; }
+.ly .pd-tabs .tp { padding: 18px 26px 26px; border: 0; border-radius: 0; background: transparent; }
 .ly .tl-b { min-height: 44px; padding: 0 17px; border-radius: 999px; background: var(--ly-band); color: var(--ly-ink); font: 750 14.5px/1 var(--ly-sans); letter-spacing: 0; text-transform: none; border: 1px solid var(--ly-line); }
 .ly .tl-b:hover { background: var(--ly-tint2); color: var(--ly-ink); }
 .ly .tl-b[aria-selected="true"] { background: var(--ly-tint2); color: var(--ly-ink); box-shadow: inset 0 0 0 1px var(--ly-act-text); border-color: transparent; }
@@ -786,3 +786,6 @@ html.ly-dark .ly .pd-t[aria-pressed="true"] { background: var(--ly-plate); }
 [dir="rtl"] .ly :is(.sb-room h3, .sb-room p, .pc-t, .pc-c, .sb-post h3, .sb-post p, .sb-reading-copy h2, .sb-reading-copy p, .pt-l, .pt-h, .sb-pd-lead, .sb-facts dt, .sb-facts dd, .sb-fj-t, .sb-shelves .cchip, .sb-menu .pn-list a > span, .sb-age, .pd-h, .eyebrow.pd-cat, .sb-ftr-col a, .dw-n, .cr-n, .bf-t, .bf-d, .bc h3, .sb-nodeals-card p, .sb-welcome figcaption a) { unicode-bidi: plaintext; }
 [dir="rtl"] .ly :is(.sb-room h3, .sb-room p, .pc-t, .pc-c, .sb-post h3, .sb-post p, .sb-reading-copy h2, .sb-reading-copy p, .sb-pd-lead, .sb-facts dt, .sb-facts dd, .pd-h, .dw-n, .cr-n, .bf-t, .bf-d, .bc h3, .sb-ftr-col a) { text-align: right; }
 [dir="rtl"] .ly:not(.ly-journal) :is(.pt-h, .pt-l) { text-align: right; }
+/* the Delivery card and sheet before any way shows (a local delivery waits for the address), or when none reaches it */
+.ly .ly-ship-none { display: flex; align-items: flex-start; gap: 10px; margin: 4px 0 0; padding: 12px 14px; border-radius: var(--ly-r-in); background: var(--ly-band); color: var(--ly-ink); font-size: 14px; line-height: 1.45; }
+.ly .ly-ship-none .i { width: 18px; height: 18px; flex: none; margin-top: 1px; color: var(--ly-act-text); }
