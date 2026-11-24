@@ -822,3 +822,6 @@ html.ly-dark .ly .pd-t[aria-pressed="true"] { background: var(--ly-plate); }
 .ly .mcs { grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
 /* Selldone's pickup chip under the price (it shows once the pickup way has a point): words on the tint in its own ink */
 .ly .s--product-section-tax .-pickup-box.v-chip { color: var(--ly-soft-ink) !important; }
+/* the bag's notes under the ways: a note that wraps (the ways that reach the address, by name and fee) keeps its icon on the first line */
+.ly .cdlv-n { align-items: flex-start; line-height: 1.45; }
+.ly .cdlv-n .i { flex: none; margin-top: 1px; }

@@ -95,15 +95,16 @@
               </li>
             </ul>
 
-            <div v-if="transportation_list.length && has_delivery && !isService" class="cdlv">
+            <div v-if="(transportation_list.length || nx_has_address) && has_delivery && !isService" class="cdlv">
               <div class="cdlv-hd">
                 <h2 class="h3x">{{ t("ly.co.reaches", "How it reaches you") }}</h2>
                 <button v-if="nx_ways_in_order.length" :aria-expanded="delivery_sheet ? 'true' : 'false'" aria-controls="dlvm" class="qlink" type="button" @click="openLayer('dlvm', $event.currentTarget)">
                   {{ t("ly.co.compareWays", "Compare the options") }}<ly-icon name="arrow" />
                 </button>
               </div>
-              <!-- No way before an address (a local delivery waits for it; a pickup way without a pickup point is never offered) -->
-              <p v-if="!nx_ways_in_order.length" class="ly-ship-none"><ly-icon name="pin" /><span>{{ t("ly.co.noWayBag", "The ways to your door show at checkout, once your address is in.") }}</span></p>
+              <!-- No way before an address (a local delivery waits for it; a pickup way without a pickup point is never offered);
+                   with an address and no way at all: plainly that none reaches it -->
+              <p v-if="!nx_ways_in_order.length" class="ly-ship-none"><ly-icon name="pin" /><span>{{ nx_door_note || t("ly.co.noWayBag", "The ways to your door show at checkout, once your address is in.") }}</span></p>
               <div v-else :aria-label="t('ly.co.method', 'Delivery method')" class="mcs" role="radiogroup">
                 <label v-for="way in nx_ways_in_order" :key="way.type + (way.id || '')" :class="['mc', { on: delivery_info?.type === way.type }]">
                   <input :aria-label="wayTitleOf(way)" :checked="delivery_info?.type === way.type" class="rdo" name="ly-cdm" type="radio" :value="way.type" @change="nx_pick_way(way)" />
@@ -113,7 +114,9 @@
                   <span v-if="dmWayNote(way)" class="mc-n">{{ dmWayNote(way) }}</span>
                 </label>
               </div>
+              <!-- No address yet: the door ways come at checkout; with one: the ways that reach it by name and fee, or that none does -->
               <p v-if="nx_ways_in_order.length && nx_more_later" class="cdlv-n"><ly-icon name="pin" />{{ t("sb.co.moreLater", "Delivery to your door shows at checkout, once your address is in.") }}</p>
+              <p v-else-if="nx_ways_in_order.length && nx_door_note" class="cdlv-n"><ly-icon name="pin" /><span>{{ nx_door_note }}</span></p>
               <p v-if="nx_ways_in_order.length" class="cdlv-n"><ly-icon name="info" />{{ t("ly.co.windowLater", "The time window is chosen at checkout.") }}</p>
             </div>
           </div>

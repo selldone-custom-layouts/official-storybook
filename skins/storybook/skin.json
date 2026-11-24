@@ -376,7 +376,11 @@
       "sb.way.van": "{shop} delivery van",
       "sb.pd.toDoor": "Delivered to your door.",
       "sb.pd.toDoorShort": "Delivered to your door",
-      "sb.co.moreLater": "Delivery to your door shows at checkout, once your address is in."
+      "sb.co.moreLater": "Delivery to your door shows at checkout, once your address is in.",
+      "sb.co.thisAddress": "this address",
+      "sb.co.doorTo": "To {place}: {ways}.",
+      "sb.co.noDoorPickup": "Door delivery doesn't reach {place}. Pickup is available at {point}.",
+      "sb.co.noDoor": "Door delivery doesn't reach {place}. Try another address at checkout."
     },
     "ar": {
       "ly.bag.emptyP": "اختر لعبة تناسب طريقتهم في اللعب وأضفها هنا.",
@@ -636,7 +640,11 @@
       "sb.way.van": "شاحنة توصيل {shop}",
       "sb.pd.toDoor": "يصل إلى باب بيتك.",
       "sb.pd.toDoorShort": "يصل إلى باب بيتك",
-      "sb.co.moreLater": "يظهر التوصيل إلى بابك عند إتمام الطلب، بعد إدخال عنوانك."
+      "sb.co.moreLater": "يظهر التوصيل إلى بابك عند إتمام الطلب، بعد إدخال عنوانك.",
+      "sb.co.thisAddress": "هذا العنوان",
+      "sb.co.doorTo": "إلى {place}: {ways}.",
+      "sb.co.noDoorPickup": "التوصيل إلى الباب لا يصل إلى {place}. الاستلام متاح من {point}.",
+      "sb.co.noDoor": "التوصيل إلى الباب لا يصل إلى {place}. جرّب عنوانًا آخر عند إتمام الطلب."
     }
   }
 }

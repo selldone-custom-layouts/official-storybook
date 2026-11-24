@@ -304,10 +304,40 @@ export default {
     },
     /* The bag's delivery ways in the checkout's order: the ways, then pickup (only with a pickup point: without one,
        checkout never offers it; the Rino rule, as deliveryWays() in ly.ts). */
-    /* the shop has ways to the door that the bill offers only once the address is in (a courier's radius, a van) */
+    /* the shop has ways to the door that the bill offers only once the address is in (a courier's radius, a van);
+       only while there is truly no address yet: with one, the bill's list is what reaches it (a van to Los Angeles
+       is listed and the 30 km courier is not, 24 Nov 2026) */
     nx_more_later(this: any): boolean {
+      if (this.nx_has_address) return false;
       const listed = new Set((this.transportation_list || []).map((w: any) => w.type));
       return deliveryWays(this.$shop).some((w: any) => !w.pickup && !listed.has(w.type));
+    },
+    /* The delivery address in a few words ("900 West 5th Street, Los Angeles"). */
+    nx_addr_short(this: any): string {
+      const r = this.receiver_info || {};
+      const street = String(r.address || "").trim();
+      const city = String(r.city || "").trim();
+      return city && !street.toLowerCase().includes(city.toLowerCase()) ? [street, city].filter(Boolean).join(", ") : street;
+    },
+    /* With an address: the ways to the door that reach it, by name and fee, or plainly that none does (and the
+       pickup point instead, when the shop has one). Empty without an address. */
+    nx_door_note(this: any): string {
+      if (!this.nx_has_address) return "";
+      const place = this.nx_addr_short || t("sb.co.thisAddress", "this address");
+      const door = this.nx_ways_in_order.filter((w: any) => w.type !== ShopTransportations.Pickup.code);
+      if (door.length) {
+        /* "Toychi delivery van (free)", "Toychi courier ($4.00)" */
+        const ways = door.map((w: any) => {
+          const fee = this.nx_way_fee(w);
+          return `${wayTitle(w, this.$shop)} (${fee.charAt(0).toLocaleLowerCase() + fee.slice(1)})`;
+        });
+        return t("sb.co.doorTo", "To {place}: {ways}.", { place, ways: this.dmList(ways) });
+      }
+      const pickup = this.nx_ways_in_order.find((w: any) => w.type === ShopTransportations.Pickup.code);
+      const point = pickup?.pickups?.[0]?.name || (pickup ? wayTitle(pickup, this.$shop) : "");
+      return point
+        ? t("sb.co.noDoorPickup", "Door delivery doesn't reach {place}. Pickup is available at {point}.", { place, point })
+        : t("sb.co.noDoor", "Door delivery doesn't reach {place}. Try another address at checkout.", { place });
     },
     nx_ways_in_order(this: any): any[] {
       const pickup = ShopTransportations.Pickup.code;
