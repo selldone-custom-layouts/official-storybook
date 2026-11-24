@@ -504,7 +504,10 @@ export default defineComponent({
     /* ── the Layout ── */
     /* A pickup point's card title: the pickup way's own title, else "Pickup at <place>". */
     pickupTitle(pickup) {
-      return this.pickup_transportation?.title || t("bakini.way.pickupAt", "Pickup at {place}", { place: pickup.title || pickup.name || pickup.address });
+      if (this.pickup_transportation?.title) return this.pickup_transportation.title;
+      /* a point already named as one ("Toychi Pickup · Bryant Park") is not called "Pickup at Toychi Pickup …" */
+      const place = pickup.title || pickup.name || pickup.address;
+      return /pickup|collect/i.test(String(place || "")) ? place : t("bakini.way.pickupAt", "Pickup at {place}", { place });
     },
     wayTitleOf(item) {
       return item?.title || wayTitle(item, this.$shop);
@@ -517,6 +520,7 @@ export default defineComponent({
       const parts = [];
       if (item.type === "Global") parts.push(t("bakini.n.co.anywhere", "Ships anywhere"));
       else if (item.type !== "Pickup" && item.distance && item.distance < 1000) parts.push(t("bakini.n.co.within", "Local delivery within {km} km of the bakery", { km: item.distance }));
+      else if (item.type !== "Pickup" && item.distance >= 1000) parts.push(t("sb.pd.toDoorShort", "Delivered to your door"));
       if (item.free_shipping && item.free_shipping_limit > 0)
         parts.push(t("bakini.n.co.freeOverOrders", "free on orders over {amount}", { amount: moneyFrom(item.free_shipping_limit, item.currency, { short: "auto" }) }));
       const line = parts.join("; ");

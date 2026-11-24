@@ -196,12 +196,22 @@ export function wayTitle(tr: any, shop: any): string {
   const name = raw.charAt(0).toUpperCase() + raw.slice(1);
   if (tr?.type === "Pickup") {
     const p = (tr.pickups || [])[0];
+    /* a point already named as one ("Toychi Pickup · Bryant Park") is not called "Pickup at Toychi Pickup …" */
+    if (p?.name && /pickup|collect/i.test(p.name)) return p.name;
     return p?.name ? t("bakini.n.way.pickupAt", "Pickup at {place}", { place: p.name }) : t("bakini.n.way.pickup", "Pickup");
   }
+  /* a van or a truck is the shop's home delivery, beside its courier on two wheels */
+  if (tr?.type === "Truck" || tr?.type === "Car") return t("sb.way.van", "{shop} delivery van", { shop: name });
   if (COURIER.includes(tr?.type)) return t("bakini.n.way.courier", "{shop} courier", { shop: name });
   if (tr?.type === "Global") return t("bakini.n.way.worldwide", "Worldwide shipping");
   if (tr?.type === "Post") return t("bakini.n.way.post", "By post");
   return t("bakini.n.way.delivery", "Delivery");
+}
+
+/** A way limited to a real radius around the shop (a city courier). Selldone's "no limit" is a very large one (99999). */
+export function isLocalWay(w: any): boolean {
+  const d = Number(w?.distance) || 0;
+  return d > 0 && d < 1000;
 }
 
 export function deliveryWays(shop: any): DeliveryWay[] {

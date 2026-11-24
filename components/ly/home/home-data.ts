@@ -5,7 +5,7 @@
  * really has. Moved unchanged from the first Layout's single home component, so a section renders exactly as
  * it did there.
  */
-import { bySells, catOf, catTitle, catTo, ly, fmtDate, inCat, mixed, money, priceView, productImage, productTo, scrollBehavior, shopFacts, unitOf } from "../ly";
+import { bySells, isLocalWay, catOf, catTitle, catTo, ly, fmtDate, inCat, mixed, money, priceView, productImage, productTo, scrollBehavior, shopFacts, unitOf } from "../ly";
 import { collectionPhoto } from "../ly-photos";
 import { catalogueRoute, dealsRoute, dropSrcset, percentOff, photoSrcset } from "../../kalio/kalio-catalog";
 import { postRoute, journalRoute } from "../../kalio/pages/kalio-journal";
@@ -225,7 +225,7 @@ export default {
     courierNote() {
       const c = this.facts.courier;
       if (!c) return "";
-      return c.distance ? t("ly.home.courierWithin", "Local delivery within {km} km of the bakery.", { km: c.distance }) : t("ly.home.courierLocal", "Local delivery.");
+      return isLocalWay(c) ? t("ly.home.courierWithin", "Local delivery within {km} km of the bakery.", { km: c.distance }) : c.distance ? t("sb.pd.toDoor", "Delivered to your door.") : t("ly.home.courierLocal", "Local delivery.");
     },
     courierChecks() {
       const c = this.facts.courier;
@@ -373,7 +373,7 @@ export default {
     wayNote(w) {
       if (w.pickup) return this.facts.pickupNote || (w.windows.length ? list(w.windows.map(windowWord)) : "");
       if (w.type === "Global" || w.type === "Post") return w.freeOver ? t("ly.home.shipsFree", "Ships anywhere; free on orders over {amount}", { amount: money(w.freeOver, true) }) : t("ly.home.ships", "Ships anywhere");
-      const near = w.distance ? t("ly.home.courierWithinShort", "Local delivery within {km} km of the bakery", { km: w.distance }) : t("ly.home.courierLocalShort", "Local delivery");
+      const near = isLocalWay(w) ? t("ly.home.courierWithinShort", "Local delivery within {km} km of the bakery", { km: w.distance }) : w.distance ? t("sb.pd.toDoorShort", "Delivered to your door") : t("ly.home.courierLocalShort", "Local delivery");
       return w.windows.length ? `${near} · ${list(w.windows.map(windowWord))}` : near;
     },
     selMeta(p) {

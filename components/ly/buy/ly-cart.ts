@@ -18,7 +18,7 @@
  */
 import { ShopTransportations } from "@selldone/core-js/enums/logistic/ShopTransportations";
 import { ETA } from "@selldone/core-js/enums/logistic/ETA.ts";
-import { catImage, catOf, catTitle, catTo, closeLayer, hueOf, layer, loadDm, ly, bySells, openLayer, shopFacts, unitOf, productTo, wayTitle } from "../ly";
+import { catImage, catOf, catTitle, catTo, closeLayer, deliveryWays, hueOf, layer, loadDm, ly, bySells, openLayer, shopFacts, unitOf, productTo, wayTitle } from "../ly";
 import { catalogueRoute } from "../../kalio/kalio-catalog";
 import { shownCount, stepTo } from "../../kalio/kalio-basket";
 import { productImage } from "../../kalio/kalio-catalog";
@@ -37,6 +37,7 @@ export function shopWay(shop: any, way: any): any {
 export function wayIcon(type: string): string {
   if (type === ShopTransportations.Pickup.code) return "store";
   if (["Global", "Post", "Airplane", "Ship"].includes(type)) return "plane";
+  if (type === "Truck" || type === "Car") return "truck";
   return "bike";
 }
 
@@ -73,6 +74,7 @@ export function wayReach(shop: any, given: any): string {
   if (item.type === ShopTransportations.Pickup.code) return "";
   if (item.type === "Global") return t("bakini.n.co.anywhere", "Ships anywhere");
   if (item.distance && item.distance < 1000) return t("bakini.n.co.within", "Local delivery within {km} km of the bakery", { km: item.distance });
+  if (item.distance >= 1000) return t("sb.pd.toDoorShort", "Delivered to your door");
   return "";
 }
 
@@ -302,6 +304,11 @@ export default {
     },
     /* The bag's delivery ways in the checkout's order: the ways, then pickup (only with a pickup point: without one,
        checkout never offers it; the Rino rule, as deliveryWays() in ly.ts). */
+    /* the shop has ways to the door that the bill offers only once the address is in (a courier's radius, a van) */
+    nx_more_later(this: any): boolean {
+      const listed = new Set((this.transportation_list || []).map((w: any) => w.type));
+      return deliveryWays(this.$shop).some((w: any) => !w.pickup && !listed.has(w.type));
+    },
     nx_ways_in_order(this: any): any[] {
       const pickup = ShopTransportations.Pickup.code;
       const list = (this.transportation_list || []).filter((w: any) => w.type !== pickup || (Array.isArray(w.pickups) && w.pickups.length > 0));

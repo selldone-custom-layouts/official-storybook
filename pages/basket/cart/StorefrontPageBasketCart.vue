@@ -113,6 +113,7 @@
                   <span v-if="dmWayNote(way)" class="mc-n">{{ dmWayNote(way) }}</span>
                 </label>
               </div>
+              <p v-if="nx_ways_in_order.length && nx_more_later" class="cdlv-n"><ly-icon name="pin" />{{ t("sb.co.moreLater", "Delivery to your door shows at checkout, once your address is in.") }}</p>
               <p v-if="nx_ways_in_order.length" class="cdlv-n"><ly-icon name="info" />{{ t("ly.co.windowLater", "The time window is chosen at checkout.") }}</p>
             </div>
           </div>

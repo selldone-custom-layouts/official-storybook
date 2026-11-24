@@ -818,3 +818,5 @@ html.ly-dark .ly .pd-t[aria-pressed="true"] { background: var(--ly-plate); }
 /* right to left: the shopper's and the shop's own words in the order's messages and lines keep their own direction */
 [dir="rtl"] .ly :is(.msg p, .ly-od-pay .il-tx > *, .ly-od-rcv .il-tx > *) { unicode-bidi: plaintext; }
 [dir="rtl"] .ly :is(.ly-od-pay .il-tx > *, .ly-od-rcv .il-tx > *) { text-align: right; }
+/* the ways as cards that share the row (one way fills it, three sit side by side; a narrow card never squeezes its name) */
+.ly .mcs { grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }

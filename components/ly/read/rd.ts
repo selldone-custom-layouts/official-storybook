@@ -8,7 +8,7 @@
  * Every sample is shown with the label "Sample text — the shop has not
  * written this page yet" (LySampleTag.vue).
  */
-import { shopFacts, type ShopFacts } from "../ly";
+import { isLocalWay, shopFacts, type ShopFacts } from "../ly";
 import { t } from "../../kalio/i18n/kalio-i18n";
 
 declare const window: any;
@@ -94,7 +94,7 @@ export function waySentences(f: ShopFacts, money: (n: number) => string): string
   const out: string[] = [];
   const c = f.courier;
   if (c) {
-    const near = c.distance ? t("bakini.n.rd.within", " within {km} km of the bakery", { km: c.distance }) : "";
+    const near = isLocalWay(c) ? t("bakini.n.rd.within", " within {km} km of the bakery", { km: c.distance }) : "";
     const win = c.windows.length ? t("bakini.n.rd.inWindow", " in the window you choose: {windows}", { windows: list(c.windows) }) : "";
     out.push(t("bakini.n.rd.courierSays", "The {name} delivers{near}{win}.", { name: c.title, near, win }));
   }
@@ -180,7 +180,7 @@ export function sampleFaq(shop: any, f: ShopFacts, money: (n: number) => string,
   if (f.courier) {
     const c = f.courier;
     const win = c.windows.length ? t("bakini.n.rd.fWin", " Choose a {windows} window at checkout.", { windows: list(c.windows, "disjunction") }) : "";
-    const near = c.distance ? t("bakini.n.rd.within", " within {km} km of the bakery", { km: c.distance }) : "";
+    const near = isLocalWay(c) ? t("bakini.n.rd.within", " within {km} km of the bakery", { km: c.distance }) : "";
     const fee = c.fee ? "" : t("bakini.n.rd.fFree", " Courier delivery is free.");
     out.push({ group: G.deliver, q: t("bakini.n.rd.fq4", "When can the courier deliver?"), a: t("bakini.n.rd.fa4", "The {name} delivers{near}{days}.{win}{fee}", { name: c.title, near, days: c.days.length >= 7 ? t("bakini.n.rd.everyDayComma", ", every day") : "", win, fee }) });
   }

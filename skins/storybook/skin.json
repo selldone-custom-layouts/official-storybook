@@ -372,7 +372,11 @@
       "ly.co.noWayHere": "No delivery way reaches this address yet. Try another address, or write to the shop.",
       "ly.co.noWayBag": "The ways to your door show at checkout, once your address is in.",
       "sb.od.status": "Order status",
-      "ly.od.receiver": "Delivery"
+      "ly.od.receiver": "Delivery",
+      "sb.way.van": "{shop} delivery van",
+      "sb.pd.toDoor": "Delivered to your door.",
+      "sb.pd.toDoorShort": "Delivered to your door",
+      "sb.co.moreLater": "Delivery to your door shows at checkout, once your address is in."
     },
     "ar": {
       "ly.bag.emptyP": "اختر لعبة تناسب طريقتهم في اللعب وأضفها هنا.",
@@ -628,7 +632,11 @@
       "ly.co.noWayHere": "لا توجد طريقة توصيل تصل إلى هذا العنوان بعد. جرّب عنوانًا آخر، أو راسل المتجر.",
       "ly.co.noWayBag": "تظهر طرق التوصيل إلى بابك عند إتمام الطلب، بعد إدخال عنوانك.",
       "sb.od.status": "حالة الطلب",
-      "ly.od.receiver": "التوصيل"
+      "ly.od.receiver": "التوصيل",
+      "sb.way.van": "شاحنة توصيل {shop}",
+      "sb.pd.toDoor": "يصل إلى باب بيتك.",
+      "sb.pd.toDoorShort": "يصل إلى باب بيتك",
+      "sb.co.moreLater": "يظهر التوصيل إلى بابك عند إتمام الطلب، بعد إدخال عنوانك."
     }
   }
 }

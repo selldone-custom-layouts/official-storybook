@@ -27,7 +27,14 @@ import { pathToFileURL } from "node:url";
 
 const BASE = (process.argv[2] || __shopUrl()).replace(/\/$/, "");
 const OUT = path.resolve(process.argv[3] || ".shots/walk");
-const WIDTHS = (process.env.WIDTHS || "1440,390").split(",").map(Number);
+const WIDTHS = (process.env.WIDTHS || "1440,820,390").split(",").map(Number);
+/* WALK_PLACE: an address searched in the sheet before the pin (e.g. "Los Angeles, CA": far from the warehouse, so a
+   local courier is out and a van or a post is in); WALK_WAY: a pattern; only the ways whose name matches are
+   chosen and taken to the payment window (e.g. "van|truck" or "pickup"). With a pickup-only WALK_WAY no address
+   is entered. */
+const PLACE = process.env.WALK_PLACE || "";
+const ONLY_WAY = process.env.WALK_WAY ? new RegExp(process.env.WALK_WAY, "i") : null;
+const PICKUP_ONLY = !!ONLY_WAY && ONLY_WAY.test("pickup") && !ONLY_WAY.test("van");
 const MODE = process.env.MODE || "light";
 fs.mkdirSync(OUT, { recursive: true });
 
@@ -78,6 +85,10 @@ for (const W of WIDTHS) {
   const push = (to) => page.evaluate((p) => window.$global_router.push(p).catch(() => {}), to);
   const visible = (sel) => page.locator(sel).filter({ visible: true }).first();
   const ways = () => page.locator("#co-delivery .mcs label.mc");
+  /* a way's card by its name (the list can change under the walk: a pickup point's place can bring a van in) */
+  const wayCard = (name) => page.locator("#co-delivery .mcs label.mc").filter({ has: page.locator(".mc-t", { hasText: name }) }).first();
+  const wayOn = (name) =>
+    page.evaluate((name) => !![...document.querySelectorAll("#co-delivery .mcs label.mc")].find((l) => l.querySelector(".mc-t")?.textContent?.trim() === name)?.querySelector("input")?.checked, name);
 
   try {
     // ── home and one piece in the bag
@@ -137,7 +148,20 @@ for (const W of WIDTHS) {
       const hasMap = await page.evaluate(() => !!document.querySelector(".k-addr__map"));
       console.log(`  address sheet open, map ${hasMap ? "on" : "off"} (the shop's option)`);
       await shot(`05-address-map-${hasMap ? "on" : "off"}`);
-      if (hasMap) {
+      if (PLACE) {
+        const q = page.locator(".k-addr__search input, .k-addr__search.-inline input").filter({ visible: true }).first();
+        if (await q.count()) {
+          await q.fill(PLACE);
+          await page.waitForSelector(".k-addr__results li button", { timeout: 15000 }).catch(() => {});
+          const hit = page.locator(".k-addr__results li button").filter({ visible: true }).first();
+          if (await hit.count()) {
+            console.log(`  searched "${PLACE}": ${(await hit.textContent()).replace(/\s+/g, " ").trim().slice(0, 90)}`);
+            await hit.click();
+            await sleep(5000);
+          } else bad(W, `the address search found nothing for "${PLACE}"`);
+        } else bad(W, "no address search field in the sheet");
+      }
+      if (hasMap && !PLACE) {
         await page.locator(".k-addr__pin svg").click().catch(() => {});
         await sleep(5000);
         const found = await page.evaluate(() => document.querySelector(".k-addr__found b")?.textContent?.trim());
@@ -156,8 +180,8 @@ for (const W of WIDTHS) {
       await fill('.k-addr__field input[placeholder="No."]', "12");
       await fill('.k-addr__field input[autocomplete="name"]', "Test Walk", true);
       await fill('.k-addr__field input[autocomplete="tel"]', "+1 415 555 0199", true);
-      await fill('.k-addr__field input[autocomplete="address-level2"]', "Walk City");
-      await fill('.k-addr__field input[autocomplete="postal-code"]', "94105");
+      await fill('.k-addr__field input[autocomplete="address-level2"]', PLACE ? PLACE.split(",")[0] : "Walk City");
+      await fill('.k-addr__field input[autocomplete="postal-code"]', PLACE ? "90012" : "94105");
       await fill(".k-addr__field textarea", "Ring twice (test walk)", true);
       await sleep(800);
       await shot("06-address-details");
@@ -180,10 +204,19 @@ for (const W of WIDTHS) {
       );
     let list = await listWays();
     let addressDone = false;
-    if (!list.length) {
-      const none = await page.evaluate(() => document.querySelector("#co-delivery .ly-ship-none")?.textContent?.trim());
-      console.log(`  no way before an address; the Delivery card says: ${none || "(nothing)"}`);
-      if (!none) bad(W, "the Delivery card shows no way and says nothing about it");
+    /* a far address first (WALK_PLACE): the ways that reach it show once it is in */
+    if (PLACE && !PICKUP_ONLY) {
+      console.log(`  the address first: ${PLACE}`);
+      addressDone = await addressSheet();
+      await sleep(3000);
+      list = await listWays();
+    } else if (!PICKUP_ONLY && (!list.length || (await page.locator("#co-address .addr-add").count()))) {
+      /* no address yet: the ways to the door (a courier's radius, a van) show once it is in, so it comes first */
+      if (!list.length) {
+        const none = await page.evaluate(() => document.querySelector("#co-delivery .ly-ship-none")?.textContent?.trim());
+        console.log(`  no way before an address; the Delivery card says: ${none || "(nothing)"}`);
+        if (!none) bad(W, "the Delivery card shows no way and says nothing about it");
+      } else console.log(`  before an address: ${list.join(" / ")}; the address first`);
       addressDone = await addressSheet();
       await sleep(3000);
       list = await listWays();
@@ -193,12 +226,18 @@ for (const W of WIDTHS) {
     if (!list.length) bad(W, "the Delivery card shows no way");
     const wayInfo = [];
     for (let i = 0; i < list.length; i++) {
-      const card = ways().nth(i);
+      const card = wayCard(list[i].split(" | ")[0]);
       await card.scrollIntoViewIfNeeded();
       await card.click();
       await sleep(3500);
+      /* a basket update still on its way (the contact just typed) can answer over the choice: choose once more */
+      if (!(await wayOn(list[i].split(" | ")[0]))) {
+        console.log("    (not chosen yet: once more)");
+        await card.click();
+        await sleep(3500);
+      }
       const st = await page.evaluate((i) => {
-        const c = document.querySelectorAll("#co-delivery .mcs label.mc")[i];
+        const c = [...document.querySelectorAll("#co-delivery .mcs label.mc")].find((l) => l.querySelector(".mc-t")?.textContent?.trim() === i);
         const chips = [...document.querySelectorAll("#co-delivery .wins .wchip")];
         return {
           checked: !!c?.querySelector("input")?.checked,
@@ -207,7 +246,7 @@ for (const W of WIDTHS) {
           addressH: document.querySelector("#co-address h2")?.textContent?.trim(),
           receipt: (document.querySelector("#co-pay")?.innerText || "").replace(/\s+/g, " ").match(/(Delivery|Pickup|Shipping)[^$]*\$?[\d.,]*|Free/i)?.[0] || "",
         };
-      }, i);
+      }, list[i].split(" | ")[0]);
       const name = list[i].split(" | ")[0];
       console.log(`  way ${i + 1} "${name}": checked=${st.checked} windows=[${st.chips.join(", ")}]${st.date ? " date-field" : ""} address-card="${st.addressH}" receipt="${st.receipt}"`);
       if (!st.checked) bad(W, `way "${name}" did not become the chosen one`);
@@ -246,7 +285,7 @@ for (const W of WIDTHS) {
     if (addressDone) {
       /* the address is in already (it came first) */
     } else if (home) {
-      await ways().nth(home.i).click();
+      await wayCard(home.name).click();
       await sleep(3000);
       const firstChip = page.locator("#co-delivery .wins .wchip:not([disabled])").first();
       if (await firstChip.count()) {
@@ -254,12 +293,32 @@ for (const W of WIDTHS) {
         await sleep(2000);
       }
       await addressSheet();
-    } else bad(W, "no way that needs an address");
+    } else if (!PICKUP_ONLY) bad(W, "no way that needs an address");
 
-    // ── each way: Place order → the payment window → its ✕
-    for (const w of wayInfo) {
-      await ways().nth(w.i).scrollIntoViewIfNeeded();
-      await ways().nth(w.i).click();
+    // ── each way (or the WALK_WAY ones): Place order → the payment window → its ✕
+    const chosen = ONLY_WAY ? wayInfo.filter((w) => ONLY_WAY.test(w.name)) : wayInfo;
+    if (ONLY_WAY) console.log(`  ways for the payment window (${process.env.WALK_WAY}): ${chosen.map((w) => w.name).join(", ") || "none"}`);
+    if (ONLY_WAY && !chosen.length) bad(W, `no way matches "${process.env.WALK_WAY}"`);
+    /* the ways to the door first, a pickup last (a pickup point in the receiver hides a courier whose radius
+       does not reach it, until a way to the door brings the buyer's own address back) */
+    chosen.sort((a, b) => Number(a.pickup) - Number(b.pickup));
+    for (const w of chosen) {
+      if (!(await wayCard(w.name).count())) {
+        for (const o of wayInfo.filter((x) => !x.pickup && x.name !== w.name)) {
+          if (await wayCard(o.name).count()) {
+            await wayCard(o.name).click();
+            await wayCard(w.name).waitFor({ timeout: 15000 }).catch(() => {});
+            await sleep(1500);
+            break;
+          }
+        }
+      }
+      if (!(await wayCard(w.name).count())) {
+        bad(W, `way "${w.name}" is no longer in the list`);
+        continue;
+      }
+      await wayCard(w.name).scrollIntoViewIfNeeded();
+      await wayCard(w.name).click();
       await sleep(3500);
       const chip = page.locator("#co-delivery .wins .wchip:not([disabled])").first();
       if ((await chip.count()) && !(await page.locator("#co-delivery .wins .wchip[aria-checked='true']").count())) {

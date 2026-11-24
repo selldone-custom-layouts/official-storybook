@@ -34,7 +34,7 @@
 import LyArt from "../LyArt.vue";
 import LyCuts from "../LyCuts.vue";
 import { collectionPhoto } from "../ly-photos";
-import { bySells, catTo, inCat, money, shopFacts } from "../ly";
+import { bySells, catTo, inCat, isLocalWay, money, shopFacts } from "../ly";
 import { t } from "../../kalio/i18n/kalio-i18n";
 
 const list = (items, type = "conjunction") => {
@@ -63,7 +63,7 @@ export default {
       const f = this.facts;
       const c = f.courier;
       if (c) {
-        const near = c.distance ? t("ly.strip.within", "Local delivery within {km} km of the bakery.", { km: c.distance }) : t("ly.strip.local", "Local delivery.");
+        const near = isLocalWay(c) ? t("ly.strip.within", "Local delivery within {km} km of the bakery.", { km: c.distance }) : c.distance ? t("sb.pd.toDoor", "Delivered to your door.") : t("ly.strip.local", "Local delivery.");
         const days = c.days.length >= 7 ? t("ly.strip.everyDay", "Every day") : list(c.days.map((d) => String(d).slice(0, 3)));
         const wins = c.windows.length ? list(c.windows.map((w) => String(w).toLowerCase())) : "";
         return { title: c.title, text: [near, [days, wins].filter(Boolean).join(", ") + "."].join(" "), btn: t("ly.strip.orderDelivery", "Order for delivery") };

@@ -4,7 +4,7 @@
  * pickup / payment lines from the shop's own data (product-b.html lines()),
  * and the "Buy together" picks.
  */
-import { bySells, ly, shopFacts, money } from "../ly";
+import { bySells, isLocalWay, ly, shopFacts, money } from "../ly";
 import { t } from "../../kalio/i18n/kalio-i18n";
 
 declare const window: any;
@@ -90,10 +90,10 @@ export function deliveryLines(shop: any): DeliveryLine[] {
         line: w.freeOver ? t("ly.pd.freeOver", "Free on orders over {amount}.", { amount: money(w.freeOver, true) }) : "",
       });
     } else {
-      const near = w.distance ? t("ly.pd.within", "Local delivery within {km} km of the bakery.", { km: w.distance }) : t("ly.pd.local", "Local delivery.");
+      const near = isLocalWay(w) ? t("ly.pd.within", "Local delivery within {km} km of the bakery.", { km: w.distance }) : w.distance ? t("sb.pd.toDoor", "Delivered to your door.") : t("ly.pd.local", "Local delivery.");
       out.push({
         key: "way-" + w.id,
-        icon: "bike",
+        icon: w.type === "Truck" || w.type === "Car" ? "truck" : "bike",
         title: `${w.title} · ${priceWord(w.fee, w.free)}`,
         line: [near, w.windows.length ? w.windows.join(", ") + "." : ""].filter(Boolean).join(" "),
       });
