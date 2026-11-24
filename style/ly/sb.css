@@ -815,3 +815,6 @@ html.ly-dark .ly .pd-t[aria-pressed="true"] { background: var(--ly-plate); }
 .ly .auth .qlink { color: var(--ly-soft-ink); }
 .ly .auth .qlink:hover { color: var(--ly-ink); }
 .ly .auth :focus-visible { box-shadow: inset 0 0 0 2px var(--ly-ring) !important; }
+/* right to left: the shopper's and the shop's own words in the order's messages and lines keep their own direction */
+[dir="rtl"] .ly :is(.msg p, .ly-od-pay .il-tx > *, .ly-od-rcv .il-tx > *) { unicode-bidi: plaintext; }
+[dir="rtl"] .ly :is(.ly-od-pay .il-tx > *, .ly-od-rcv .il-tx > *) { text-align: right; }

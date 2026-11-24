@@ -42,14 +42,21 @@ Every other page keeps the base's flows in the Storybook dress (`style/ly/sb.css
 <!-- CHECKS:START -->
 Fast checks (`new-shop-kits/fast-checks` with `scripts/fast-checks.config.mjs`: 50 runs, 390 to 3840 px, light and dark, Clay, Rosewood, Olive, Indigo and the custom colours #ffff00, #00ffff and #111111, Arabic) and the guest checkout walk (`scripts/checkout-walk.mjs`, 1440 and 390 px) on https://storybook.selldone.shop, 24 Nov 2026, each through `new-shop-kits/pw-lock.sh`:
 
-| Check | 1.0.1 | 1.0.2 | 1.0.3 |
-| --- | --- | --- | --- |
-| ring, card-edge, circle, contrast (424 states), cart, currency, box, i18n (Arabic), text-col, underline, variant | 0 | 0 | 0 |
-| shape | 832 (the journal band's and the product tabs' joined halves, the menu thumbs at 10 px, the checkboxes at 5 px) | 0 | 0 |
-| corner (Arabic) | 13 (a hanging space past the clamped collection and post lines) | 0 | 0 |
-| checkout walk | 6 (no way showed before an address, so the walk stopped there) | WALK OK | WALK OK |
+| Check | 1.0.1 | 1.0.2 | 1.0.3 | 1.0.4 |
+| --- | --- | --- | --- | --- |
+| ring, card-edge, corner, circle, cart, currency, box, i18n (Arabic), text-col, underline, variant | 0 | 0 | 0 | 0 |
+| contrast (424 states) | 0 | 0 | 0 | 3 (the post's "All posts" link at 2.1:1; the checks read a dead demo post until 1.0.4) |
+| shape | 832 (the journal band's and the product tabs' joined halves, the menu thumbs at 10 px, the checkboxes at 5 px) | 0 | 0 | 0 |
+| corner (Arabic) | 13 (a hanging space past the clamped collection and post lines) | 0 | 0 | 0 |
+| checkout walk | 6 (no way showed before an address, so the walk stopped there) | WALK OK | WALK OK | WALK OK |
+
+**1.0.5** (the "All posts" link in the tint's own ink, 5.7:1 on Clay on the dev server) is pinned; its live run is pending: since about 08:00 UTC on 24 Nov 2026 every *.selldone.shop domain resets the TLS connection (Selldone's storefront hosting; the API and the CDN answer).
 
 The walk: one toy in the bag → the bag drawer → Checkout → contact → the Delivery card says "Add the delivery address…" (the shop's only way to the door is a local courier within 30 km) → the address sheet (map on: the pin, the details, Save) → Toychi courier with its windows → the delivery sheet → Place order → Selldone's payment window (cash on delivery) → ✕ → the bag emptied. Nothing is ordered; every `/buy/` call is blocked.
+
+Not reachable by the checks: the order page and its messages (they need a real order). They are drawn on the dev server from a made-up order answered inside the test browser (nothing is ordered; chat posts and `/buy/` calls are aborted).
+
+A journal post opened fresh at its own address (`/blog/<slug>-<blog id>`) shows the Layout's post page in a browser; Selldone answers a headless browser (`HeadlessChrome` in the user agent or `sec-ch-ua`) with its own SEO page, so the checks open posts through the app's router.
 <!-- CHECKS:END -->
 
 ## Releases
