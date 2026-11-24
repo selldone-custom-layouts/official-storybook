@@ -166,10 +166,11 @@ for (const W of WIDTHS) {
         await sleep(5000);
         const found = await page.evaluate(() => document.querySelector(".k-addr__found b")?.textContent?.trim());
         console.log(`  pin placed; address under it: ${found}`);
-        if (await page.evaluate(() => !!document.querySelector(".k-addr__grid.-step-map"))) {
-          await page.locator(".k-sheet__foot .k-sheet__go").click();
-          await sleep(1500);
-        }
+      }
+      /* a phone shows the sheet in two steps: the map, then (Continue) the details */
+      if (await page.evaluate(() => !!document.querySelector(".k-addr__grid.-step-map"))) {
+        await page.locator(".k-sheet__foot .k-sheet__go").click();
+        await sleep(1500);
       }
       const fill = async (sel, v, force = false) => {
         const el = page.locator(sel).first();
@@ -202,14 +203,23 @@ for (const W of WIDTHS) {
       page.evaluate(() =>
         [...document.querySelectorAll("#co-delivery .mcs label.mc")].map((b) => [b.querySelector(".mc-t"), b.querySelector(".mc-f"), b.querySelector(".mc-n")].map((x) => x?.textContent?.trim() || "").join(" | ")),
       );
+    /* after the address the bill comes back with the ways that reach it: wait for more ways than before (up to 15 s) */
+    const waitWays = async (before) => {
+      let now = [];
+      for (let k = 0; k < 10; k++) {
+        await sleep(1500);
+        now = await listWays();
+        if (now.length > before) break;
+      }
+      return now;
+    };
     let list = await listWays();
     let addressDone = false;
     /* a far address first (WALK_PLACE): the ways that reach it show once it is in */
     if (PLACE && !PICKUP_ONLY) {
       console.log(`  the address first: ${PLACE}`);
       addressDone = await addressSheet();
-      await sleep(3000);
-      list = await listWays();
+      list = await waitWays(list.length);
     } else if (!PICKUP_ONLY && (!list.length || (await page.locator("#co-address .addr-add").count()))) {
       /* no address yet: the ways to the door (a courier's radius, a van) show once it is in, so it comes first */
       if (!list.length) {
@@ -218,8 +228,7 @@ for (const W of WIDTHS) {
         if (!none) bad(W, "the Delivery card shows no way and says nothing about it");
       } else console.log(`  before an address: ${list.join(" / ")}; the address first`);
       addressDone = await addressSheet();
-      await sleep(3000);
-      list = await listWays();
+      list = await waitWays(list.length);
     }
     console.log(`  delivery ways (${list.length}):`);
     list.forEach((w, i) => console.log(`    ${i + 1}. ${w}`));
