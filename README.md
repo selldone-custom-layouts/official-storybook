@@ -76,14 +76,14 @@ Take them from the live shop once it is pinned: `node --use-system-ca scripts/do
 Every check runs one browser at a time against the shop, at 1440px, 1024px and 390px, dark and light, every palette and the custom colours #ffff00, #00ffff and #111111, and Arabic (right to left). Each is delivered at **TOTAL 0**.
 
 <!-- TESTS:START -->
-On https://storybook.selldone.shop (24 Nov 2026), after each pin; the version pinned is **1.0.8**:
+On https://storybook.selldone.shop (24 Nov 2026), after each pin; the version pinned is **1.0.9**:
 
 | Check | Result |
 | --- | --- |
 | The production bundle through the live shop's own HTML and loader (`scripts/release.sh` step 5b: home, a collection, a product, the journal, a post, the bag, the checkout) | PROD-CHECK OK on every release |
 | The server's copy (`scripts/kalio-verify-deploy.mjs`) | extracting false, error null, shop.js and shop.css match, on every release |
-| Fast checks (`new-shop-kits/fast-checks`, 50 runs at 1440, 1024, 820 and 390 and the wide screens): ring, card-edge, corner, circle, contrast (516 states: Clay, Rosewood, Olive, Indigo, #ffff00, #00ffff, #111111, light and dark, Arabic, the sign-in sheet, hover and focus), cart, currency, box, i18n (Arabic), text columns, shape, underline, variant | **TOTAL 0** on 1.0.8 |
-| Guest checkout walk (`scripts/checkout-walk.mjs`, 1440 and 390 px): a toy in the bag → the drawer → Checkout → contact → the address on the map → the delivery way and a window → the delivery sheet → Place order → Selldone's payment window → ✕ | **WALK OK** on 1.0.8 at 1440, 820 and 390, three times: every way (courier, van, pickup point), the van to an address far away (Los Angeles), and the pickup point alone (nothing is ordered; the bag is emptied) |
+| Fast checks (`new-shop-kits/fast-checks`, 50 runs at 1440, 1024, 820 and 390 and the wide screens): ring, card-edge, corner, circle, contrast (516 states: Clay, Rosewood, Olive, Indigo, #ffff00, #00ffff, #111111, light and dark, Arabic, the sign-in sheet, hover and focus), cart, currency, box, i18n (Arabic), text columns, shape, underline, variant | **TOTAL 0** on 1.0.9 |
+| Guest checkout walk (`scripts/checkout-walk.mjs`, 1440 and 390 px): a toy in the bag → the drawer → Checkout → contact → the address on the map → the delivery way and a window → the delivery sheet → Place order → Selldone's payment window → ✕ | **WALK OK** on 1.0.9 at 1440, 820 and 390, three times: every way (courier, van, pickup point), the van to an address far away (Los Angeles), and the pickup point alone (nothing is ordered; the bag is emptied) |
 | Tablet pass (`scripts/tablet-probe.cjs`: orphan rows, squeezed or covered photos, stray tracks, overflow; every page, drawer and sheet) | **TOTAL 0** at 768, 820, 1024 and 1180, light and dark |
 
 Each version's numbers are in [`LAYOUT.md`](LAYOUT.md#checks).
