@@ -3,7 +3,7 @@
   "deploy_path": "",
   "package": "storybook-toy-shop",
   "name": "Storybook Toy Shop",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "storefront": true,
   "backoffice": false,
   "description": "A warm, storybook-style Layout for a toy shop. A centred lower-case wordmark with a coloured dot between the search and the saved, account and bag buttons, over a calm row of links (Collections, Shop all toys, the play journal, Our story, Deals) with the language and currency. The home: a photo welcome with a big Fraunces line, three collection cards with the toys on an arched tint, the playroom shelf, Find the right fit by age, a journal story beside its photo, a craft-table feature, a quiet-afternoon shelf, Good finds at every price from the shop's own prices, and the newest journal posts. A collection page with a title panel, collection chips, a filter column built from the toys' real specification and a four-column grid of cards with Quick look, save and an Add to bag control that turns into a counter. A product page with a gallery, the toy's own facts, a sticky buy box, its specification in the shop's groups and honest reviews; compare side by side, saved toys, a bag drawer, the bag, a three-step checkout with the address sheet and map, the payment window, the order page with its messages, the account, the journal, About, Terms, Privacy, Contact, FAQ and a 404. One colour family from the chosen palette (Clay by default; Rosewood, Olive, Indigo or any colour), light by default with a dark mode from the footer's Theme row; Fraunces over DM Sans, pill buttons and 26 px panels. English and Arabic, right to left."

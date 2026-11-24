@@ -66,7 +66,16 @@ Take them from the live shop once it is pinned: `node --use-system-ca scripts/do
 Every check runs one browser at a time against the shop, at 1440px, 1024px and 390px, dark and light, every palette and the custom colours #ffff00, #00ffff and #111111, and Arabic (right to left). Each is delivered at **TOTAL 0**.
 
 <!-- TESTS:START -->
-Not released yet. Before the first upload: `scripts/release.sh` step 5b (the production bundle through the live shop's own HTML). After the pin: the full suite on the live domain (`scripts/run-checks.sh https://{{domain}} <logs>`, or the fast runner with `scripts/fast-checks.config.mjs`) and the guest checkout walk (`scripts/checkout-walk.mjs`).
+**1.0.3** on https://{{domain}} (24 Nov 2026), after the pin:
+
+| Check | Result |
+| --- | --- |
+| The production bundle through the live shop's own HTML and loader (`scripts/release.sh` step 5b: home, a collection, a product, the journal, a post, the bag, the checkout) | PROD-CHECK OK |
+| The server's copy (`scripts/kalio-verify-deploy.mjs`) | extracting false, error null, shop.js and shop.css match |
+| Fast checks (`new-shop-kits/fast-checks`, 50 runs): ring, card-edge, corner, circle, contrast (424 states: Clay, Rosewood, Olive, Indigo, #ffff00, #00ffff, #111111, light and dark, Arabic, the sign-in sheet, hover and focus), cart, currency, box, i18n (Arabic), text columns, shape, underline, variant | **TOTAL 0** |
+| Guest checkout walk (`scripts/checkout-walk.mjs`, 1440 and 390 px): a toy in the bag → the drawer → Checkout → contact → the address on the map → the delivery way and a window → the delivery sheet → Place order → Selldone's payment window → ✕ | **WALK OK** (nothing is ordered; the bag is emptied) |
+
+Each version's numbers are in [`LAYOUT.md`](LAYOUT.md#checks).
 <!-- TESTS:END -->
 
 ## Photos

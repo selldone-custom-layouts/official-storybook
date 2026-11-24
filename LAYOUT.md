@@ -40,13 +40,23 @@ Every other page keeps the base's flows in the Storybook dress (`style/ly/sb.css
 ## Checks
 
 <!-- CHECKS:START -->
-(none yet)
+Fast checks (`new-shop-kits/fast-checks` with `scripts/fast-checks.config.mjs`: 50 runs, 390 to 3840 px, light and dark, Clay, Rosewood, Olive, Indigo and the custom colours #ffff00, #00ffff and #111111, Arabic) and the guest checkout walk (`scripts/checkout-walk.mjs`, 1440 and 390 px) on https://storybook.selldone.shop, 24 Nov 2026, each through `new-shop-kits/pw-lock.sh`:
+
+| Check | 1.0.1 | 1.0.2 | 1.0.3 |
+| --- | --- | --- | --- |
+| ring, card-edge, circle, contrast (424 states), cart, currency, box, i18n (Arabic), text-col, underline, variant | 0 | 0 | 0 |
+| shape | 832 (the journal band's and the product tabs' joined halves, the menu thumbs at 10 px, the checkboxes at 5 px) | 0 | 0 |
+| corner (Arabic) | 13 (a hanging space past the clamped collection and post lines) | 0 | 0 |
+| checkout walk | 6 (no way showed before an address, so the walk stopped there) | WALK OK | WALK OK |
+
+The walk: one toy in the bag → the bag drawer → Checkout → contact → the Delivery card says "Add the delivery address…" (the shop's only way to the door is a local courier within 30 km) → the address sheet (map on: the pin, the details, Save) → Toychi courier with its windows → the delivery sheet → Place order → Selldone's payment window (cash on delivery) → ✕ → the bag emptied. Nothing is ordered; every `/buy/` call is blocked.
 <!-- CHECKS:END -->
 
 ## Releases
 
 | Version | Date | Layout | Deploy | What |
 | --- | --- | --- | --- | --- |
+| 1.0.3 | 2026-11-24 | 51 | 814 | The "more" arrows' class is `sb-fl` (it was `.fl`, the field labels' class: the delivery window's label was squeezed to 17 px and field labels would have been mirrored in Arabic); the address sheet's Save and Cancel as capsules in normal case; "Add discount code" in normal case. PROD-CHECK OK; server js/css match (release 01M85G7GSFH73MAE43S91C59JF); pinned on domain 1278. |
 | 1.0.2 | 2026-11-24 | 51 | 812 | Shapes on the 26/14 scale everywhere (the journal band on the home and the product tabs as one panel each, the menu thumbs and the filter checkboxes on the inner radius); Arabic: the collection and post lines clamp without a hanging space; the Delivery card and sheet say what to do while no way shows (a local delivery waits for the address) or when none reaches it; the order page in the design's words (Receipt, Order placed). PROD-CHECK OK; server js/css match (release 01M85ENVKB26W5A3GGHPP5PQ2B); pinned on domain 1278. |
 | 1.0.1 | 2026-11-24 | 51 | 809 | The design's three checkout steps (Bag, Delivery, Payment); Contact's help band, About as one panel, Terms and Privacy in a panel, the deals band and About tiles on light grounds; the sign-in wordmark as the header's; the search panel on focus with popular words; Saved toys as story cards; the order page, messages and account panels; the Theme row and legal row readable on the light footer; words on the tint in its own ink; light photo plates in dark mode; Arabic keeps the shop's words in their own direction; cash on delivery named from the gateway's flag; shape-check reads the skin's 26/14 scale. PROD-CHECK OK; server js/css match (release 01M85CFCCPPPP52311PF3G3WE1); pinned on domain 1278. |
 | 1.0.0 | 2026-11-24 | 51 | 807 | First release: the Storybook design on the base (header, Explore drawer, footer with the Theme row, the nine home sections, the story card, the listing, the product page, bag drawer and page, checkout, compare, journal, post, 404, toy words and drawings). PROD-CHECK OK on storybook.selldone.shop; server copy: extracting false, error null, shop.js and shop.css match (release 01M85AJESEM3B82TGQ04R826DZ, 272 files). Pinned by the coordinator on domain 1278. |
