@@ -52,7 +52,7 @@
         <div class="wrap">
           <header class="sb-top">
             <h2 id="more-h">{{ t("sb.pd.moreFrom", "More from {name}", { name: catTitle(cat) }) }}</h2>
-            <router-link v-if="cat" :to="catTo(cat)" class="sb-more">{{ t("sb.pd.viewCollection", "View collection") }}<ly-icon cls="fl" name="arrow" /></router-link>
+            <router-link v-if="cat" :to="catTo(cat)" class="sb-more">{{ t("sb.pd.viewCollection", "View collection") }}<ly-icon cls="sb-fl" name="arrow" /></router-link>
           </header>
           <div class="sb-grid4">
             <ly-card v-for="p in more" :key="p.id" :product="p" />

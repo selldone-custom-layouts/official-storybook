@@ -13,7 +13,7 @@
           <template #fallback><ly-cuts :products="cuts" kind="trio" /></template>
         </ly-photo>
         <figcaption v-if="top">
-          <router-link :to="catTo(top)">{{ t("sb.home.explore", "Explore {name}", { name: catTitle(top) }) }}<ly-icon cls="fl" name="arrow" /></router-link>
+          <router-link :to="catTo(top)">{{ t("sb.home.explore", "Explore {name}", { name: catTitle(top) }) }}<ly-icon cls="sb-fl" name="arrow" /></router-link>
         </figcaption>
       </figure>
       <div class="sb-welcome-copy">

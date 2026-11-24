@@ -11,7 +11,7 @@
       </header>
       <div :class="['sb-budget-row', 'n' + bands.length]">
         <router-link v-for="b in bands" :key="b" :to="bandTo(b)"
-          ><span>{{ t("sb.home.upTo", "Up to {price}", { price: money(b, true) }) }}</span><ly-icon cls="fl" name="arrow"
+          ><span>{{ t("sb.home.upTo", "Up to {price}", { price: money(b, true) }) }}</span><ly-icon cls="sb-fl" name="arrow"
         /></router-link>
       </div>
     </div>

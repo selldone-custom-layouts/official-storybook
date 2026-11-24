@@ -8,7 +8,7 @@
     <div class="wrap">
       <header class="sb-top">
         <h2 id="sb-rooms-h">{{ t("sb.home.roomsH", "A toy for their kind of play") }}</h2>
-        <router-link :to="allTo" class="sb-more">{{ t("sb.home.allCollections", "All collections") }}<ly-icon cls="fl" name="arrow" /></router-link>
+        <router-link :to="allTo" class="sb-more">{{ t("sb.home.allCollections", "All collections") }}<ly-icon cls="sb-fl" name="arrow" /></router-link>
       </header>
       <div :class="['sb-room-grid', 'n' + rooms.length]">
         <router-link v-for="c in rooms" :key="c.id" :to="catTo(c)" class="sb-room">

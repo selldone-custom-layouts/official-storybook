@@ -11,7 +11,7 @@
     <div class="wrap">
       <header class="sb-top">
         <h2 :id="hid">{{ title }}</h2>
-        <router-link :to="moreTo" class="sb-more">{{ moreLabel }}<ly-icon cls="fl" name="arrow" /></router-link>
+        <router-link :to="moreTo" class="sb-more">{{ moreLabel }}<ly-icon cls="sb-fl" name="arrow" /></router-link>
       </header>
       <div class="sb-grid4">
         <ly-card v-for="p in list" :key="p.id" :product="p" />

@@ -32,7 +32,7 @@
           <h2>{{ t("sb.ftr.journal", "The play journal") }}</h2>
           <router-link :to="post ? postRoute(post) : blogTo" class="sb-fj">
             <span class="sb-fj-ph"><img v-if="postPic" :src="postPic" alt="" loading="lazy" /><ly-photo v-else name="feature" /></span>
-            <span class="sb-fj-t"><bdi>{{ post ? post.title : t("sb.ftr.openJournal", "Open the journal") }}</bdi><ly-icon cls="fl" name="arrow" /></span>
+            <span class="sb-fj-t"><bdi>{{ post ? post.title : t("sb.ftr.openJournal", "Open the journal") }}</bdi><ly-icon cls="sb-fl" name="arrow" /></span>
           </router-link>
         </div>
       </div>

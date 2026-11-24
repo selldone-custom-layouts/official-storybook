@@ -51,8 +51,9 @@ html, body { background: var(--ly-bg); }
 .ly a, .ly a:hover, .ly button, .ly button:hover { text-decoration: none !important; }
 .ly .sb-more { display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 3px 5px; color: var(--ly-act-text); font-weight: 750; font-size: 14px; border-radius: var(--ly-r-in); }
 .ly .sb-more:hover { color: var(--ly-ink); }
-.ly .sb-more .i, .ly .fl { width: 17px; height: 17px; }
-[dir="rtl"] .ly .fl, html[dir="rtl"] .ly .fl { transform: scaleX(-1); }
+.ly .sb-more .i, .ly .i.sb-fl { width: 17px; height: 17px; }
+/* the "more" arrows point the reading way (sb-fl: not .fl, the field labels' class) */
+[dir="rtl"] .ly .i.sb-fl, html[dir="rtl"] .ly .i.sb-fl { transform: scaleX(-1); }
 
 /* ───────── page title (LyPt): crumbs, a big serif title, a lead ───────── */
 .ly .pt { background: transparent; color: var(--ly-ink); text-align: start; padding-block: 25px 27px; overflow: visible; }
@@ -735,8 +736,8 @@ html, body { background: var(--ly-bg); }
 /* Selldone's own buttons inside the Layout speak in normal case too (Add discount code, the payment window) */
 .ly .v-btn, .ly-layers .v-btn, .s--storefront-master-payment-dialog .v-btn { text-transform: none; letter-spacing: 0; font-weight: 750; }
 /* the address sheet's buttons in the design's words: "Save address", normal case, capsules */
-html body .k-sheet__go { text-transform: none !important; letter-spacing: 0 !important; text-box: normal !important; text-indent: 0 !important; font: 750 15px/1 var(--ly-sans) !important; min-height: 46px; padding: 0 22px !important; border-radius: 999px !important; }
-html body .k-sheet__ghost { border-radius: 999px !important; font-weight: 750 !important; }
+html body .k-sheet.k-addr .k-sheet__go, html body .k-sheet .k-sheet__foot .k-sheet__go { text-transform: none !important; letter-spacing: 0 !important; text-box: normal !important; text-indent: 0 !important; font: 750 15px/1 var(--ly-sans) !important; min-height: 46px; padding: 0 22px !important; border-radius: 999px !important; }
+html body .k-sheet.k-addr .k-sheet__ghost, html body .k-sheet .k-sheet__foot .k-sheet__ghost { border-radius: 999px !important; font-weight: 750 !important; }
 /* Terms and Privacy (terms.html, privacy.html): the sections inside one panel, serif heads, no outlined numerals */
 .ly .ly-legal .terms { padding: clamp(18px, 3%, 32px); border: 1px solid var(--ly-line); border-radius: var(--ly-r-pn); background: var(--ly-surface); }
 .ly .ly-legal .tsec-h { font: 650 clamp(24px, 2.4vw, 32px)/1.1 var(--ly-serif); letter-spacing: -.03em; }
@@ -789,3 +790,5 @@ html.ly-dark .ly .pd-t[aria-pressed="true"] { background: var(--ly-plate); }
 /* the Delivery card and sheet before any way shows (a local delivery waits for the address), or when none reaches it */
 .ly .ly-ship-none { display: flex; align-items: flex-start; gap: 10px; margin: 4px 0 0; padding: 12px 14px; border-radius: var(--ly-r-in); background: var(--ly-band); color: var(--ly-ink); font-size: 14px; line-height: 1.45; }
 .ly .ly-ship-none .i { width: 18px; height: 18px; flex: none; margin-top: 1px; color: var(--ly-act-text); }
+/* the bag's "Add discount code" in the Layout's own words: normal case, no tracking (the base sets capitals) */
+.ly .ly-code .discount-code-row > .v-btn:not(.v-btn--icon) { letter-spacing: 0 !important; text-transform: none !important; font: 750 14px/1.2 var(--ly-sans) !important; }

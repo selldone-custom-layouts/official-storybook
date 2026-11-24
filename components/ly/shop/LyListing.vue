@@ -106,7 +106,7 @@
             <template v-if="underList.length">
               <header class="sb-top">
                 <h2>{{ t("sb.ls.goodFinds", "Good finds under {price}", { price: money(under, true) }) }}</h2>
-                <router-link :to="underTo" class="sb-more">{{ t("sb.ls.seeAll", "See all toys") }}<ly-icon cls="fl" name="arrow" /></router-link>
+                <router-link :to="underTo" class="sb-more">{{ t("sb.ls.seeAll", "See all toys") }}<ly-icon cls="sb-fl" name="arrow" /></router-link>
               </header>
               <div class="grid sb-grid">
                 <ly-card v-for="p in underList" :key="p.id" :product="p" />
