@@ -52,7 +52,7 @@ const BOX_PAGES = `home=/,category=${CAT},deals=/?filter=%7B%22only_has_discount
 const UL_PAGES = `home=/,category=${CAT},deals=${DEALS},product=${P1},compare=${CMP},blog=/blog,article=${ART},about=/about-us,contact=/contact-us,faq=/faq,terms=/terms,privacy=/privacy,404=/no-such-page,account=/user`;
 const SHAPE_PAGES = `home=/,category=${CAT},deals=${DEALS},search=/?search=${Q},product=${P1},compare=${CMP},blog=/blog,article=${ART},about=/about-us,contact=/contact-us,terms=/terms,privacy=/privacy,faq=/faq,404=/no-such-page,cart=/basket/PHYSICAL,account=/user`;
 const CIRCLE_PAGES = `home=/,deals=${DEALS},category=${CAT}`;
-const OPEN_STATES = '(async () => { const b = [...document.querySelectorAll(innerWidth < 980 ? ".menu-btn" : ".bag-btn")].find((x) => x.offsetParent); if (!b) return "FAIL no button"; b.click(); return true; })()';
+const OPEN_STATES = '(async () => { const b = [...document.querySelectorAll(innerWidth <= 740 ? ".menu-btn" : ".bag-btn")].find((x) => x.offsetParent); if (!b) return "FAIL no button"; b.click(); return true; })()';
 const OPEN_SIGNIN = '(async () => { const sleep = (ms) => new Promise((r) => setTimeout(r, ms)); window.$global_router.push("/user"); await sleep(3500); const s = [...document.querySelectorAll(".acc-nav button, .ly button")].find((x) => /Sign in/i.test(x.textContent)); if (!s) return "FAIL no sign-in button"; s.click(); await sleep(1500); return true; })()';
 const CARD_URLS_DARK = ["/", "/#cat", `/?search=${Q}`, "/?filter=%7B%22only_has_discount%22%3Atrue%7D", "/blog", "/about-us", "/faq", "/contact-us", "/terms", "/privacy", "/user", CMP];
 const OTHER = FC.palettes.filter((p) => p !== BRAND);
@@ -135,7 +135,8 @@ export default {
   shape: {
     states(label, w) {
       const s = [];
-      if (w < 980) s.push(["menu", ".menu-btn"]);
+      /* the phone header (its menu button) is at 740px and narrower; a tablet keeps the link row */
+      if (w <= 740) s.push(["menu", ".menu-btn"]);
       else {
         s.push(["shop-menu", ".sb-nav [aria-controls=menu]"]);
         s.push(["region", ".rg-pill"]);

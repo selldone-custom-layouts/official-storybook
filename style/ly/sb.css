@@ -820,3 +820,5 @@ html.ly-dark .ly .pd-t[aria-pressed="true"] { background: var(--ly-plate); }
 [dir="rtl"] .ly :is(.ly-od-pay .il-tx > *, .ly-od-rcv .il-tx > *) { text-align: right; }
 /* the ways as cards that share the row (one way fills it, three sit side by side; a narrow card never squeezes its name) */
 .ly .mcs { grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
+/* Selldone's pickup chip under the price (it shows once the pickup way has a point): words on the tint in its own ink */
+.ly .s--product-section-tax .-pickup-box.v-chip { color: var(--ly-soft-ink) !important; }
